@@ -1,21 +1,21 @@
-# Fetches what the plugin builds against: media_kit's prebuilt mpv and FFmpeg frameworks, and the libmpv headers of
-# the same mpv version. Both are checked against their SHA-256 sums.
+# Fetches what the plugin builds against: our mpv and FFmpeg frameworks, built by libs/macos and published as the
+# libs-macos-* release, and the libmpv headers of the same mpv version. Both are checked against their SHA-256 sums.
 all: Frameworks/*.xcframework Headers/mpv/*.h
 
-MPV_XCFRAMEWORKS_VERSION=v0.7.3
-MPV_XCFRAMEWORKS_SHA256SUM=2e58ac66b0ea875239bf4db29b3ef2100a719df1d61fa1e780c38d651d4c9f27
-MPV_HEADERS_VERSION=v0.36.0
-MPV_HEADERS_SHA256SUM=29abc44f8ebee013bb2f9fe14d80b30db19b534c679056e4851ceadf5a5e8bf6
+LIBS_VERSION=v0.1.0
+LIBS_SHA256SUM=49d52b29b2d8939bf3f042147b5004adf49a9628b3dbf53935d70cb936bc3fb5
+MPV_HEADERS_VERSION=v0.42.0
+MPV_HEADERS_SHA256SUM=bcfebbfa2b65a6d88dc97ea18117831072373e38b5785a2afb874ed4df5070dd
 
 TAR=tar
 TAR_WILDCARDS_FLAG := $(shell ${TAR} --version 2>&1 | grep -q 'GNU' && echo "--wildcards" || echo "")
 
-.cache/libmpv-${MPV_XCFRAMEWORKS_VERSION}.tar.gz:
+.cache/libs-${LIBS_VERSION}.tar.gz:
 	mkdir -p .cache
 	curl -L \
-		https://github.com/media-kit/libmpv-darwin-build/releases/download/${MPV_XCFRAMEWORKS_VERSION}/libmpv-xcframeworks_${MPV_XCFRAMEWORKS_VERSION}_macos-universal-video-default.tar.gz \
+		https://github.com/kamora/media-gears/releases/download/libs-macos-${LIBS_VERSION}/libmpv-xcframeworks_${LIBS_VERSION}_macos-universal-video-default.tar.gz \
 		-o $@.tmp
-	shasum -a 256 -c <<< '${MPV_XCFRAMEWORKS_SHA256SUM}  $@.tmp'
+	shasum -a 256 -c <<< '${LIBS_SHA256SUM}  $@.tmp'
 	mv $@.tmp $@
 
 .cache/mpv-${MPV_HEADERS_VERSION}.tar.gz:
@@ -24,7 +24,7 @@ TAR_WILDCARDS_FLAG := $(shell ${TAR} --version 2>&1 | grep -q 'GNU' && echo "--w
 	shasum -a 256 -c <<< '${MPV_HEADERS_SHA256SUM}  $@.tmp'
 	mv $@.tmp $@
 
-Frameworks/*.xcframework: .cache/libmpv-${MPV_XCFRAMEWORKS_VERSION}.tar.gz
+Frameworks/*.xcframework: .cache/libs-${LIBS_VERSION}.tar.gz
 	rm -rf Frameworks
 	mkdir -p Frameworks
 	${TAR} ${TAR_WILDCARDS_FLAG} -xf $< --strip-components 1 -C Frameworks
@@ -33,7 +33,7 @@ Frameworks/*.xcframework: .cache/libmpv-${MPV_XCFRAMEWORKS_VERSION}.tar.gz
 Headers/mpv/*.h: .cache/mpv-${MPV_HEADERS_VERSION}.tar.gz
 	rm -rf Headers
 	mkdir -p Headers/mpv
-	${TAR} ${TAR_WILDCARDS_FLAG} -xf $< --strip-components 2 -C Headers/mpv 'mpv-*/libmpv/*.h'
+	${TAR} ${TAR_WILDCARDS_FLAG} -xf $< --strip-components 3 -C Headers/mpv 'mpv-*/include/mpv/*.h'
 	touch Headers/mpv/*.h
 
 .PHONY: clean

@@ -16,7 +16,7 @@ Early development; nothing is published on pub.dev yet.
 
 | Platform | State |
 | --- | --- |
-| macOS | Builds and plays video, with media_kit's prebuilt mpv 0.36.0 and FFmpeg 6.0 for now. |
+| macOS | Builds and plays video, with our own mpv 0.42.0 and FFmpeg 9.1 (LGPLv3), built in [`libs/macos`](libs/macos). |
 | Windows | Restructured, not compiled yet. |
 | Linux | Restructured, not compiled yet; uses the system's libmpv. |
 
