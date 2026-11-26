@@ -1,6 +1,8 @@
 name: media_gears_windows
 description: The Windows implementation of media_gears, with its mpv and FFmpeg libraries.
 version: 0.1.0-dev.1
+repository: https://github.com/kamora/media-gears/tree/master/packages/media_gears_windows
+issue_tracker: https://github.com/kamora/media-gears/issues
 environment:
   sdk: ^3.6.0
   flutter: ">=3.27.0"

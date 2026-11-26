@@ -1,4 +1,4 @@
-// This file is a part of media_gears, a fork of media_kit (https://github.com/media-kit/media-kit).
+// Derived from media_kit (https://github.com/media-kit/media-kit).
 //
 // Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
 // All rights reserved.

@@ -1,10 +1,4 @@
-## Installation
+# Example
 
-Add in your `pubspec.yaml`:
-
-```yaml
-dependencies:
-  media_kit_libs_macos_video: ^1.1.5
-```
-
-This will automatically bundle required shared libraries for video (& audio) playback on macOS.
+media_gears_macos has no example of its own: the app in
+[packages/media_gears/example](https://github.com/kamora/media-gears/tree/master/packages/media_gears/example) shows it in use.

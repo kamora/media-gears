@@ -1,8 +1,8 @@
-/// This file is a part of media_kit (https://github.com/media-kit/media-kit).
-///
-/// Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
-/// All rights reserved.
-/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+// Derived from media_kit (https://github.com/media-kit/media-kit).
+//
+// Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
+// All rights reserved.
+// Use of this source code is governed by MIT license that can be found in the LICENSE file.
 import 'dart:async';
 import 'dart:ffi';
 import 'dart:io';
@@ -148,5 +148,5 @@ class NativeReferenceHolder {
   /// [Pointer] to the reference buffer.
   late final Pointer<IntPtr> _referenceBuffer;
 
-  static const String kTag = 'media_kit: NativeReferenceHolder:';
+  static const String kTag = 'media_gears: NativeReferenceHolder:';
 }

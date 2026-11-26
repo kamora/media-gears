@@ -1,11 +1,8 @@
-# [package:media_kit_libs_linux](https://github.com/media-kit/media-kit)
+# media_gears_linux
 
-[![](https://img.shields.io/discord/1079685977523617792?color=33cd57&label=Discord&logo=discord&logoColor=discord)](https://discord.gg/h7qf2R9n57) [![Github Actions](https://github.com/media-kit/media-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/media-kit/media-kit/actions/workflows/ci.yml)
+The Linux side of [media_gears](https://github.com/kamora/media-gears): the C++ code that renders mpv's video into a Flutter texture; mpv itself is the system's libmpv (`libmpv-dev` on Debian and Ubuntu).
 
-GNU/Linux dependency package for [`package:media_kit`](https://github.com/media-kit/media-kit). Necessary for initialization.
+State: Not compiled yet.
 
-## License
-
-Copyright © 2021 & onwards, Hitesh Kumar Saini <<saini123hitesh@gmail.com>>
-
-This project & the work under this repository is governed by MIT license that can be found in the [LICENSE](./LICENSE) file.
+Apps don't depend on this package directly: they depend on `media_gears`, which brings it in. Derived from media_kit's
+Linux packages; MIT, see [LICENSE](LICENSE).

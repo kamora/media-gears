@@ -30,7 +30,7 @@ class _Sources {
     for (int i = 0; i < network.length; i++) {
       final destination = path.join(
         Directory.systemTemp.path,
-        'media_kit',
+        'media_gears',
         network[i].split('/').last,
       );
       if (!await File(destination).parent.exists()) {

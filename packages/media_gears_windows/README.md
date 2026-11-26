@@ -1,13 +1,8 @@
-# [package:media_kit_libs_windows_video](https://github.com/media-kit/media-kit)
+# media_gears_windows
 
-[![](https://img.shields.io/discord/1079685977523617792?color=33cd57&label=Discord&logo=discord&logoColor=discord)](https://discord.gg/h7qf2R9n57) [![Github Actions](https://github.com/media-kit/media-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/media-kit/media-kit/actions/workflows/ci.yml)
+The Windows side of [media_gears](https://github.com/kamora/media-gears): mpv and FFmpeg for Windows, still media_kit's prebuilt libmpv for now, and the C++ code that renders mpv's video into a Flutter texture.
 
-Windows package providing video (& audio) native libraries for [`package:media_kit`](https://github.com/media-kit/media-kit).
+State: Not compiled yet.
 
-Visit [media-kit/libmpv-win32-video-cmake@`master`](https://github.com/media-kit/libmpv-win32-video-cmake) & [media-kit/libmpv-win32-video-build@`master`](https://github.com/media-kit/libmpv-win32-video-build) for descriptive details.
-
-## License
-
-Copyright © 2021 & onwards, Hitesh Kumar Saini <<saini123hitesh@gmail.com>>
-
-This project & the work under this repository is governed by MIT license that can be found in the [LICENSE](./LICENSE) file.
+Apps don't depend on this package directly: they depend on `media_gears`, which brings it in. Derived from media_kit's
+Windows packages; MIT, see [LICENSE](LICENSE).

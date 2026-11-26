@@ -1,6 +1,8 @@
 > Imported into media-gears from [media-kit/libmpv-darwin-build](https://github.com/media-kit/libmpv-darwin-build) at
 > v0.7.3 (aadae8c, MIT, see LICENSE.txt). media-gears builds only macOS, the "video" variant and the LGPL "default"
-> flavor; `.github/workflows/libs-macos.yml` runs it on GitHub Actions.
+> flavor; `.github/workflows/libs-macos.yml` runs it on GitHub Actions. Since the import it builds mpv 0.42.0 with
+> mpv's Swift code, FFmpeg 9.1 and libplacebo 7.387.0, for macOS 12 or later; a `libs-macos-v*` tag publishes the
+> frameworks as a GitHub release, which media_gears_macos downloads. The rest of this README is upstream's.
 
 # libmpv build
 

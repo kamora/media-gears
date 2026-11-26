@@ -1,10 +1,4 @@
-## Installation
+# Example
 
-Add in your `pubspec.yaml`:
-
-```yaml
-dependencies:
-  media_kit_libs_linux: ^1.1.3
-```
-
-This will automatically invoke the necessary initialization code.
+media_gears_linux has no example of its own: the app in
+[packages/media_gears/example](https://github.com/kamora/media-gears/tree/master/packages/media_gears/example) shows it in use.

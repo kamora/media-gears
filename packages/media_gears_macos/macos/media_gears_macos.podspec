@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
 	s.version          = '0.1.0'
 	s.summary          = 'The macOS implementation of media_gears.'
 	s.description      = 'mpv and FFmpeg for macOS, and the video output that renders into a Flutter texture.'
-	s.homepage         = 'https://github.com/kamora'
+	s.homepage         = 'https://github.com/kamora/media-gears'
 	s.license          = { :file => '../LICENSE' }
 	s.author           = { 'Kamora' => 'https://github.com/kamora' }
 	s.source           = { :path => '.' }

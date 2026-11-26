@@ -1,8 +1,8 @@
-/// This file is a part of media_kit (https://github.com/media-kit/media-kit).
-///
-/// Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
-/// All rights reserved.
-/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+// Derived from media_kit (https://github.com/media-kit/media-kit).
+//
+// Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
+// All rights reserved.
+// Use of this source code is governed by MIT license that can be found in the LICENSE file.
 import 'dart:async';
 import 'dart:collection';
 import 'dart:ffi';
@@ -2437,7 +2437,7 @@ class Player {
       final message = mpv.mpv_error_string(code).cast<Utf8>().toDartString();
       logController.add(
         PlayerLog(
-          prefix: 'media_kit',
+          prefix: 'media_gears',
           level: 'error',
           text: 'error: $message $text',
         ),
@@ -2848,13 +2848,13 @@ class Player {
 
   // --------------------------------------------------
 
-  /// [bool] for signaling [VideoController] (from `package:media_kit_video`) initialization.
+  /// [bool] for signaling [VideoController] initialization.
   bool isVideoControllerAttached = false;
 
-  /// [Completer] for signaling [VideoController] (from `package:media_kit_video`) initialization.
+  /// [Completer] for signaling [VideoController] initialization.
   final Completer<void> videoControllerCompleter = Completer<void>();
 
-  /// [Future<void>] to wait for [VideoController] (from `package:media_kit_video`) initialization.
+  /// [Future<void>] to wait for [VideoController] initialization.
   Future<void> get waitForVideoControllerInitializationIfAttached {
     if (isVideoControllerAttached) {
       return videoControllerCompleter.future;

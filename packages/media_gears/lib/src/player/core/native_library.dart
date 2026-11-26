@@ -1,8 +1,8 @@
-/// This file is a part of media_kit (https://github.com/media-kit/media-kit).
-///
-/// Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
-/// All rights reserved.
-/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+// Derived from media_kit (https://github.com/media-kit/media-kit).
+//
+// Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
+// All rights reserved.
+// Use of this source code is governed by MIT license that can be found in the LICENSE file.
 
 import 'dart:io';
 import 'dart:ffi';
@@ -20,7 +20,7 @@ abstract class NativeLibrary {
   static String get path {
     if (_resolved == null) {
       throw Exception(
-        'MediaGears.ensureInitialized must be called before using any API from package:media_kit.',
+        'MediaGears.ensureInitialized must be called before using any API from media_gears.',
       );
     }
 

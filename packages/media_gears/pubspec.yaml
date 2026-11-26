@@ -1,6 +1,8 @@
 name: media_gears
 description: Video and audio playback for Flutter desktop apps on macOS, Windows and Linux, built on mpv and FFmpeg. A desktop-only fork of media_kit.
 version: 0.1.0-dev.1
+repository: https://github.com/kamora/media-gears/tree/master/packages/media_gears
+issue_tracker: https://github.com/kamora/media-gears/issues
 environment:
   sdk: ^3.6.0
   flutter: ">=3.27.0"

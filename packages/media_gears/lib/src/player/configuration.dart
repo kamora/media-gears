@@ -1,8 +1,8 @@
-/// This file is a part of media_kit (https://github.com/media-kit/media-kit).
-///
-/// Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
-/// All rights reserved.
-/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+// Derived from media_kit (https://github.com/media-kit/media-kit).
+//
+// Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
+// All rights reserved.
+// Use of this source code is governed by MIT license that can be found in the LICENSE file.
 
 /// {@template player_configuration}
 ///
@@ -117,7 +117,7 @@ enum LogLevel {
 
   /* fatal, */
 
-  // package:media_kit internally consumes logs of level error.
+  // media_gears itself reads the logs of level error.
 
   /// Simple errors.
   error,

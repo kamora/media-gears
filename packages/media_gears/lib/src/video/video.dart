@@ -1,15 +1,15 @@
-/// This file is a part of media_kit (https://github.com/media-kit/media-kit).
-///
-/// Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
-/// All rights reserved.
-/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+// Derived from media_kit (https://github.com/media-kit/media-kit).
+//
+// Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
+// All rights reserved.
+// Use of this source code is governed by MIT license that can be found in the LICENSE file.
 import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 import 'package:media_gears/src/video/controls/controls.dart';
 
 import 'package:media_gears/src/video/subtitle_view.dart';
-import 'package:media_gears/src/video/controls/controls.dart' as media_kit_video_controls;
+import 'package:media_gears/src/video/controls/controls.dart' as video_controls;
 import 'package:media_gears/src/video/utils/dispose_safe_notifer.dart';
 
 import 'package:media_gears/src/video/utils/wakelock.dart';
@@ -124,7 +124,7 @@ class Video extends StatefulWidget {
     this.alignment = Alignment.center,
     this.aspectRatio,
     this.filterQuality = FilterQuality.low,
-    this.controls = media_kit_video_controls.DesktopControls,
+    this.controls = video_controls.DesktopControls,
     this.wakelock = true,
     this.pauseUponEnteringBackgroundMode = true,
     this.resumeUponEnteringForegroundMode = false,
@@ -153,19 +153,19 @@ class VideoState extends State<Video> with WidgetsBindingObserver {
 
   // Public API:
   bool isFullscreen() {
-    return media_kit_video_controls.isFullscreen(_contextNotifier.value!);
+    return video_controls.isFullscreen(_contextNotifier.value!);
   }
 
   Future<void> enterFullscreen() {
-    return media_kit_video_controls.enterFullscreen(_contextNotifier.value!);
+    return video_controls.enterFullscreen(_contextNotifier.value!);
   }
 
   Future<void> exitFullscreen() {
-    return media_kit_video_controls.exitFullscreen(_contextNotifier.value!);
+    return video_controls.exitFullscreen(_contextNotifier.value!);
   }
 
   Future<void> toggleFullscreen() {
-    return media_kit_video_controls.toggleFullscreen(_contextNotifier.value!);
+    return video_controls.toggleFullscreen(_contextNotifier.value!);
   }
 
   void setSubtitleViewPadding(
@@ -206,7 +206,7 @@ class VideoState extends State<Video> with WidgetsBindingObserver {
 
   @override
   void didChangeDependencies() {
-    videoViewParametersNotifier = media_kit_video_controls.VideoStateInheritedWidget.maybeOf(
+    videoViewParametersNotifier = video_controls.VideoStateInheritedWidget.maybeOf(
           context,
         )?.videoViewParametersNotifier ??
         ValueNotifier<VideoViewParameters>(
@@ -223,7 +223,7 @@ class VideoState extends State<Video> with WidgetsBindingObserver {
             focusNode: widget.focusNode,
           ),
         );
-    _disposeNotifiers = media_kit_video_controls.VideoStateInheritedWidget.maybeOf(
+    _disposeNotifiers = video_controls.VideoStateInheritedWidget.maybeOf(
           context,
         )?.disposeNotifiers ??
         true;
@@ -356,7 +356,7 @@ class VideoState extends State<Video> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return media_kit_video_controls.VideoStateInheritedWidget(
+    return video_controls.VideoStateInheritedWidget(
       state: this as dynamic,
       contextNotifier: _contextNotifier,
       videoViewParametersNotifier: videoViewParametersNotifier,

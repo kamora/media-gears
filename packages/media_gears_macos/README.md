@@ -1,15 +1,8 @@
-# [package:media_kit_libs_macos_video](https://github.com/media-kit/media-kit)
+# media_gears_macos
 
-[![](https://img.shields.io/discord/1079685977523617792?color=33cd57&label=Discord&logo=discord&logoColor=discord)](https://discord.gg/h7qf2R9n57) [![Github Actions](https://github.com/media-kit/media-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/media-kit/media-kit/actions/workflows/ci.yml)
+The macOS side of [media_gears](https://github.com/kamora/media-gears): mpv 0.42.0 and FFmpeg 9.1 as frameworks built by media_gears (see `libs/macos` in the repository), and the Swift code that renders mpv's video into a Flutter texture.
 
-macOS package providing video (& audio) native libraries for [`package:media_kit`](https://github.com/media-kit/media-kit).
+State: Builds and plays video on macOS 12 or later.
 
-Visit [media-kit/libmpv-darwin-build@`main`](https://github.com/media-kit/libmpv-darwin-build/tree/main) for descriptive details.
-
-Thanks to [Julien Muret](https://github.com/birros) for libmpv & FFmpeg builds for macOS.
-
-## License
-
-Copyright © 2022, Hitesh Kumar Saini <<saini123hitesh@gmail.com>>
-
-This project & the work under this repository is governed by MIT license that can be found in the [LICENSE](./LICENSE) file.
+Apps don't depend on this package directly: they depend on `media_gears`, which brings it in. Derived from media_kit's
+macOS packages; MIT, see [LICENSE](LICENSE).
