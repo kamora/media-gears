@@ -258,6 +258,9 @@ pkgs.stdenvNoCC.mkDerivation {
       fi
     fi
 
+    # The Swift compiler keeps its module cache in the home folder, which the Nix sandbox does not let it write.
+    export HOME="$TMPDIR"
+
     # mpv reads the SDK from the environment before asking xcrun.
     export MACOS_SDK="$SDKROOT"
     export MACOS_SDK_VERSION=$(xcrun --sdk macosx --show-sdk-version)
