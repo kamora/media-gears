@@ -1,6 +1,6 @@
 # libplacebo, which mpv requires since 0.38. Built without its OpenGL, Vulkan and Direct3D backends: mpv renders libmpv's
 # OpenGL output with its own code, and those backends would need libplacebo's git submodules (glad, jinja), which the
-# release archive leaves out.
+# release archive leaves out. The core shaders are still generated from jinja templates, hence jinja2 in the build.
 {
   pkgs ? import ../../utils/default/pkgs.nix,
   os ? import ../../utils/default/os.nix,
@@ -34,7 +34,10 @@ pkgs.stdenvNoCC.mkDerivation {
     pkgs.meson
     pkgs.ninja
     pkgs.pkg-config
-    pkgs.python3
+    (pkgs.python3.withPackages (ps: [
+      ps.jinja2
+      ps.markupsafe
+    ]))
   ];
   configurePhase = ''
     meson setup build $src \

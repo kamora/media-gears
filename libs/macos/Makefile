@@ -22,7 +22,7 @@ build:
 	trap 'git checkout -- .nix/config/xcode.path .nix/config/version.txt' EXIT; \
 	$(if $(XCODE_PATH),echo '$(XCODE_PATH)' > .nix/config/xcode.path;,) \
 	$(if $(VERSION),echo '$(VERSION)' > .nix/config/version.txt;,) \
-	nix build -v -L \
+	nix build -v -L --keep-going \
 		--option sandbox true \
 		--option sandbox-fallback false \
 		$(if $(XCODE_PATH),--option extra-sandbox-paths $(XCODE_PATH),) \
