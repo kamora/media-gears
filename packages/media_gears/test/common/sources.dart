@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:http/http.dart' as http;
+
+import 'package:media_gears/media_gears.dart';
 import 'package:path/path.dart' as path;
 
 final sources = _Sources._();
 
+/// The media the tests play: short clips made with FFmpeg, and videos on the network for the tests about streaming.
 class _Sources {
   _Sources._();
 
@@ -21,38 +23,69 @@ class _Sources {
 
   final List<Uint8List> bytes = [];
 
+  /// How long each clip plays.
+  static const length = Duration(seconds: 4);
+
+  /// Upstream's waits were chosen for videos of 15 seconds; this is the same share of a clip.
+  Duration scaled(num seconds) => length * (seconds / 15);
+
   Future<void> prepare() async {
     if (_prepared) {
       return;
     }
 
-    // Download to local [File]s.
-    for (int i = 0; i < network.length; i++) {
-      final destination = path.join(
-        Directory.systemTemp.path,
-        'media_gears',
-        network[i].split('/').last,
-      );
-      if (!await File(destination).parent.exists()) {
-        await File(destination).parent.create(recursive: true);
+    final folder = Directory(path.join(Directory.systemTemp.path, 'media_gears'));
+    await folder.create(recursive: true);
+
+    // Four clips, each with its own tone, with a video and a stereo audio track like the videos they replace.
+    for (var i = 0; i < 4; i++) {
+      final clip = path.join(folder.path, 'clip-$i-${length.inSeconds}s.mp4').replaceAll(r'\', '/');
+      if (!await File(clip).exists()) {
+        final seconds = length.inSeconds;
+        final result = await Process.run('ffmpeg', [
+          '-y',
+          '-v',
+          'error',
+          '-f',
+          'lavfi',
+          '-i',
+          'testsrc2=size=320x240:rate=25:duration=$seconds',
+          '-f',
+          'lavfi',
+          '-i',
+          'sine=frequency=${440 + 110 * i}:sample_rate=44100:duration=$seconds',
+          '-c:v',
+          'libx264',
+          '-pix_fmt',
+          'yuv420p',
+          '-c:a',
+          'aac',
+          '-ac',
+          '2',
+          '-shortest',
+          clip,
+        ]);
+        if (result.exitCode != 0) {
+          throw StateError('FFmpeg could not make $clip: ${result.stderr}');
+        }
       }
 
-      if (!await File(destination).exists()) {
-        final response = await http.get(Uri.parse(network[i]));
-        await File(destination).writeAsBytes(response.bodyBytes);
-      }
-
-      file.add(destination);
-      bytes.add(await File(destination).readAsBytes());
-    }
-
-    // Force forward slashes for Windows.
-    for (int i = 0; i < file.length; i++) {
-      file[i] = file[i].replaceAll(r'\', '/');
+      file.add(clip);
+      bytes.add(await File(clip).readAsBytes());
     }
 
     _prepared = true;
   }
 
   bool _prepared = false;
+}
+
+/// Waits until [player] has played its playlist to the end, and the events that follow the end have arrived.
+Future<void> untilEnd(Player player) async {
+  bool last() => player.state.playlist.index == player.state.playlist.medias.length - 1;
+  if (!player.state.completed || !last()) {
+    await player.stream.completed.firstWhere((completed) => completed && last());
+  }
+
+  await Future.delayed(const Duration(milliseconds: 500));
 }

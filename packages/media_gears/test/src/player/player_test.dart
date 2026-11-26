@@ -34,7 +34,7 @@ void main() {
     expect(future, isNotNull);
     expect(future, completes);
 
-    await Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(sources.scaled(10));
 
     await player.dispose();
   });
@@ -94,7 +94,7 @@ void main() {
 
     await player.open(Media(sources.platform[0]));
 
-    await Future.delayed(const Duration(seconds: 30));
+    await untilEnd(player);
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -159,7 +159,7 @@ void main() {
 
     await player.open(playable);
 
-    await Future.delayed(const Duration(minutes: 1, seconds: 30));
+    await untilEnd(player);
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 2)));
@@ -187,7 +187,7 @@ void main() {
 
     await player.open(Media(sources.platform[0]), play: false);
 
-    await Future.delayed(const Duration(seconds: 30));
+    await Future.delayed(sources.scaled(30));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -218,7 +218,7 @@ void main() {
 
     await player.open(playable, play: false);
 
-    await Future.delayed(const Duration(seconds: 30));
+    await Future.delayed(sources.scaled(30));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -261,7 +261,7 @@ void main() {
     await player.open(Media(sources.platform[0]), play: false);
     await player.play();
 
-    await Future.delayed(const Duration(seconds: 30));
+    await untilEnd(player);
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -327,7 +327,7 @@ void main() {
     await player.open(playable, play: false);
     await player.play();
 
-    await Future.delayed(const Duration(minutes: 1, seconds: 30));
+    await untilEnd(player);
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 2)));
@@ -364,7 +364,7 @@ void main() {
       await player.open(playable);
 
       // VOLUNTARY DELAY.
-      await Future.delayed(const Duration(seconds: 10));
+      await Future.delayed(sources.scaled(10));
 
       await player.dispose();
     },
@@ -390,7 +390,7 @@ void main() {
       Media(sources.platform[0], extras: {'foo': 'bar', 'baz': 'qux'}),
     );
 
-    await Future.delayed(const Duration(seconds: 30));
+    await Future.delayed(sources.scaled(30));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -416,7 +416,7 @@ void main() {
       ]),
     );
 
-    await Future.delayed(const Duration(minutes: 1));
+    await Future.delayed(sources.scaled(60));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1, seconds: 30)));
@@ -426,12 +426,12 @@ void main() {
     final expectStart = expectAsync1((value) {
       expect(value, isA<Duration>());
       final start = value as Duration;
-      expect(start, const Duration(seconds: 2));
+      expect(start, const Duration(seconds: 1));
     });
     final expectEnd = expectAsync1((value) {
       expect(value, isA<Duration>());
       final end = value as Duration;
-      expect(end, const Duration(seconds: 5));
+      expect(end, const Duration(seconds: 3));
     });
 
     final expectPosition = expectAsync1(
@@ -441,8 +441,8 @@ void main() {
         expect(value, isA<Duration>());
         final position = value as Duration;
 
-        expect(position, greaterThanOrEqualTo(const Duration(seconds: 2)));
-        expect(position, lessThanOrEqualTo(const Duration(seconds: 5)));
+        expect(position, greaterThanOrEqualTo(const Duration(seconds: 1)));
+        expect(position, lessThanOrEqualTo(const Duration(seconds: 3)));
       },
       count: 1,
       max: -1,
@@ -470,12 +470,12 @@ void main() {
     await player.open(
       Media(
         sources.platform[0],
-        start: const Duration(seconds: 2),
-        end: const Duration(seconds: 5),
+        start: const Duration(seconds: 1),
+        end: const Duration(seconds: 3),
       ),
     );
 
-    await Future.delayed(const Duration(seconds: 30));
+    await Future.delayed(sources.scaled(30));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -549,7 +549,7 @@ void main() {
       ]),
     );
 
-    await Future.delayed(const Duration(minutes: 1));
+    await untilEnd(player);
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1, seconds: 30)));
@@ -615,7 +615,7 @@ void main() {
         ),
       );
 
-      await Future.delayed(const Duration(seconds: 30));
+      await Future.delayed(sources.scaled(30));
 
       await player.dispose();
       await server.close();
@@ -682,7 +682,7 @@ void main() {
         ]),
       );
 
-      await Future.delayed(const Duration(minutes: 1));
+      await Future.delayed(sources.scaled(60));
 
       await player.dispose();
       await server.close();
@@ -749,7 +749,7 @@ void main() {
       }
     });
 
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     // Begin test.
 
@@ -757,7 +757,7 @@ void main() {
 
     // End test.
 
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -805,7 +805,7 @@ void main() {
     await completer.future;
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     final expectPosition = expectAsync1(
       (value) {
@@ -829,7 +829,7 @@ void main() {
 
     // End test.
 
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -849,7 +849,7 @@ void main() {
 
     await player.open(Media(sources.platform[0]));
 
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.open(Media(sources.platform[1]));
 
@@ -920,7 +920,7 @@ void main() {
 
         await player.setAudioDevice(devices[i]);
 
-        await Future.delayed(const Duration(seconds: 1));
+        await Future.delayed(sources.scaled(1));
       }
     }
 
@@ -1059,11 +1059,11 @@ void main() {
     await player.open(playable);
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.jump(2);
 
-    await Future.delayed(const Duration(seconds: 30));
+    await Future.delayed(sources.scaled(30));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -1087,11 +1087,11 @@ void main() {
     await player.open(playable);
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.move(1, 3);
 
-    await Future.delayed(const Duration(seconds: 30));
+    await Future.delayed(sources.scaled(30));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -1114,7 +1114,7 @@ void main() {
     await player.setPlaylistMode(PlaylistMode.none);
     await player.open(playable);
 
-    await Future.delayed(const Duration(minutes: 1));
+    await Future.delayed(sources.scaled(60));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1, seconds: 30)));
@@ -1137,7 +1137,7 @@ void main() {
     await player.setPlaylistMode(PlaylistMode.single);
     await player.open(playable);
 
-    await Future.delayed(const Duration(minutes: 1));
+    await Future.delayed(sources.scaled(60));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1, seconds: 30)));
@@ -1164,7 +1164,7 @@ void main() {
     await player.setPlaylistMode(PlaylistMode.loop);
     await player.open(playable);
 
-    await Future.delayed(const Duration(minutes: 2, seconds: 30));
+    await Future.delayed(sources.scaled(150));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 5)));
@@ -1193,7 +1193,7 @@ void main() {
       } catch (_) {}
     });
 
-    await Future.delayed(const Duration(seconds: 15));
+    await Future.delayed(const Duration(seconds: 6));
 
     timer.cancel();
     await player.dispose();
@@ -1223,7 +1223,7 @@ void main() {
       } catch (_) {}
     });
 
-    await Future.delayed(const Duration(seconds: 15));
+    await Future.delayed(const Duration(seconds: 6));
 
     timer.cancel();
     await player.dispose();
@@ -1257,7 +1257,8 @@ void main() {
       } catch (_) {}
     });
 
-    await Future.delayed(const Duration(seconds: 15));
+    // Two rounds through the playlist, one step a second.
+    await Future.delayed(const Duration(seconds: 10));
 
     timer.cancel();
     await player.dispose();
@@ -1285,7 +1286,7 @@ void main() {
     await player.open(playable);
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.jump(sources.platform.length - 1);
 
@@ -1295,7 +1296,7 @@ void main() {
       } catch (_) {}
     });
 
-    await Future.delayed(const Duration(seconds: 45));
+    await Future.delayed(sources.scaled(45));
 
     timer.cancel();
     await player.dispose();
@@ -1323,7 +1324,7 @@ void main() {
     await player.open(playable);
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.jump(sources.platform.length - 1);
 
@@ -1333,7 +1334,7 @@ void main() {
       } catch (_) {}
     });
 
-    await Future.delayed(const Duration(seconds: 45));
+    await Future.delayed(sources.scaled(45));
 
     timer.cancel();
     await player.dispose();
@@ -1360,7 +1361,7 @@ void main() {
     await player.open(playable);
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.jump(sources.platform.length - 1);
 
@@ -1370,7 +1371,7 @@ void main() {
       } catch (_) {}
     });
 
-    await Future.delayed(const Duration(seconds: 45));
+    await Future.delayed(sources.scaled(45));
 
     timer.cancel();
     await player.dispose();
@@ -1400,11 +1401,11 @@ void main() {
     await player.open(Media(sources.platform[0]));
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.add(Media(sources.platform[1]));
 
-    await Future.delayed(const Duration(seconds: 30));
+    await Future.delayed(sources.scaled(30));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -1438,16 +1439,16 @@ void main() {
     await player.open(playable);
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.jump(1);
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.remove(0);
 
-    await Future.delayed(const Duration(seconds: 30));
+    await Future.delayed(sources.scaled(30));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -1479,11 +1480,11 @@ void main() {
     await player.open(playable);
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.remove(1);
 
-    await Future.delayed(const Duration(seconds: 30));
+    await Future.delayed(sources.scaled(30));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -1516,11 +1517,11 @@ void main() {
     await player.open(playable);
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.remove(0);
 
-    await Future.delayed(const Duration(seconds: 30));
+    await Future.delayed(sources.scaled(30));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -1552,16 +1553,16 @@ void main() {
     await player.open(playable);
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.jump(sources.platform.length - 1);
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.remove(sources.platform.length - 1);
 
-    await Future.delayed(const Duration(seconds: 45));
+    await Future.delayed(sources.scaled(45));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -1593,16 +1594,16 @@ void main() {
     await player.open(playable);
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.jump(sources.platform.length - 1);
 
     // NOTE: VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.remove(sources.platform.length - 1);
 
-    await Future.delayed(const Duration(seconds: 45));
+    await Future.delayed(sources.scaled(45));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -1770,7 +1771,7 @@ void main() {
 
       await player.open(Media(sources.file[0]));
 
-      await Future.delayed(const Duration(seconds: 30));
+      await untilEnd(player);
 
       await player.dispose();
     },
@@ -1800,7 +1801,7 @@ void main() {
 
     await player.open(Media(sources.network[0]));
 
-    await Future.delayed(const Duration(seconds: 30));
+    await untilEnd(player);
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -1827,7 +1828,7 @@ void main() {
 
       await player.open(Media(sources.file[0]), play: false);
 
-      await Future.delayed(const Duration(seconds: 30));
+      await Future.delayed(sources.scaled(30));
 
       await player.dispose();
     },
@@ -1854,7 +1855,7 @@ void main() {
 
     await player.open(Media(sources.network[0]), play: false);
 
-    await Future.delayed(const Duration(seconds: 30));
+    await Future.delayed(const Duration(seconds: 5));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1)));
@@ -1901,7 +1902,7 @@ void main() {
       ),
     );
 
-    await Future.delayed(const Duration(minutes: 1));
+    await untilEnd(player);
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1, seconds: 30)));
@@ -2004,7 +2005,7 @@ void main() {
       ]),
     );
 
-    await Future.delayed(const Duration(minutes: 1, seconds: 30));
+    await untilEnd(player);
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 2)));
@@ -2016,12 +2017,12 @@ void main() {
       await player.open(Media(sources.platform[0]));
 
       // VOLUNTARY DELAY.
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(sources.scaled(5));
 
       await player.stop();
 
       // VOLUNTARY DELAY.
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(sources.scaled(5));
 
       print(player.state);
 
@@ -2046,7 +2047,7 @@ void main() {
       );
 
       // VOLUNTARY DELAY.
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(sources.scaled(5));
 
       await player.dispose();
     },
@@ -2059,12 +2060,12 @@ void main() {
     await player.open(Media(sources.platform[0]));
 
     // VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.stop();
 
     // VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     final expectPosition = expectAsync1(
       (value) {
@@ -2085,7 +2086,7 @@ void main() {
     await player.open(Media(sources.platform[0]));
 
     // VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 2)));
@@ -2097,7 +2098,7 @@ void main() {
       await player.open(Media(sources.platform[0]));
 
       // VOLUNTARY DELAY.
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(sources.scaled(5));
 
       final screenshot = await player.screenshot();
 
@@ -2106,7 +2107,7 @@ void main() {
       expect(screenshot?.length ?? 0, greaterThan(0));
 
       // VOLUNTARY DELAY.
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(sources.scaled(5));
 
       await player.dispose();
     },
@@ -2120,7 +2121,7 @@ void main() {
       await player.open(Media(sources.platform[0]));
 
       // VOLUNTARY DELAY.
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(sources.scaled(5));
 
       final jpeg = await player.screenshot(format: 'image/jpeg');
       expect(jpeg, isNotNull);
@@ -2136,7 +2137,7 @@ void main() {
       expect(pixels?.length ?? 0, greaterThan(0));
 
       // VOLUNTARY DELAY.
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(sources.scaled(5));
 
       await player.dispose();
     },
@@ -2148,7 +2149,7 @@ void main() {
     await player.open(Media(sources.platform[0]));
 
     // VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     expect(
       () async => await player.screenshot(format: 'abc'),
@@ -2160,7 +2161,7 @@ void main() {
     );
 
     // VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 2)));
@@ -2295,7 +2296,7 @@ void main() {
         ),
       );
 
-      await Future.delayed(const Duration(seconds: 90));
+      await untilEnd(player);
 
       await player.dispose();
     },
@@ -2383,7 +2384,7 @@ void main() {
         ]),
       );
 
-      await Future.delayed(const Duration(minutes: 2));
+      await untilEnd(player);
 
       await player.dispose();
     },
@@ -2845,12 +2846,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     await player.open(Media(sources.platform[0]));
     await player.setSubtitleTrack(SubtitleTrack.data(subtitle));
 
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     // Player.state.subtitle & Player.stream.subtitle must be reset.
     await player.open(Media(sources.platform[0]));
 
-    await Future.delayed(const Duration(seconds: 15));
+    await Future.delayed(sources.scaled(15));
 
     await player.dispose();
   }, skip: kSkipFlakyTests);
@@ -2898,12 +2899,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     await player.open(Media(sources.platform[0]));
     await player.setSubtitleTrack(SubtitleTrack.data(subtitle));
 
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     // Player.state.subtitle & Player.stream.subtitle must be reset.
     await player.setSubtitleTrack(SubtitleTrack.no());
 
-    await Future.delayed(const Duration(seconds: 15));
+    await Future.delayed(sources.scaled(15));
 
     await player.dispose();
   }, skip: kSkipFlakyTests);
@@ -2916,7 +2917,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     await player.setProperty(property, '69.0');
 
     // VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.dispose();
   });
@@ -2947,7 +2948,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     await player.open(Media(sources.platform[0]));
 
     // VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.unobserveProperty(property);
     expect(
@@ -2956,7 +2957,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     );
 
     // VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     // Subsequent calls must throw [ArgumentError].
     expect(
@@ -2974,7 +2975,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     );
 
     // VOLUNTARY DELAY.
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(sources.scaled(5));
 
     await player.dispose();
   });
