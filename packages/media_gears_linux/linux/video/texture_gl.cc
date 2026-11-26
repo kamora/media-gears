@@ -6,7 +6,7 @@
 // Use of this source code is governed by MIT license that can be found in the
 // LICENSE file.
 
-#include "media_kit_video/texture_gl.h"
+#include "media_gears/texture_gl.h"
 
 #include <epoxy/gl.h>
 #include <epoxy/egl.h>

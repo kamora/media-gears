@@ -13,7 +13,7 @@
 #pragma comment(lib, "d3d11.lib")
 
 #define FAIL(message)                                                 \
-  std::cout << "media_kit: ANGLESurfaceManager: Failure: " << message \
+  std::cout << "media_gears: ANGLESurfaceManager: Failure: " << message \
             << std::endl;                                             \
   return false
 
@@ -186,7 +186,7 @@ bool ANGLESurfaceManager::CreateD3DTexture() {
   }
 
   auto level = d3d_11_device_->GetFeatureLevel();
-  std::cout << "media_kit: ANGLESurfaceManager: Direct3D Feature Level: "
+  std::cout << "media_gears: ANGLESurfaceManager: Direct3D Feature Level: "
             << (((unsigned)level) >> 12) << "_"
             << ((((unsigned)level) >> 8) & 0xf) << std::endl;
   auto d3d11_texture2D_desc = D3D11_TEXTURE2D_DESC{0};

@@ -8,9 +8,9 @@
 
 #include <flutter/plugin_registrar_windows.h>
 
-#include "media_kit_video_plugin.h"
+#include "media_gears_plugin.h"
 
 void MediaGearsPluginCApiRegisterWithRegistrar(FlutterDesktopPluginRegistrarRef registrar) {
-	media_kit_video::MediaKitVideoPlugin::RegisterWithRegistrar(
+	media_gears::MediaGearsPlugin::RegisterWithRegistrar(
 		flutter::PluginRegistrarManager::GetInstance()->GetRegistrar<flutter::PluginRegistrarWindows>(registrar));
 }

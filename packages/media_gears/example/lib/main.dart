@@ -6,7 +6,7 @@ import 'package:media_gears/media_gears.dart';
 /// Plays the video whose path is given as the first argument, or the one in MEDIA_GEARS_VIDEO.
 void main(List<String> args) {
   WidgetsFlutterBinding.ensureInitialized();
-  MediaKit.ensureInitialized();
+  MediaGears.ensureInitialized();
   final path = args.isNotEmpty ? args.first : Platform.environment['MEDIA_GEARS_VIDEO'] ?? '';
   runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Example(path: path)));
 }
@@ -45,7 +45,7 @@ class _ExampleState extends State<Example> {
     }
 
     return Scaffold(
-      body: Video(controller: controller, controls: MaterialDesktopVideoControls),
+      body: Video(controller: controller, controls: DesktopControls),
     );
   }
 }

@@ -6,8 +6,6 @@
 
 cmake_minimum_required(VERSION 3.13)
 
-# This option is read by the other packages which are part of package:media_kit.
-
 # This is the public option enabling dynamic linking on request of applications.
 option(MIMALLOC_USE_STATIC_LIBS "Whether to prefer linking to mimalloc statically" ON)
 
@@ -125,7 +123,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(
   ${PLUGIN_NAME} SHARED
-  "video/media_kit_video_plugin.cc"
+  "video/media_gears_plugin.cc"
   "video/texture_gl.cc"
   "video/texture_sw.cc"
   "video/video_output_manager.cc"

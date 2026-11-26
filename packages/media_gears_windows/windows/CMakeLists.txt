@@ -175,7 +175,7 @@ add_library(
   ${PLUGIN_NAME} SHARED
   "video/angle_surface_manager.cc"
   "video/media_gears_plugin_c_api.cc"
-  "video/media_kit_video_plugin.cc"
+  "video/media_gears_plugin.cc"
   "video/video_output_manager.cc"
   "video/video_output.cc"
   "video/utils.cc"

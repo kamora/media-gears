@@ -7,7 +7,7 @@
 // the
 // // LICENSE file.
 
-#include "media_kit_video/utils.h"
+#include "media_gears/utils.h"
 
 void utils_enter_native_fullscreen(GtkWidget* window) {
   gtk_window_fullscreen(GTK_WINDOW(window));

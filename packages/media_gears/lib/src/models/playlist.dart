@@ -6,7 +6,7 @@
 
 import 'package:collection/collection.dart';
 import 'package:media_gears/src/models/playable.dart';
-import 'package:media_gears/src/models/media/media.dart';
+import 'package:media_gears/src/models/media.dart';
 
 /// {@template playlist}
 ///

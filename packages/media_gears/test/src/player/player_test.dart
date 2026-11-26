@@ -5,39 +5,32 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
-import 'package:media_gears/src/media_kit.dart';
+import 'package:media_gears/src/media_gears.dart';
 import 'package:media_gears/src/models/audio_device.dart';
 import 'package:media_gears/src/models/audio_params.dart';
-import 'package:media_gears/src/models/media/media.dart';
+import 'package:media_gears/src/models/media.dart';
 import 'package:media_gears/src/models/playlist.dart';
 import 'package:media_gears/src/models/playlist_mode.dart';
 import 'package:media_gears/src/models/track.dart';
 import 'package:media_gears/src/models/video_params.dart';
-import 'package:media_gears/src/player/native/player/player.dart';
-import 'package:media_gears/src/player/platform_player.dart';
 import 'package:media_gears/src/player/player.dart';
+import 'package:media_gears/src/player/configuration.dart';
 import 'package:test/test.dart';
 
 import '../../common/sources.dart';
 
 void main() {
   setUp(() async {
-    MediaKit.ensureInitialized();
+    MediaGears.ensureInitialized();
 
     await sources.prepare();
 
     // For preventing video driver & audio driver initialization errors in unit-tests.
-    NativePlayer.test = true;
-  });
-  test('player-platform', () {
-    final player = Player();
-    expect(player.platform, isA<NativePlayer>());
-
-    addTearDown(player.dispose);
+    Player.test = true;
   });
   test('player-wait-for-player-initialization', () async {
     final player = Player();
-    final future = player.platform?.waitForPlayerInitialization;
+    final future = player.waitForPlayerInitialization;
     expect(future, isNotNull);
     expect(future, completes);
 
@@ -349,7 +342,7 @@ void main() {
     () async {
       final player = Player(
         configuration: PlayerConfiguration(
-          logLevel: MPVLogLevel.info,
+          logLevel: LogLevel.info,
           title: '',
         ),
       );
@@ -2471,7 +2464,7 @@ void main() {
     'player-set-subtitle-track-external-uri',
     () async {
       final player = Player(
-        configuration: const PlayerConfiguration(logLevel: MPVLogLevel.v),
+        configuration: const PlayerConfiguration(logLevel: LogLevel.v),
       );
 
       player.stream.log.listen((event) {
@@ -2987,11 +2980,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     final player = Player();
     final property = 'volume';
 
-    expect(player.platform, isA<NativePlayer>());
 
     expect(player.stream.volume, emits(equals(69.0)));
 
-    await (player.platform as dynamic).setProperty(property, '69.0');
+    await player.setProperty(property, '69.0');
 
     // VOLUNTARY DELAY.
     await Future.delayed(const Duration(seconds: 5));
@@ -3002,7 +2994,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     final player = Player();
     final property = 'demuxer-cache-state';
 
-    expect(player.platform, isA<NativePlayer>());
 
     final expectListener = expectAsync1(
       (value) {
@@ -3015,12 +3006,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       max: -1,
     );
 
-    await (player.platform as dynamic).observeProperty(property, (data) async {
+    await player.observeProperty(property, (data) async {
       // The listener must be invoked.
       expectListener(data);
     });
     expect(
-      (player.platform as dynamic).observedProperties.containsKey(property),
+      player.observedProperties.containsKey(property),
       isTrue,
     );
 
@@ -3029,9 +3020,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     // VOLUNTARY DELAY.
     await Future.delayed(const Duration(seconds: 5));
 
-    await (player.platform as dynamic).unobserveProperty(property);
+    await player.unobserveProperty(property);
     expect(
-      (player.platform as dynamic).observedProperties.containsKey(property),
+      player.observedProperties.containsKey(property),
       isFalse,
     );
 
@@ -3040,16 +3031,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
     // Subsequent calls must throw [ArgumentError].
     expect(
-      (player.platform as dynamic).observeProperty(property, (data) async {}),
+      player.observeProperty(property, (data) async {}),
       completes,
     );
     expect(
-      (player.platform as dynamic).observeProperty(property, (data) async {}),
+      player.observeProperty(property, (data) async {}),
       throwsArgumentError,
     );
-    expect((player.platform as dynamic).unobserveProperty(property), completes);
+    expect(player.unobserveProperty(property), completes);
     expect(
-      (player.platform as dynamic).unobserveProperty(property),
+      player.unobserveProperty(property),
       throwsArgumentError,
     );
 

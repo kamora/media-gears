@@ -6,7 +6,7 @@
 // Use of this source code is governed by MIT license that can be found in the
 // LICENSE file.
 
-#include "media_kit_video/video_output_manager.h"
+#include "media_gears/video_output_manager.h"
 
 struct _VideoOutputManager {
   GObject parent_instance;

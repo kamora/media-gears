@@ -6,8 +6,8 @@
 // Use of this source code is governed by MIT license that can be found in the
 // LICENSE file.
 
-#ifndef MEDIA_KIT_VIDEO_PLUGIN_H_
-#define MEDIA_KIT_VIDEO_PLUGIN_H_
+#ifndef MEDIA_GEARS_PLUGIN_H_
+#define MEDIA_GEARS_PLUGIN_H_
 
 #include <flutter_linux/flutter_linux.h>
 
@@ -19,16 +19,16 @@ G_BEGIN_DECLS
 #define FLUTTER_PLUGIN_EXPORT
 #endif
 
-typedef struct _MediaKitVideoPlugin MediaKitVideoPlugin;
+typedef struct _MediaGearsPlugin MediaGearsPlugin;
 typedef struct {
   GObjectClass parent_class;
-} MediaKitVideoPluginClass;
+} MediaGearsPluginClass;
 
-FLUTTER_PLUGIN_EXPORT GType media_kit_video_plugin_get_type();
+FLUTTER_PLUGIN_EXPORT GType media_gears_plugin_get_type();
 
 FLUTTER_PLUGIN_EXPORT void media_gears_plugin_register_with_registrar(
     FlPluginRegistrar* registrar);
 
 G_END_DECLS
 
-#endif  // FLUTTER_PLUGIN_MEDIA_KIT_VIDEO_PLUGIN_H_
+#endif  // FLUTTER_PLUGIN_MEDIA_GEARS_PLUGIN_H_
