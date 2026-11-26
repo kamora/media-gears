@@ -40,14 +40,14 @@
     sha256 = "0eb4b4b9420a0f51db142ba3f9c64b333f826532dc0f48c6410ae51f4799b664";
   };
   libpng = {
-    version = "1.6.40";
-    url = "https://github.com/pnggroup/libpng/archive/v1.6.40.tar.gz";
-    sha256 = "62d25af25e636454b005c93cae51ddcd5383c40fa14aa3dae8f6576feb5692c2";
+    version = "1.6.59";
+    url = "https://github.com/pnggroup/libpng/archive/v1.6.59.tar.gz";
+    sha256 = "2540302a1844ad2b2b501977abecfa850f265f97b78f065a712ab4074a89f5b5";
   };
   libpngPatch = {
-    version = "1.6.40-1";
-    url = "https://wrapdb.mesonbuild.com/v2/libpng_1.6.40-1/get_patch";
-    sha256 = "bad558070e0a82faa5c0ae553bcd12d49021fc4b628f232a8e58c3fbd281aae1";
+    version = "1.6.59-1";
+    url = "https://wrapdb.mesonbuild.com/v2/libpng_1.6.59-1/get_patch";
+    sha256 = "d20d5e20516a550817026b0074c4051ff4342da43f0600827316ea85f89d1d38";
   };
   libvorbis = {
     version = "1.3.7";
