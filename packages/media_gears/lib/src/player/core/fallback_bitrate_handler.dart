@@ -14,11 +14,11 @@ abstract class FallbackBitrateHandler {
     try {
       final parser = URIParser(uri);
       final formats = ['AAC', 'M4A', 'OGG', 'OPUS', 'FLAC'];
-      if (parser.type == URIType.file &&
-          formats.contains(parser.file!.extension)) {
+      if (parser.type == URIType.file && formats.contains(parser.file!.extension)) {
         return parser.file!.path;
       }
     } catch (_) {}
+
     return null;
   }
 
@@ -32,6 +32,7 @@ abstract class FallbackBitrateHandler {
         return result;
       }
     } catch (_) {}
+
     return 0;
   }
 }

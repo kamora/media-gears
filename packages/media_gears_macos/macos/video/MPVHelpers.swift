@@ -2,36 +2,37 @@ import Darwin
 import Foundation
 
 #if SWIFT_PACKAGE
-  import Mpv
+	import Mpv
 #endif
 
 public enum MPVHelpers {
-  public static func checkError(_ status: CInt) {
-    if status < 0 {
-      NSLog("MPVHelpers: error: \(String(cString: mpv_error_string(status)))")
-      exit(1)
-    }
-  }
 
-  public static func getVideoOutParams(
-    _ handle: OpaquePointer
-  ) -> MPVVideoOutParams {
-    var node = mpv_node()
-    defer {
-      mpv_free_node_contents(&node)
-    }
+	public static func checkError(_ status: CInt) {
+		if status < 0 {
+			NSLog("MPVHelpers: error: \(String(cString: mpv_error_string(status)))")
+			exit(1)
+		}
+	}
 
-    mpv_get_property(handle, "video-out-params", MPV_FORMAT_NODE, &node)
+	public static func getVideoOutParams(
+		_ handle: OpaquePointer
+	) -> MPVVideoOutParams {
+		var node = mpv_node()
+		defer {
+			mpv_free_node_contents(&node)
+		}
 
-    if node.format != MPV_FORMAT_NODE_MAP {
-      return MPVVideoOutParams.empty
-    }
+		mpv_get_property(handle, "video-out-params", MPV_FORMAT_NODE, &node)
 
-    let map: mpv_node_list = node.u.list!.pointee
-    if map.num == 0 {
-      return MPVVideoOutParams.empty
-    }
+		if node.format != MPV_FORMAT_NODE_MAP {
+			return MPVVideoOutParams.empty
+		}
 
-    return MPVVideoOutParams.fromMPVNodeList(map)
-  }
+		let map: mpv_node_list = node.u.list!.pointee
+		if map.num == 0 {
+			return MPVVideoOutParams.empty
+		}
+
+		return MPVVideoOutParams.fromMPVNodeList(map)
+	}
 }

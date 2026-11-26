@@ -40,8 +40,14 @@ class NativeReferenceHolder {
 
   /// Initializes the instance.
   static void ensureInitialized(NativeReferenceHolderCallback callback) {
-    if (!kDebugMode) return;
-    if (initialized) return;
+    if (!kDebugMode) {
+      return;
+    }
+
+    if (initialized) {
+      return;
+    }
+
     initialized = true;
     instance._ensureInitialized(callback);
   }
@@ -78,8 +84,14 @@ class NativeReferenceHolder {
 
   /// Saves the reference.
   Future<void> add(Pointer reference) async {
-    if (!initialized) return;
-    if (reference == nullptr) return;
+    if (!initialized) {
+      return;
+    }
+
+    if (reference == nullptr) {
+      return;
+    }
+
     await _completer.future;
     return _lock.synchronized(() async {
       for (int i = 0; i < kReferenceBufferSize; i++) {
@@ -96,8 +108,14 @@ class NativeReferenceHolder {
 
   /// Removes the reference.
   Future<void> remove(Pointer reference) async {
-    if (!initialized) return;
-    if (reference == nullptr) return;
+    if (!initialized) {
+      return;
+    }
+
+    if (reference == nullptr) {
+      return;
+    }
+
     await _completer.future;
     return _lock.synchronized(() async {
       for (int i = 0; i < kReferenceBufferSize; i++) {

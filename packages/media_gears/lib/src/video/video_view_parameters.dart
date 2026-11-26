@@ -51,6 +51,7 @@ class VideoViewParameters {
     Alignment? alignment,
     double? aspectRatio,
     FilterQuality? filterQuality,
+
     /* ControlsBuilder? */ dynamic controls,
     bool? pauseUponEnteringBackgroundMode,
     bool? resumeUponEnteringForegroundMode,
@@ -68,8 +69,7 @@ class VideoViewParameters {
       aspectRatio: aspectRatio ?? this.aspectRatio,
       filterQuality: filterQuality ?? this.filterQuality,
       controls: controls ?? this.controls,
-      subtitleViewConfiguration:
-          subtitleViewConfiguration ?? this.subtitleViewConfiguration,
+      subtitleViewConfiguration: subtitleViewConfiguration ?? this.subtitleViewConfiguration,
       focusNode: focusNode ?? this.focusNode,
     );
   }

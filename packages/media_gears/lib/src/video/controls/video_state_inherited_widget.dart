@@ -20,6 +20,7 @@ class VideoStateInheritedWidget extends InheritedWidget {
   final ValueNotifier<VideoViewParameters> videoViewParametersNotifier;
 
   final bool disposeNotifiers;
+
   VideoStateInheritedWidget({
     super.key,
     required this.state,
@@ -38,8 +39,7 @@ class VideoStateInheritedWidget extends InheritedWidget {
         );
 
   static VideoStateInheritedWidget? maybeOf(BuildContext context) {
-    return context
-        .dependOnInheritedWidgetOfExactType<VideoStateInheritedWidget>();
+    return context.dependOnInheritedWidgetOfExactType<VideoStateInheritedWidget>();
   }
 
   static VideoStateInheritedWidget of(BuildContext context) {
@@ -53,8 +53,7 @@ class VideoStateInheritedWidget extends InheritedWidget {
 
   @override
   bool updateShouldNotify(VideoStateInheritedWidget oldWidget) =>
-      identical(state, oldWidget.state) &&
-      identical(contextNotifier, oldWidget.contextNotifier);
+      identical(state, oldWidget.state) && identical(contextNotifier, oldWidget.contextNotifier);
 }
 
 /// {@template video_state_inherited_widget_context_notifier}
@@ -79,12 +78,10 @@ class VideoStateInheritedWidgetContextNotifier extends StatefulWidget {
   });
 
   @override
-  State<VideoStateInheritedWidgetContextNotifier> createState() =>
-      VideoStateInheritedWidgetContextNotifierState();
+  State<VideoStateInheritedWidgetContextNotifier> createState() => VideoStateInheritedWidgetContextNotifierState();
 }
 
-class VideoStateInheritedWidgetContextNotifierState
-    extends State<VideoStateInheritedWidgetContextNotifier> {
+class VideoStateInheritedWidgetContextNotifierState extends State<VideoStateInheritedWidgetContextNotifier> {
   static final fallback = HashMap<VideoState, BuildContext>.identity();
 
   @override
@@ -93,6 +90,7 @@ class VideoStateInheritedWidgetContextNotifierState
       // Restore the original [BuildContext] associated with this [Video] widget.
       widget.contextNotifier.value = fallback[widget.state];
     }
+
     super.dispose();
   }
 

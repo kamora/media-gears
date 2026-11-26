@@ -1,5 +1,5 @@
 framework module Mpv {
-  umbrella header "Mpv.h"
-  export *
-  module * { export * }
+	umbrella header "Mpv.h"
+	export *
+	module * { export * }
 }

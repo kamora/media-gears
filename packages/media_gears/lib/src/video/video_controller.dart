@@ -32,8 +32,8 @@ import 'package:media_gears/src/player/player.dart';
 class VideoController {
   /// {@macro video_controller}
   VideoController(this.player, {this.configuration = const VideoConfiguration()})
-    : _width = configuration.width,
-      _height = configuration.height {
+      : _width = configuration.width,
+        _height = configuration.height {
     player.isVideoControllerAttached = true;
     _create();
   }
@@ -145,6 +145,7 @@ class VideoController {
 
     // Waiting on the native side would block the UI thread, so the texture ID arrives through the channel.
     final created = Completer<void>();
+
     void listener() {
       if (id.value != null && !created.isCompleted) {
         created.complete();
@@ -281,11 +282,12 @@ class VideoConfiguration {
     int? width,
     int? height,
     bool? enableHardwareAcceleration,
-  }) => VideoConfiguration(
-    vo: vo ?? this.vo,
-    hwdec: hwdec ?? this.hwdec,
-    width: width ?? this.width,
-    height: height ?? this.height,
-    enableHardwareAcceleration: enableHardwareAcceleration ?? this.enableHardwareAcceleration,
-  );
+  }) =>
+      VideoConfiguration(
+        vo: vo ?? this.vo,
+        hwdec: hwdec ?? this.hwdec,
+        width: width ?? this.width,
+        height: height ?? this.height,
+        enableHardwareAcceleration: enableHardwareAcceleration ?? this.enableHardwareAcceleration,
+      );
 }

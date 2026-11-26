@@ -40,7 +40,9 @@ class AudioParams {
 
   @override
   operator ==(Object other) {
-    if (identical(this, other)) return true;
+    if (identical(this, other)) {
+      return true;
+    }
 
     return other is AudioParams &&
         other.format == format &&
@@ -52,11 +54,7 @@ class AudioParams {
 
   @override
   int get hashCode =>
-      format.hashCode ^
-      sampleRate.hashCode ^
-      channels.hashCode ^
-      channelCount.hashCode ^
-      hrChannels.hashCode;
+      format.hashCode ^ sampleRate.hashCode ^ channels.hashCode ^ channelCount.hashCode ^ hrChannels.hashCode;
 
   @override
   String toString() => 'AudioParams('

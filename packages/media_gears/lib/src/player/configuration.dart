@@ -110,9 +110,11 @@ class PlayerConfiguration {
 /// {@endtemplate}
 enum LogLevel {
   /// Disable absolutely all messages.
+
   /* none, */
 
   /// Critical/aborting errors.
+
   /* fatal, */
 
   // package:media_kit internally consumes logs of level error.

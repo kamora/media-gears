@@ -22,7 +22,10 @@ class _Sources {
   final List<Uint8List> bytes = [];
 
   Future<void> prepare() async {
-    if (_prepared) return;
+    if (_prepared) {
+      return;
+    }
+
     // Download to local [File]s.
     for (int i = 0; i < network.length; i++) {
       final destination = path.join(
@@ -33,17 +36,21 @@ class _Sources {
       if (!await File(destination).parent.exists()) {
         await File(destination).parent.create(recursive: true);
       }
+
       if (!await File(destination).exists()) {
         final response = await http.get(Uri.parse(network[i]));
         await File(destination).writeAsBytes(response.bodyBytes);
       }
+
       file.add(destination);
       bytes.add(await File(destination).readAsBytes());
     }
+
     // Force forward slashes for Windows.
     for (int i = 0; i < file.length; i++) {
       file[i] = file[i].replaceAll(r'\', '/');
     }
+
     _prepared = true;
   }
 

@@ -95,7 +95,9 @@ class VideoParams {
 
   @override
   operator ==(Object other) {
-    if (identical(this, other)) return true;
+    if (identical(this, other)) {
+      return true;
+    }
 
     return other is VideoParams &&
         other.pixelformat == pixelformat &&

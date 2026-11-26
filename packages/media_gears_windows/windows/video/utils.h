@@ -14,20 +14,21 @@
 #include <Windows.h>
 
 class Utils {
- public:
-  static void EnterNativeFullscreen(HWND window);
+public:
 
-  static void ExitNativeFullscreen(HWND window);
+	static void EnterNativeFullscreen(HWND window);
 
-  static RTL_OSVERSIONINFOW GetWindowsVersion();
+	static void ExitNativeFullscreen(HWND window);
 
-  static bool IsWindows10RTMOrGreater();
+	static RTL_OSVERSIONINFOW GetWindowsVersion();
 
- private:
-  static constexpr auto kFlutterViewWindowClassName = L"FLUTTERVIEW";
+	static bool IsWindows10RTMOrGreater();
 
-  static bool fullscreen_;
-  static RECT rect_before_fullscreen_;
+private:
+	static constexpr auto kFlutterViewWindowClassName = L"FLUTTERVIEW";
+
+	static bool fullscreen_;
+	static RECT rect_before_fullscreen_;
 };
 
 #endif  // UTILS_H_

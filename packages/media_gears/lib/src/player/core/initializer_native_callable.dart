@@ -46,6 +46,7 @@ class InitializerNativeCallable {
       calloc.free(name);
       calloc.free(value);
     }
+
     mpv.mpv_initialize(ctx);
     final nativeCallable = WakeUpNativeCallable.listener(_callback);
     final nativeFunction = nativeCallable.nativeFunction;
@@ -64,7 +65,7 @@ class InitializerNativeCallable {
     // Clear the wakeup callback in libmpv before closing NativeCallable
     // to prevent libmpv from invoking a deleted callback
     mpv.mpv_set_wakeup_callback(ctx, nullptr, nullptr);
-    
+
     _wakeUpNativeCallables.remove(ctx.address)?.close();
   }
 
@@ -72,8 +73,14 @@ class InitializerNativeCallable {
     _locks[ctx.address]?.synchronized(() async {
       while (true) {
         final event = mpv.mpv_wait_event(ctx, 0);
-        if (event == nullptr) return;
-        if (event.ref.event_id == generated.mpv_event_id.MPV_EVENT_NONE) return;
+        if (event == nullptr) {
+          return;
+        }
+
+        if (event.ref.event_id == generated.mpv_event_id.MPV_EVENT_NONE) {
+          return;
+        }
+
         await _eventCallbacks[ctx.address]?.call(event);
       }
     });

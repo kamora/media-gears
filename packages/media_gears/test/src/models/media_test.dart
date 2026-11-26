@@ -47,6 +47,7 @@ void main() {
           equals(source),
         );
       }
+
       // file:// URI
       for (final source in sources.file) {
         final test = Uri.file(source).toString();
@@ -79,6 +80,7 @@ void main() {
           equals(source),
         );
       }
+
       // Path: backwards slash separators
       for (final source in sources.file) {
         final test = source.replaceAll('/', r'\');
@@ -92,6 +94,7 @@ void main() {
           equals(source),
         );
       }
+
       // file:/// URI
       for (final source in sources.file) {
         final test = Uri.file(source).toString();
@@ -105,10 +108,10 @@ void main() {
           equals(source),
         );
       }
+
       // file:// URI
       for (final source in sources.file) {
-        final test =
-            Uri.file(source).toString().replaceAll('file:///', 'file://');
+        final test = Uri.file(source).toString().replaceAll('file:///', 'file://');
         print(test);
         expect(
           Media.normalizeURI(test),
@@ -230,6 +233,7 @@ void main() {
           );
           await Future.delayed(Duration(seconds: 5));
         }
+
         if (i == 1) {
           final playable = Media(sources.platform.first);
 

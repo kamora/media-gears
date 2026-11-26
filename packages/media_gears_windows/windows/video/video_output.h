@@ -26,105 +26,107 @@
 #include "thread_pool.h"
 
 typedef struct _VideoOutputConfiguration {
-  std::optional<int64_t> width;
-  std::optional<int64_t> height;
-  bool enable_hardware_acceleration;
+	std::optional<int64_t> width;
+	std::optional<int64_t> height;
+	bool enable_hardware_acceleration;
 
-  _VideoOutputConfiguration(std::optional<int64_t> width = std::nullopt,
-                            std::optional<int64_t> height = std::nullopt,
-                            bool enable_hardware_acceleration = true)
-      : width(width),
-        height(height),
-        enable_hardware_acceleration(enable_hardware_acceleration) {}
+	_VideoOutputConfiguration(std::optional<int64_t> width = std::nullopt, std::optional<int64_t> height = std::nullopt,
+							  bool enable_hardware_acceleration = true)
+		: width(width), height(height), enable_hardware_acceleration(enable_hardware_acceleration) {
+	}
 } VideoOutputConfiguration;
 
 class VideoOutput {
- public:
-  int64_t texture_id() const { return texture_id_; }
-  int64_t width() const {
-    // H/W
-    if (surface_manager_ != nullptr && texture_id_) {
-      return surface_manager_->width();
-    }
-    // S/W
-    if (pixel_buffer_ != nullptr && texture_id_) {
-      return pixel_buffer_textures_.at(texture_id_)->width;
-    }
-    return width_.value_or(1);
-  }
-  int64_t height() const {
-    // H/W
-    if (surface_manager_ != nullptr && texture_id_) {
-      return surface_manager_->height();
-    }
-    // S/W
-    if (pixel_buffer_ != nullptr && texture_id_) {
-      return pixel_buffer_textures_.at(texture_id_)->height;
-    }
-    return height_.value_or(1);
-  }
+public:
 
-  VideoOutput(int64_t handle,
-              VideoOutputConfiguration configuration,
-              flutter::PluginRegistrarWindows* registrar,
-              ThreadPool* thread_pool_ref);
+	int64_t texture_id() const {
+		return texture_id_;
+	}
 
-  ~VideoOutput();
+	int64_t width() const {
+		// H/W
+		if (surface_manager_ != nullptr && texture_id_) {
+			return surface_manager_->width();
+		}
 
-  void SetTextureUpdateCallback(
-      std::function<void(int64_t, int64_t, int64_t)> callback);
+		// S/W
+		if (pixel_buffer_ != nullptr && texture_id_) {
+			return pixel_buffer_textures_.at(texture_id_)->width;
+		}
 
-  void SetSize(std::optional<int64_t> width, std::optional<int64_t> height);
+		return width_.value_or(1);
+	}
 
- private:
-  void NotifyRender();
+	int64_t height() const {
+		// H/W
+		if (surface_manager_ != nullptr && texture_id_) {
+			return surface_manager_->height();
+		}
 
-  void Render();
+		// S/W
+		if (pixel_buffer_ != nullptr && texture_id_) {
+			return pixel_buffer_textures_.at(texture_id_)->height;
+		}
 
-  void CheckAndResize();
+		return height_.value_or(1);
+	}
 
-  void Resize(int64_t required_width, int64_t required_height);
+	VideoOutput(int64_t handle, VideoOutputConfiguration configuration, flutter::PluginRegistrarWindows* registrar,
+				ThreadPool* thread_pool_ref);
 
-  int64_t GetVideoWidth();
+	~VideoOutput();
 
-  int64_t GetVideoHeight();
+	void SetTextureUpdateCallback(std::function<void(int64_t, int64_t, int64_t)> callback);
 
-  std::optional<int64_t> height_ = std::nullopt;
-  std::optional<int64_t> width_ = std::nullopt;
-  VideoOutputConfiguration configuration_ = VideoOutputConfiguration{};
+	void SetSize(std::optional<int64_t> width, std::optional<int64_t> height);
 
-  mpv_handle* handle_ = nullptr;
-  mpv_render_context* render_context_ = nullptr;
-  int64_t texture_id_ = 0;
-  flutter::PluginRegistrarWindows* registrar_ = nullptr;
-  ThreadPool* thread_pool_ref_ = nullptr;
-  // For preventing any asynchronous operations (primarily texture objects
-  // deletion after unregister in |Resize|) access this object after
-  // destruction.
-  bool destroyed_ = false;
+private:
 
-  std::mutex textures_mutex_ = std::mutex();
+	void NotifyRender();
 
-  std::unordered_map<int64_t, std::unique_ptr<flutter::TextureVariant>>
-      texture_variants_ = {};
+	void Render();
 
-  // H/W rendering.
+	void CheckAndResize();
 
-  std::unique_ptr<ANGLESurfaceManager> surface_manager_ = nullptr;
-  std::unordered_map<int64_t,
-                     std::unique_ptr<FlutterDesktopGpuSurfaceDescriptor>>
-      textures_ = {};
+	void Resize(int64_t required_width, int64_t required_height);
 
-  // S/W rendering.
+	int64_t GetVideoWidth();
 
-  std::unique_ptr<uint8_t[]> pixel_buffer_ = nullptr;
-  std::unordered_map<int64_t, std::unique_ptr<FlutterDesktopPixelBuffer>>
-      pixel_buffer_textures_ = {};
+	int64_t GetVideoHeight();
 
-  // Public notifier. This is called when a new texture is registered & texture
-  // ID is changed. Only happens when video output resolution changes.
-  std::function<void(int64_t, int64_t, int64_t)> texture_update_callback_ =
-      [](int64_t, int64_t, int64_t) {};
+	std::optional<int64_t> height_ = std::nullopt;
+	std::optional<int64_t> width_ = std::nullopt;
+	VideoOutputConfiguration configuration_ = VideoOutputConfiguration{};
+
+	mpv_handle* handle_ = nullptr;
+	mpv_render_context* render_context_ = nullptr;
+	int64_t texture_id_ = 0;
+	flutter::PluginRegistrarWindows* registrar_ = nullptr;
+	ThreadPool* thread_pool_ref_ = nullptr;
+
+	// For preventing any asynchronous operations (primarily texture objects
+	// deletion after unregister in |Resize|) access this object after
+	// destruction.
+	bool destroyed_ = false;
+
+	std::mutex textures_mutex_ = std::mutex();
+
+	std::unordered_map<int64_t, std::unique_ptr<flutter::TextureVariant>> texture_variants_ = {};
+
+	// H/W rendering.
+
+	std::unique_ptr<ANGLESurfaceManager> surface_manager_ = nullptr;
+	std::unordered_map<int64_t, std::unique_ptr<FlutterDesktopGpuSurfaceDescriptor>> textures_ = {};
+
+	// S/W rendering.
+
+	std::unique_ptr<uint8_t[]> pixel_buffer_ = nullptr;
+	std::unordered_map<int64_t, std::unique_ptr<FlutterDesktopPixelBuffer>> pixel_buffer_textures_ = {};
+
+	// Public notifier. This is called when a new texture is registered & texture
+	// ID is changed. Only happens when video output resolution changes.
+	std::function<void(int64_t, int64_t, int64_t)> texture_update_callback_ = [](int64_t, int64_t, int64_t) {
+	};
 };
 
 #endif  // VIDEO_OUTPUT_H_

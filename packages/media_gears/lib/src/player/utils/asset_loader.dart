@@ -7,7 +7,6 @@ import 'dart:io';
 import 'package:path/path.dart' as path;
 import 'package:safe_local_storage/safe_local_storage.dart';
 
-
 /// {@template asset_loader}
 ///
 /// AssetLoader
@@ -39,6 +38,7 @@ class AssetLoader {
     if (key.startsWith('/')) {
       key = key.substring(1);
     }
+
     // https://github.com/media-kit/media-kit/issues/121
     return key.split('/').map((e) => Uri.encodeComponent(e)).join('/');
   }

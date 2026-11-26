@@ -69,6 +69,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -115,6 +116,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -139,6 +141,7 @@ class Player {
       if (!playlistController.isClosed) {
         playlistController.add(Playlist(playlist, index: index));
       }
+
       // ---------------------------------------------
 
       // Restore original state & reset public [PlayerState] & [PlayerStream] values e.g. width=null, height=null, subtitle=['', ''] etc.
@@ -152,6 +155,7 @@ class Player {
       for (final media in playlist) {
         buffer.writeln(_sanitizeUri(media.uri));
       }
+
       final list = buffer.toString();
 
       await file.write_(list);
@@ -193,6 +197,7 @@ class Player {
     if (disposed) {
       throw AssertionError('[Player] has been disposed');
     }
+
     await waitForPlayerInitialization;
     await waitForVideoControllerInitializationIfAttached;
 
@@ -226,18 +231,23 @@ class Player {
           playlistController.add(Playlist([]));
         }
       }
+
       if (!playingController.isClosed) {
         playingController.add(false);
       }
+
       if (!completedController.isClosed) {
         completedController.add(false);
       }
+
       if (!positionController.isClosed) {
         positionController.add(Duration.zero);
       }
+
       if (!durationController.isClosed) {
         durationController.add(Duration.zero);
       }
+
       // if (!volumeController.isClosed) {
       //   volumeController.add(0.0);
       // }
@@ -250,21 +260,25 @@ class Player {
       if (!bufferingController.isClosed) {
         bufferingController.add(false);
       }
+
       if (!bufferController.isClosed) {
         bufferController.add(Duration.zero);
       }
+
       // if (!playlistModeController.isClosed) {
       //   playlistModeController.add(PlaylistMode.none);
       // }
       if (!shuffleController.isClosed) {
         shuffleController.add(isShuffleEnabled);
       }
+
       // if (!audioParamsController.isClosed) {
       //   audioParamsController.add(const AudioParams());
       // }
       if (!videoParamsController.isClosed) {
         videoParamsController.add(const VideoParams());
       }
+
       // if (!audioBitrateController.isClosed) {
       //   audioBitrateController.add(null);
       // }
@@ -277,15 +291,19 @@ class Player {
       if (!trackController.isClosed) {
         trackController.add(Track());
       }
+
       if (!tracksController.isClosed) {
         tracksController.add(Tracks());
       }
+
       if (!widthController.isClosed) {
         widthController.add(null);
       }
+
       if (!heightController.isClosed) {
         heightController.add(null);
       }
+
       if (!subtitleController.isClosed) {
         subtitleController.add(['', '']);
       }
@@ -299,6 +317,7 @@ class Player {
     if (disposed) {
       throw AssertionError('[Player] has been disposed');
     }
+
     await waitForPlayerInitialization;
     await waitForVideoControllerInitializationIfAttached;
 
@@ -314,6 +333,7 @@ class Player {
       await _seek(Duration.zero);
       await _setPropertyInt64('playlist-pos', 0);
     }
+
     await _setPropertyFlag('pause', false);
   }
 
@@ -323,6 +343,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -347,6 +368,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -368,6 +390,7 @@ class Player {
         await _seek(Duration.zero);
         await _setPropertyInt64('playlist-pos', 0);
       }
+
       await _command(['cycle', 'pause']);
     }
 
@@ -380,6 +403,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -392,6 +416,7 @@ class Player {
       if (!playlistController.isClosed) {
         playlistController.add(playlist);
       }
+
       // ---------------------------------------------
 
       await _command(['loadfile', _sanitizeUri(media.uri), 'append']);
@@ -406,6 +431,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -433,9 +459,11 @@ class Player {
         if (!playingController.isClosed) {
           playingController.add(false);
         }
+
         if (!completedController.isClosed) {
           completedController.add(true);
         }
+
         if (!playlistController.isClosed) {
           playlistController.add(state.playlist);
         }
@@ -457,6 +485,7 @@ class Player {
         if (!completedController.isClosed) {
           completedController.add(true);
         }
+
         if (!playlistController.isClosed) {
           playlistController.add(state.playlist);
         }
@@ -496,6 +525,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -521,6 +551,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -546,6 +577,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -562,6 +594,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -574,6 +607,7 @@ class Player {
       if (item != null) {
         map[to - 0.5] = item;
       }
+
       final values = map.values.toList();
       current = values;
       final playlist = state.playlist.copyWith(medias: current);
@@ -601,11 +635,7 @@ class Player {
     await waitForPlayerInitialization;
     await waitForVideoControllerInitializationIfAttached;
 
-    await _command([
-      'seek',
-      (duration.inMilliseconds / 1000).toStringAsFixed(4),
-      'absolute'
-    ]);
+    await _command(['seek', (duration.inMilliseconds / 1000).toStringAsFixed(4), 'absolute']);
 
     // It is self explanatory that PlayerState.completed & PlayerStream.completed must enter the false state if seek is called. Typically after EOF.
     // https://github.com/media-kit/media-kit/issues/221
@@ -616,12 +646,12 @@ class Player {
   }
 
   /// Sets playlist mode.
-  Future<void> setPlaylistMode(PlaylistMode playlistMode,
-      {bool synchronized = true}) {
+  Future<void> setPlaylistMode(PlaylistMode playlistMode, {bool synchronized = true}) {
     Future<void> function() async {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -661,6 +691,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -676,6 +707,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -694,13 +726,13 @@ class Player {
         if (!rateController.isClosed) {
           rateController.add(state.rate);
         }
+
         // Apparently, using scaletempo:scale actually controls the playback rate as intended after setting audio-pitch-correction as FALSE.
         // speed on the other hand, changes the pitch when audio-pitch-correction is set to FALSE.
         // Since, it also alters the actual [speed], the scaletempo:scale is divided by the same value of [pitch] to compensate the speed change.
         await _setPropertyFlag('audio-pitch-correction', false);
         // Divide by [state.pitch] to compensate the speed change caused by pitch shift.
-        await _setPropertyString('af',
-            'scaletempo:scale=${(state.rate / state.pitch).toStringAsFixed(8)}');
+        await _setPropertyString('af', 'scaletempo:scale=${(state.rate / state.pitch).toStringAsFixed(8)}');
       } else {
         // Pitch shift control is disabled.
 
@@ -708,6 +740,7 @@ class Player {
         if (!rateController.isClosed) {
           rateController.add(state.rate);
         }
+
         await _setPropertyDouble('speed', rate);
       }
     }
@@ -721,6 +754,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -739,14 +773,14 @@ class Player {
         if (!pitchController.isClosed) {
           pitchController.add(state.pitch);
         }
+
         // Apparently, using scaletempo:scale actually controls the playback rate as intended after setting audio-pitch-correction as FALSE.
         // speed on the other hand, changes the pitch when audio-pitch-correction is set to FALSE.
         // Since, it also alters the actual [speed], the scaletempo:scale is divided by the same value of [pitch] to compensate the speed change.
         await _setPropertyFlag('audio-pitch-correction', false);
         await _setPropertyDouble('speed', pitch);
         // Divide by [state.pitch] to compensate the speed change caused by pitch shift.
-        await _setPropertyString('af',
-            'scaletempo:scale=${(state.rate / state.pitch).toStringAsFixed(8)}');
+        await _setPropertyString('af', 'scaletempo:scale=${(state.rate / state.pitch).toStringAsFixed(8)}');
       } else {
         // Pitch shift control is disabled.
         throw ArgumentError('[PlayerConfiguration.pitch] is false');
@@ -762,6 +796,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -795,6 +830,7 @@ class Player {
       if (!playlistController.isClosed) {
         playlistController.add(playlist);
       }
+
       if (!shuffleController.isClosed) {
         shuffleController.add(isShuffleEnabled);
       }
@@ -811,12 +847,12 @@ class Player {
   ///
   /// * Currently selected [AudioDevice] can be accessed using [state.audioDevice] or [stream.audioDevice].
   /// * The list of currently available [AudioDevice]s can be obtained accessed using [state.audioDevices] or [stream.audioDevices].
-  Future<void> setAudioDevice(AudioDevice audioDevice,
-      {bool synchronized = true}) {
+  Future<void> setAudioDevice(AudioDevice audioDevice, {bool synchronized = true}) {
     Future<void> function() async {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -835,6 +871,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -873,6 +910,7 @@ class Player {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -926,12 +964,12 @@ class Player {
   /// );
   /// ```
   ///
-  Future<void> setSubtitleTrack(SubtitleTrack track,
-      {bool synchronized = true}) {
+  Future<void> setSubtitleTrack(SubtitleTrack track, {bool synchronized = true}) {
     Future<void> function() async {
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
+
       await waitForPlayerInitialization;
       await waitForVideoControllerInitializationIfAttached;
 
@@ -1000,9 +1038,7 @@ class Player {
   ///
   /// If [includeLibassSubtitles] is `true` *and* [PlayerConfiguration.libass] is `true`, then the
   /// screenshot will include the on-screen subtitles.
-  Future<Uint8List?> screenshot(
-      {String? format = 'image/jpeg',
-      bool includeLibassSubtitles = false}) async {
+  Future<Uint8List?> screenshot({String? format = 'image/jpeg', bool includeLibassSubtitles = false}) async {
     Future<Uint8List?> function() async {
       if (![
         'image/jpeg',
@@ -1015,6 +1051,7 @@ class Player {
           'Supported values are: image/jpeg, image/png, null',
         );
       }
+
       if (disposed) {
         throw AssertionError('[Player] has been disposed');
       }
@@ -1107,6 +1144,7 @@ class Player {
           mpv.mpv_free(value.cast());
         }
       }
+
       return '';
     } finally {
       calloc.free(name);
@@ -1141,6 +1179,7 @@ class Player {
         'Already observed',
       );
     }
+
     final reply = property.hashCode;
     observedProperties[property] = listener;
     final name = property.toNativeUtf8();
@@ -1180,6 +1219,7 @@ class Player {
         'Not observed',
       );
     }
+
     final reply = property.hashCode;
     observedProperties.remove(property);
     mpv.mpv_unobserve_property(ctx, reply);
@@ -1212,6 +1252,7 @@ class Player {
         'Already observed',
       );
     }
+
     observedEvents[event] = listener;
     _logError(mpv.mpv_request_event(ctx, event, 1), 'observeEvent($event)');
   }
@@ -1242,6 +1283,7 @@ class Player {
         'Not observed',
       );
     }
+
     observedEvents.remove(event);
     _logError(mpv.mpv_request_event(ctx, event, 0), 'unobserveEvent($event)');
   }
@@ -1269,8 +1311,7 @@ class Player {
   }
 
   Future<void> _handler(Pointer<generated.mpv_event> event) async {
-    if (event.ref.event_id ==
-        generated.mpv_event_id.MPV_EVENT_PROPERTY_CHANGE) {
+    if (event.ref.event_id == generated.mpv_event_id.MPV_EVENT_PROPERTY_CHANGE) {
       // Following properties are unrelated to the playback lifecycle. Thus, these can be accessed before initialization is complete.
       // e.g. audio-device & audio-device-list seem to be emitted before idle-active.
       final prop = event.ref.data.cast<generated.mpv_event_property>();
@@ -1282,6 +1323,7 @@ class Player {
           completer.complete();
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'audio-device' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_NODE) {
         final value = prop.ref.data.cast<generated.mpv_node>();
@@ -1294,6 +1336,7 @@ class Player {
           }
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'audio-device-list' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_NODE) {
         final value = prop.ref.data.cast<generated.mpv_node>();
@@ -1301,16 +1344,13 @@ class Player {
         if (value.ref.format == generated.mpv_format.MPV_FORMAT_NODE_ARRAY) {
           final list = value.ref.u.list.ref;
           for (int i = 0; i < list.num; i++) {
-            if (list.values[i].format ==
-                generated.mpv_format.MPV_FORMAT_NODE_MAP) {
+            if (list.values[i].format == generated.mpv_format.MPV_FORMAT_NODE_MAP) {
               String name = '', description = '';
               final device = list.values[i].u.list.ref;
               for (int j = 0; j < device.num; j++) {
-                if (device.values[j].format ==
-                    generated.mpv_format.MPV_FORMAT_STRING) {
+                if (device.values[j].format == generated.mpv_format.MPV_FORMAT_STRING) {
                   final property = device.keys[j].cast<Utf8>().toDartString();
-                  final value =
-                      device.values[j].u.string.cast<Utf8>().toDartString();
+                  final value = device.values[j].u.string.cast<Utf8>().toDartString();
                   switch (property) {
                     case 'name':
                       name = value;
@@ -1321,9 +1361,11 @@ class Player {
                   }
                 }
               }
+
               audioDevices.add(AudioDevice(name, description));
             }
           }
+
           state = state.copyWith(audioDevices: audioDevices);
           if (!audioDevicesController.isClosed) {
             audioDevicesController.add(audioDevices);
@@ -1331,21 +1373,20 @@ class Player {
         }
       }
     }
-    if (event.ref.event_id ==
-        generated.mpv_event_id.MPV_EVENT_SET_PROPERTY_REPLY) {
+
+    if (event.ref.event_id == generated.mpv_event_id.MPV_EVENT_SET_PROPERTY_REPLY) {
       final completer = _setPropertyRequests.remove(event.ref.reply_userdata);
       if (completer == null) {
-        print(
-            'Warning: Received MPV_EVENT_SET_PROPERTY_REPLY with unregistered ID ${event.ref.reply_userdata}');
+        print('Warning: Received MPV_EVENT_SET_PROPERTY_REPLY with unregistered ID ${event.ref.reply_userdata}');
       } else {
         completer.complete(event.ref.error);
       }
     }
+
     if (event.ref.event_id == generated.mpv_event_id.MPV_EVENT_COMMAND_REPLY) {
       final completer = _commandRequests.remove(event.ref.reply_userdata);
       if (completer == null) {
-        print(
-            'Warning: Received MPV_EVENT_COMMAND_REPLY with unregistered ID ${event.ref.reply_userdata}');
+        print('Warning: Received MPV_EVENT_COMMAND_REPLY with unregistered ID ${event.ref.reply_userdata}');
       } else {
         completer.complete(event.ref.error);
       }
@@ -1380,23 +1421,23 @@ class Player {
         if (!playingController.isClosed) {
           playingController.add(true);
         }
+
         if (!completedController.isClosed) {
           completedController.add(false);
         }
       }
+
       state = state.copyWith(buffering: true);
       if (!bufferingController.isClosed) {
         bufferingController.add(true);
       }
     }
-    if (event.ref.event_id ==
-        generated.mpv_event_id.MPV_EVENT_PROPERTY_CHANGE) {
+
+    if (event.ref.event_id == generated.mpv_event_id.MPV_EVENT_PROPERTY_CHANGE) {
       final prop = event.ref.data.cast<generated.mpv_event_property>();
-      if (observedProperties
-          .containsKey(prop.ref.name.cast<Utf8>().toDartString())) {
+      if (observedProperties.containsKey(prop.ref.name.cast<Utf8>().toDartString())) {
         if (prop.ref.format == generated.mpv_format.MPV_FORMAT_NONE) {
-          final fn =
-              observedProperties[prop.ref.name.cast<Utf8>().toDartString()];
+          final fn = observedProperties[prop.ref.name.cast<Utf8>().toDartString()];
           if (fn != null) {
             final data = mpv.mpv_get_property_string(ctx, prop.ref.name);
             if (data != nullptr) {
@@ -1406,11 +1447,13 @@ class Player {
                 print(exception);
                 print(stacktrace);
               }
+
               mpv.mpv_free(data.cast());
             }
           }
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'pause' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_FLAG) {
         final playing = prop.ref.data.cast<Int8>().value == 0;
@@ -1421,6 +1464,7 @@ class Player {
           }
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'core-idle' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_FLAG) {
         // Check for [isBufferingStateChangeAllowed] because `pause` causes `core-idle` to be fired.
@@ -1438,8 +1482,10 @@ class Player {
             bufferingController.add(false);
           }
         }
+
         isBufferingStateChangeAllowed = true;
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'paused-for-cache' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_FLAG) {
         final buffering = prop.ref.data.cast<Int8>().value == 1;
@@ -1448,6 +1494,7 @@ class Player {
           bufferingController.add(buffering);
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'demuxer-cache-time' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_DOUBLE) {
         final buffer = Duration(
@@ -1458,8 +1505,8 @@ class Player {
           bufferController.add(buffer);
         }
       }
-      if (prop.ref.name.cast<Utf8>().toDartString() ==
-              'cache-buffering-state' &&
+
+      if (prop.ref.name.cast<Utf8>().toDartString() == 'cache-buffering-state' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_DOUBLE) {
         final bufferingPercentage = prop.ref.data.cast<Double>().value;
 
@@ -1468,6 +1515,7 @@ class Player {
           bufferingPercentageController.add(bufferingPercentage);
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'time-pos' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_DOUBLE) {
         final position = Duration(
@@ -1478,6 +1526,7 @@ class Player {
           positionController.add(position);
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'duration' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_DOUBLE) {
         final duration = Duration(
@@ -1487,17 +1536,17 @@ class Player {
         if (!durationController.isClosed) {
           durationController.add(duration);
         }
-        if (state.playlist.index >= 0 &&
-            state.playlist.index < state.playlist.medias.length) {
+
+        if (state.playlist.index >= 0 && state.playlist.index < state.playlist.medias.length) {
           final uri = state.playlist.medias[state.playlist.index].uri;
           if (FallbackBitrateHandler.supported(uri)) {
             if (!audioBitrateCache.containsKey(Media.normalizeURI(uri))) {
-              audioBitrateCache[uri] =
-                  await FallbackBitrateHandler.calculateBitrate(
+              audioBitrateCache[uri] = await FallbackBitrateHandler.calculateBitrate(
                 uri,
                 duration,
               );
             }
+
             final bitrate = audioBitrateCache[uri];
             if (bitrate != null) {
               state = state.copyWith(audioBitrate: bitrate);
@@ -1508,6 +1557,7 @@ class Player {
           }
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'playlist-playing-pos' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_INT64 &&
           prop.ref.data != nullptr &&
@@ -1523,6 +1573,7 @@ class Player {
           }
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'volume' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_DOUBLE) {
         final volume = prop.ref.data.cast<Double>().value;
@@ -1531,6 +1582,7 @@ class Player {
           volumeController.add(volume);
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'audio-params' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_NODE) {
         final data = prop.ref.data.cast<generated.mpv_node>();
@@ -1542,8 +1594,7 @@ class Player {
           switch (key) {
             case 'format':
               {
-                params[key] =
-                    list.values[i].u.string.cast<Utf8>().toDartString();
+                params[key] = list.values[i].u.string.cast<Utf8>().toDartString();
                 break;
               }
             case 'samplerate':
@@ -1553,8 +1604,7 @@ class Player {
               }
             case 'channels':
               {
-                params[key] =
-                    list.values[i].u.string.cast<Utf8>().toDartString();
+                params[key] = list.values[i].u.string.cast<Utf8>().toDartString();
                 break;
               }
             case 'channel-count':
@@ -1564,8 +1614,7 @@ class Player {
               }
             case 'hr-channels':
               {
-                params[key] =
-                    list.values[i].u.string.cast<Utf8>().toDartString();
+                params[key] = list.values[i].u.string.cast<Utf8>().toDartString();
                 break;
               }
             default:
@@ -1574,6 +1623,7 @@ class Player {
               }
           }
         }
+
         state = state.copyWith(
           audioParams: AudioParams(
             format: params['format'],
@@ -1587,19 +1637,19 @@ class Player {
           audioParamsController.add(state.audioParams);
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'audio-bitrate' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_DOUBLE) {
-        if (state.playlist.index < state.playlist.medias.length &&
-            state.playlist.index >= 0) {
+        if (state.playlist.index < state.playlist.medias.length && state.playlist.index >= 0) {
           final data = prop.ref.data.cast<Double>().value;
           final uri = state.playlist.medias[state.playlist.index].uri;
           if (!FallbackBitrateHandler.supported(uri)) {
             if (!audioBitrateCache.containsKey(Media.normalizeURI(uri))) {
               audioBitrateCache[Media.normalizeURI(uri)] = data;
             }
+
             final bitrate = audioBitrateCache[Media.normalizeURI(uri)];
-            if (!audioBitrateController.isClosed &&
-                bitrate != state.audioBitrate) {
+            if (!audioBitrateController.isClosed && bitrate != state.audioBitrate) {
               audioBitrateController.add(bitrate);
               state = state.copyWith(audioBitrate: bitrate);
             }
@@ -1611,6 +1661,7 @@ class Player {
           }
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'track-list' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_NODE) {
         final value = prop.ref.data.cast<generated.mpv_node>();
@@ -1622,8 +1673,7 @@ class Player {
           final tracks = value.ref.u.list.ref;
 
           for (int i = 0; i < tracks.num; i++) {
-            if (tracks.values[i].format ==
-                generated.mpv_format.MPV_FORMAT_NODE_MAP) {
+            if (tracks.values[i].format == generated.mpv_format.MPV_FORMAT_NODE_MAP) {
               final map = tracks.values[i].u.list.ref;
               String id = '';
               String type = '';
@@ -1646,8 +1696,7 @@ class Player {
               int? audiochannels;
               for (int j = 0; j < map.num; j++) {
                 final property = map.keys[j].cast<Utf8>().toDartString();
-                if (map.values[j].format ==
-                    generated.mpv_format.MPV_FORMAT_INT64) {
+                if (map.values[j].format == generated.mpv_format.MPV_FORMAT_INT64) {
                   switch (property) {
                     case 'id':
                       id = map.values[j].u.int64.toString();
@@ -1675,8 +1724,8 @@ class Player {
                       break;
                   }
                 }
-                if (map.values[j].format ==
-                    generated.mpv_format.MPV_FORMAT_FLAG) {
+
+                if (map.values[j].format == generated.mpv_format.MPV_FORMAT_FLAG) {
                   switch (property) {
                     case 'image':
                       image = map.values[j].u.flag > 0;
@@ -1689,8 +1738,8 @@ class Player {
                       break;
                   }
                 }
-                if (map.values[j].format ==
-                    generated.mpv_format.MPV_FORMAT_DOUBLE) {
+
+                if (map.values[j].format == generated.mpv_format.MPV_FORMAT_DOUBLE) {
                   switch (property) {
                     case 'demux-fps':
                       fps = map.values[j].u.double_;
@@ -1700,10 +1749,9 @@ class Player {
                       break;
                   }
                 }
-                if (map.values[j].format ==
-                    generated.mpv_format.MPV_FORMAT_STRING) {
-                  final value =
-                      map.values[j].u.string.cast<Utf8>().toDartString();
+
+                if (map.values[j].format == generated.mpv_format.MPV_FORMAT_STRING) {
+                  final value = map.values[j].u.string.cast<Utf8>().toDartString();
                   switch (property) {
                     case 'type':
                       type = value;
@@ -1726,6 +1774,7 @@ class Player {
                   }
                 }
               }
+
               switch (type) {
                 case 'video':
                   video.add(
@@ -1815,6 +1864,7 @@ class Player {
           }
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'sub-text' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_NODE) {
         final value = prop.ref.data.cast<generated.mpv_node>();
@@ -1831,6 +1881,7 @@ class Player {
           }
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'secondary-sub-text' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_NODE) {
         final value = prop.ref.data.cast<generated.mpv_node>();
@@ -1847,6 +1898,7 @@ class Player {
           }
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'eof-reached' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_FLAG) {
         final value = prop.ref.data.cast<Bool>().value;
@@ -1859,6 +1911,7 @@ class Player {
             if (!playingController.isClosed) {
               playingController.add(false);
             }
+
             if (!completedController.isClosed) {
               completedController.add(true);
             }
@@ -1872,14 +1925,17 @@ class Player {
           if (!bufferingController.isClosed) {
             bufferingController.add(false);
           }
+
           if (!tracksController.isClosed) {
             tracksController.add(Tracks());
           }
+
           if (!trackController.isClosed) {
             trackController.add(Track());
           }
         }
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'video-params' &&
           prop.ref.format == generated.mpv_format.MPV_FORMAT_NODE) {
         final node = prop.ref.data.cast<generated.mpv_node>().ref;
@@ -1943,6 +1999,7 @@ class Player {
             width = dh;
             height = dw;
           }
+
           state = state.copyWith(
             width: width,
             height: height,
@@ -1950,15 +2007,16 @@ class Player {
           if (!widthController.isClosed) {
             widthController.add(width);
           }
+
           if (!heightController.isClosed) {
             heightController.add(height);
           }
         }
       }
     }
+
     if (event.ref.event_id == generated.mpv_event_id.MPV_EVENT_LOG_MESSAGE) {
-      final eventLogMessage =
-          event.ref.data.cast<generated.mpv_event_log_message>().ref;
+      final eventLogMessage = event.ref.data.cast<generated.mpv_event_log_message>().ref;
       final prefix = eventLogMessage.prefix.cast<Utf8>().toDartString().trim();
       final level = eventLogMessage.level.cast<Utf8>().toDartString().trim();
       final text = eventLogMessage.text.cast<Utf8>().toDartString().trim();
@@ -1970,6 +2028,7 @@ class Player {
             text: text,
           ),
         );
+
         // --------------------------------------------------
         // Emit error(s) based on the log messages.
         if (level == 'error') {
@@ -1979,6 +2038,7 @@ class Player {
               errorController.add(text);
             }
           }
+
           if (prefix == 'ffmpeg') {
             if (text.startsWith('tcp:')) {
               // http:// error of any kind.
@@ -1987,21 +2047,25 @@ class Player {
               }
             }
           }
+
           if (prefix == 'vd') {
             if (!errorController.isClosed) {
               errorController.add(text);
             }
           }
+
           if (prefix == 'ad') {
             if (!errorController.isClosed) {
               errorController.add(text);
             }
           }
+
           if (prefix == 'cplayer') {
             if (!errorController.isClosed) {
               errorController.add(text);
             }
           }
+
           if (prefix == 'stream') {
             if (!errorController.isClosed) {
               errorController.add(text);
@@ -2011,6 +2075,7 @@ class Player {
         // --------------------------------------------------
       }
     }
+
     if (event.ref.event_id == generated.mpv_event_id.MPV_EVENT_HOOK) {
       final prop = event.ref.data.cast<generated.mpv_event_hook>();
       if (prop.ref.name.cast<Utf8>().toDartString() == 'on_load') {
@@ -2023,6 +2088,7 @@ class Player {
             print(stacktrace);
           }
         }
+
         // --------------------------------------------------
         // Handle HTTP headers specified in the [Media].
         try {
@@ -2048,10 +2114,10 @@ class Player {
               final k = entries[i].key;
               final v = entries[i].value;
               final data = '$k: $v'.toNativeUtf8();
-              value.ref.u.list.ref.values[i].format =
-                  generated.mpv_format.MPV_FORMAT_STRING;
+              value.ref.u.list.ref.values[i].format = generated.mpv_format.MPV_FORMAT_STRING;
               value.ref.u.list.ref.values[i].u.string = data.cast();
             }
+
             mpv.mpv_set_property(
               ctx,
               property.cast(),
@@ -2063,16 +2129,19 @@ class Player {
             for (int i = 0; i < value.ref.u.list.ref.num; i++) {
               calloc.free(value.ref.u.list.ref.values[i].u.string);
             }
+
             calloc.free(value.ref.u.list.ref.values);
             calloc.free(value.ref.u.list);
             calloc.free(value);
           }
+
           mpv.mpv_free(uri.cast());
           calloc.free(name);
         } catch (exception, stacktrace) {
           print(exception);
           print(stacktrace);
         }
+
         // Handle start & end position specified in the [Media].
         try {
           final name = 'playlist-pos'.toNativeUtf8();
@@ -2098,9 +2167,7 @@ class Player {
             if (start != null) {
               try {
                 final property = 'start'.toNativeUtf8();
-                final value = (start.inMilliseconds / 1000)
-                    .toStringAsFixed(3)
-                    .toNativeUtf8();
+                final value = (start.inMilliseconds / 1000).toStringAsFixed(3).toNativeUtf8();
                 mpv.mpv_set_property_string(
                   ctx,
                   property.cast(),
@@ -2117,9 +2184,7 @@ class Player {
             if (end != null) {
               try {
                 final property = 'end'.toNativeUtf8();
-                final value = (end.inMilliseconds / 1000)
-                    .toStringAsFixed(3)
-                    .toNativeUtf8();
+                final value = (end.inMilliseconds / 1000).toStringAsFixed(3).toNativeUtf8();
                 mpv.mpv_set_property_string(
                   ctx,
                   property.cast(),
@@ -2134,12 +2199,14 @@ class Player {
             }
           }
         } catch (_) {}
+
         // --------------------------------------------------
         mpv.mpv_hook_continue(
           ctx,
           prop.ref.id,
         );
       }
+
       if (prop.ref.name.cast<Utf8>().toDartString() == 'on_unload') {
         // --------------------------------------------------
         for (final hook in onUnloadHooks) {
@@ -2150,6 +2217,7 @@ class Player {
             print(stacktrace);
           }
         }
+
         // --------------------------------------------------
         // Set http-header-fields as [generated.mpv_format.MPV_FORMAT_NONE] [generated.mpv_node].
         try {
@@ -2168,6 +2236,7 @@ class Player {
           print(exception);
           print(stacktrace);
         }
+
         // Set start & end position as [generated.mpv_format.MPV_FORMAT_NONE] [generated.mpv_node].
         try {
           final property = 'start'.toNativeUtf8();
@@ -2183,6 +2252,7 @@ class Player {
           print(exception);
           print(stacktrace);
         }
+
         try {
           final property = 'end'.toNativeUtf8();
           final value = 'none'.toNativeUtf8();
@@ -2197,6 +2267,7 @@ class Player {
           print(exception);
           print(stacktrace);
         }
+
         // --------------------------------------------------
         mpv.mpv_hook_continue(
           ctx,
@@ -2240,6 +2311,7 @@ class Player {
         'keep-open': 'yes',
         'audio-display': 'no',
         'network-timeout': '5',
+
         // https://github.com/mpv-player/mpv/commit/703f1588803eaa428e09c0e5547b26c0fff476a7
         // https://github.com/mpv-android/mpv-android/commit/9e5c3d8a630290fc41edb8b03aeafa3bc4c45955
         'scale': 'bilinear',
@@ -2284,8 +2356,7 @@ class Player {
         properties['ao'] = 'null';
       }
 
-      await Future.wait(properties.entries
-          .map((entry) => _setPropertyString(entry.key, entry.value)));
+      await Future.wait(properties.entries.map((entry) => _setPropertyString(entry.key, entry.value)));
 
       if (configuration.muted) {
         await _setPropertyDouble('volume', 0);
@@ -2383,8 +2454,7 @@ class Player {
     try {
       if (configuration.async) {
         final requestNumber = _asyncRequestNumber++;
-        final completer =
-            _setPropertyRequests[requestNumber] = Completer<int>();
+        final completer = _setPropertyRequests[requestNumber] = Completer<int>();
         final immediate = mpv.mpv_set_property_async(
           ctx,
           requestNumber,
@@ -2399,6 +2469,7 @@ class Player {
           _logError(immediate, text);
           return;
         }
+
         _logError(await completer.future, text);
       } else {
         mpv.mpv_set_property(
@@ -2476,6 +2547,7 @@ class Player {
           _logError(immediate, text);
           return;
         }
+
         _logError(await completer.future, text);
       } else {
         mpv.mpv_command(ctx, arr.cast());
@@ -2547,8 +2619,7 @@ class Player {
       HashMap<String, Future<void> Function(String)>();
 
   /// Currently observed events through [observeEvent].
-  final HashMap<int, Future<void> Function(Pointer<generated.mpv_event>)>
-      observedEvents =
+  final HashMap<int, Future<void> Function(Pointer<generated.mpv_event>)> observedEvents =
       HashMap<int, Future<void> Function(Pointer<generated.mpv_event>)>();
 
   /// The methods which must execute synchronously before playback of a source can begin.
@@ -2561,8 +2632,7 @@ class Player {
   static final Lock lock = Lock();
 
   /// [HashMap] for retrieving previously fetched audio-bitrate(s).
-  static final HashMap<String, double> audioBitrateCache =
-      HashMap<String, double>();
+  static final HashMap<String, double> audioBitrateCache = HashMap<String, double>();
 
   /// Whether the [NativePlayer] is initialized for unit-testing.
   @visibleForTesting
@@ -2617,8 +2687,10 @@ class Player {
     shuffleController.stream.distinct(
       (previous, current) => previous == current,
     ),
+
     /* AUDIO-PARAMS STREAM SHOULD NOT BE DISTINCT */
     audioParamsController.stream,
+
     /* VIDEO-PARAMS STREAM SHOULD NOT BE DISTINCT */
     videoParamsController.stream,
     audioBitrateController.stream.distinct(
@@ -2648,6 +2720,7 @@ class Player {
     logController.stream.distinct(
       (previous, current) => previous == current,
     ),
+
     /* ERROR STREAM SHOULD NOT BE DISTINCT */
     errorController.stream,
   );
@@ -2693,102 +2766,77 @@ class Player {
   }
 
   @protected
-  final StreamController<Playlist> playlistController =
-      StreamController<Playlist>.broadcast();
+  final StreamController<Playlist> playlistController = StreamController<Playlist>.broadcast();
 
   @protected
-  final StreamController<bool> playingController =
-      StreamController<bool>.broadcast();
+  final StreamController<bool> playingController = StreamController<bool>.broadcast();
 
   @protected
-  final StreamController<bool> completedController =
-      StreamController<bool>.broadcast();
+  final StreamController<bool> completedController = StreamController<bool>.broadcast();
 
   @protected
-  final StreamController<Duration> positionController =
-      StreamController<Duration>.broadcast();
+  final StreamController<Duration> positionController = StreamController<Duration>.broadcast();
 
   @protected
-  final StreamController<Duration> durationController =
-      StreamController.broadcast();
+  final StreamController<Duration> durationController = StreamController.broadcast();
 
   @protected
-  final StreamController<double> volumeController =
-      StreamController.broadcast();
+  final StreamController<double> volumeController = StreamController.broadcast();
 
   @protected
-  final StreamController<double> rateController =
-      StreamController<double>.broadcast();
+  final StreamController<double> rateController = StreamController<double>.broadcast();
 
   @protected
-  final StreamController<double> pitchController =
-      StreamController<double>.broadcast();
+  final StreamController<double> pitchController = StreamController<double>.broadcast();
 
   @protected
-  final StreamController<bool> bufferingController =
-      StreamController<bool>.broadcast();
+  final StreamController<bool> bufferingController = StreamController<bool>.broadcast();
   @protected
-  final StreamController<double> bufferingPercentageController =
-      StreamController<double>.broadcast();
+  final StreamController<double> bufferingPercentageController = StreamController<double>.broadcast();
   @protected
-  final StreamController<Duration> bufferController =
-      StreamController<Duration>.broadcast();
+  final StreamController<Duration> bufferController = StreamController<Duration>.broadcast();
 
   @protected
-  final StreamController<PlaylistMode> playlistModeController =
-      StreamController<PlaylistMode>.broadcast();
+  final StreamController<PlaylistMode> playlistModeController = StreamController<PlaylistMode>.broadcast();
 
   @protected
-  final StreamController<bool> shuffleController =
-      StreamController<bool>.broadcast();
+  final StreamController<bool> shuffleController = StreamController<bool>.broadcast();
 
   @protected
-  final StreamController<PlayerLog> logController =
-      StreamController<PlayerLog>.broadcast();
+  final StreamController<PlayerLog> logController = StreamController<PlayerLog>.broadcast();
 
   @protected
-  final StreamController<String> errorController =
-      StreamController<String>.broadcast();
+  final StreamController<String> errorController = StreamController<String>.broadcast();
 
   @protected
-  final StreamController<AudioParams> audioParamsController =
-      StreamController<AudioParams>.broadcast();
+  final StreamController<AudioParams> audioParamsController = StreamController<AudioParams>.broadcast();
 
   @protected
-  final StreamController<VideoParams> videoParamsController =
-      StreamController<VideoParams>.broadcast();
+  final StreamController<VideoParams> videoParamsController = StreamController<VideoParams>.broadcast();
 
   @protected
-  final StreamController<double?> audioBitrateController =
-      StreamController<double?>.broadcast();
+  final StreamController<double?> audioBitrateController = StreamController<double?>.broadcast();
 
   @protected
-  final StreamController<AudioDevice> audioDeviceController =
-      StreamController<AudioDevice>.broadcast();
+  final StreamController<AudioDevice> audioDeviceController = StreamController<AudioDevice>.broadcast();
 
   @protected
-  final StreamController<List<AudioDevice>> audioDevicesController =
-      StreamController<List<AudioDevice>>.broadcast();
+  final StreamController<List<AudioDevice>> audioDevicesController = StreamController<List<AudioDevice>>.broadcast();
 
   @protected
-  final StreamController<Track> trackController =
-      StreamController<Track>.broadcast();
+  final StreamController<Track> trackController = StreamController<Track>.broadcast();
 
   @protected
-  final StreamController<Tracks> tracksController =
-      StreamController<Tracks>.broadcast();
+  final StreamController<Tracks> tracksController = StreamController<Tracks>.broadcast();
 
   @protected
-  final StreamController<int?> widthController =
-      StreamController<int?>.broadcast();
+  final StreamController<int?> widthController = StreamController<int?>.broadcast();
 
   @protected
-  final StreamController<int?> heightController =
-      StreamController<int?>.broadcast();
+  final StreamController<int?> heightController = StreamController<int?>.broadcast();
 
   @protected
-  final StreamController<List<String>> subtitleController =
-      StreamController<List<String>>.broadcast();
+  final StreamController<List<String>> subtitleController = StreamController<List<String>>.broadcast();
 
   // --------------------------------------------------
 
@@ -2811,6 +2859,7 @@ class Player {
     if (isVideoControllerAttached) {
       return videoControllerCompleter.future;
     }
+
     return Future.value(null);
   }
 
@@ -2818,7 +2867,6 @@ class Player {
 
   /// Publicly defined clean-up [Function]s which must be called before [dispose].
   final List<Future<void> Function()> release = [];
-
 }
 
 // --------------------------------------------------
@@ -2861,6 +2909,7 @@ Uint8List? _screenshot(_ScreenshotData data) {
   for (int i = 0; i < args.length; i++) {
     arr[i] = pointers[i];
   }
+
   mpv.mpv_command_ret(
     ctx,
     arr.cast(),
@@ -2890,6 +2939,7 @@ Uint8List? _screenshot(_ScreenshotData data) {
               stride = value.u.int64;
               break;
           }
+
           break;
         case generated.mpv_format.MPV_FORMAT_BYTE_ARRAY:
           switch (key) {
@@ -2898,6 +2948,7 @@ Uint8List? _screenshot(_ScreenshotData data) {
               bytes = data.asTypedList(value.u.ba.ref.size);
               break;
           }
+
           break;
       }
     }
@@ -2919,6 +2970,7 @@ Uint8List? _screenshot(_ScreenshotData data) {
               pixel.g = bytes[i + 1];
               pixel.r = bytes[i + 2];
             }
+
             image = encodeJpg(pixels);
             break;
           }
@@ -2937,6 +2989,7 @@ Uint8List? _screenshot(_ScreenshotData data) {
               pixel.g = bytes[i + 1];
               pixel.r = bytes[i + 2];
             }
+
             image = encodePng(pixels);
             break;
           }
@@ -3012,6 +3065,7 @@ _GetPlaylistResult _getPlaylist(_GetPlaylistData data) {
             }
           }
         }
+
         if (map.values[j].format == generated.mpv_format.MPV_FORMAT_STRING) {
           if (property == 'filename') {
             final value = map.values[j].u.string.cast<Utf8>().toDartString();

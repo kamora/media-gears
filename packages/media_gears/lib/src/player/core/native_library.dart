@@ -23,6 +23,7 @@ abstract class NativeLibrary {
         'MediaGears.ensureInitialized must be called before using any API from package:media_kit.',
       );
     }
+
     return _resolved!;
   }
 
@@ -36,6 +37,7 @@ abstract class NativeLibrary {
       _resolved = libmpv;
       return;
     }
+
     // Attempt to load [LIBMPV_LIBRARY_PATH] environment variable.
     try {
       final env = Platform.environment['LIBMPV_LIBRARY_PATH'];
@@ -45,6 +47,7 @@ abstract class NativeLibrary {
         return;
       }
     } catch (_) {}
+
     // Attempt to load default names.
     final names = {
       'windows': [
@@ -70,6 +73,7 @@ abstract class NativeLibrary {
           return;
         } catch (_) {}
       }
+
       // If the dynamic library is not loaded, throw an [Exception].
       if (_resolved == null) {
         throw Exception(

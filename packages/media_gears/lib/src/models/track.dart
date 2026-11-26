@@ -60,18 +60,39 @@ abstract class _Track {
 
   @override
   bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (this is VideoTrack && other is VideoTrack) return id == other.id;
-    if (this is AudioTrack && other is AudioTrack) return id == other.id;
-    if (this is SubtitleTrack && other is SubtitleTrack) return id == other.id;
+    if (identical(this, other)) {
+      return true;
+    }
+
+    if (this is VideoTrack && other is VideoTrack) {
+      return id == other.id;
+    }
+
+    if (this is AudioTrack && other is AudioTrack) {
+      return id == other.id;
+    }
+
+    if (this is SubtitleTrack && other is SubtitleTrack) {
+      return id == other.id;
+    }
+
     return false;
   }
 
   @override
   int get hashCode {
-    if (this is VideoTrack) return 0x1 ^ id.hashCode;
-    if (this is AudioTrack) return 0x2 ^ id.hashCode;
-    if (this is SubtitleTrack) return 0x3 ^ id.hashCode;
+    if (this is VideoTrack) {
+      return 0x1 ^ id.hashCode;
+    }
+
+    if (this is AudioTrack) {
+      return 0x2 ^ id.hashCode;
+    }
+
+    if (this is SubtitleTrack) {
+      return 0x3 ^ id.hashCode;
+    }
+
     return 0x0;
   }
 
@@ -199,9 +220,11 @@ class AudioTrack extends _Track {
     if (identical(this, other)) {
       return true;
     }
+
     if (other is AudioTrack) {
       return id == other.id && uri == other.uri;
     }
+
     return false;
   }
 
@@ -283,9 +306,11 @@ class SubtitleTrack extends _Track {
     if (identical(this, other)) {
       return true;
     }
+
     if (other is SubtitleTrack) {
       return id == other.id && uri == other.uri && data == other.data;
     }
+
     return false;
   }
 
@@ -333,12 +358,14 @@ class Track {
 
   @override
   bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (other is Track) {
-      return video == other.video &&
-          audio == other.audio &&
-          subtitle == other.subtitle;
+    if (identical(this, other)) {
+      return true;
     }
+
+    if (other is Track) {
+      return video == other.video && audio == other.audio && subtitle == other.subtitle;
+    }
+
     return false;
   }
 
@@ -346,8 +373,7 @@ class Track {
   int get hashCode => video.hashCode ^ audio.hashCode ^ subtitle.hashCode;
 
   @override
-  String toString() =>
-      'Track(video: $video, audio: $audio, subtitle: $subtitle)';
+  String toString() => 'Track(video: $video, audio: $audio, subtitle: $subtitle)';
 }
 
 /// {@template tracks}
@@ -385,22 +411,22 @@ class Tracks {
 
   @override
   bool operator ==(Object other) {
-    if (identical(this, other)) return true;
+    if (identical(this, other)) {
+      return true;
+    }
+
     if (other is Tracks) {
       return ListEquality().equals(video, other.video) &&
           ListEquality().equals(audio, other.audio) &&
           ListEquality().equals(subtitle, other.subtitle);
     }
+
     return false;
   }
 
   @override
-  int get hashCode =>
-      ListEquality().hash(video) ^
-      ListEquality().hash(audio) ^
-      ListEquality().hash(subtitle);
+  int get hashCode => ListEquality().hash(video) ^ ListEquality().hash(audio) ^ ListEquality().hash(subtitle);
 
   @override
-  String toString() =>
-      'Tracks(video: $video, audio: $audio, subtitle: $subtitle)';
+  String toString() => 'Tracks(video: $video, audio: $audio, subtitle: $subtitle)';
 }

@@ -69,6 +69,7 @@ class InitializerIsolate {
             print(exception.toString());
             print(stacktrace.toString());
           }
+
           port.send(true);
         } else {
           receiver.close();
@@ -155,6 +156,7 @@ class InitializerIsolate {
       if (disposed) {
         break;
       }
+
       if (event.ref.event_id != generated.mpv_event_id.MPV_EVENT_NONE) {
         port.send(event.address);
         await completer.future;

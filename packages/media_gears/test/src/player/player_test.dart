@@ -102,16 +102,14 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
       player.stream.playlist,
       emitsInOrder([
         // Player.open
-        for (int i = 0; i < sources.platform.length; i++)
-          playable.copyWith(index: i),
+        for (int i = 0; i < sources.platform.length; i++) playable.copyWith(index: i),
         // Player.dispose
         emitsDone,
       ]),
@@ -197,8 +195,7 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
@@ -252,8 +249,7 @@ void main() {
     expect(
       player.stream.completed,
       emitsInOrder([
-        // Player.open
-        // Player.play
+        // Player.open, then Player.play.
         false,
         // EOF
         true,
@@ -274,15 +270,13 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
       player.stream.playlist,
       emitsInOrder([
-        for (int i = 0; i < sources.platform.length; i++)
-          playable.copyWith(index: i),
+        for (int i = 0; i < sources.platform.length; i++) playable.copyWith(index: i),
         // Player.dispose
         emitsDone,
       ]),
@@ -418,8 +412,7 @@ void main() {
 
     await player.open(
       Playlist([
-        for (int i = 0; i < sources.platform.length; i++)
-          Media(sources.platform[i], extras: {'i': i.toString()}),
+        for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i], extras: {'i': i.toString()}),
       ]),
     );
 
@@ -470,6 +463,7 @@ void main() {
         opened = true;
         return;
       }
+
       expectPosition(e);
     });
 
@@ -601,6 +595,7 @@ void main() {
           completed.add(i);
           expectHTTPHeaders(e.headers);
         }
+
         final path = sources.platform[i];
         e.response.headers.add('Content-Type', 'video/mp4');
         e.response.headers.add('Accept-Ranges', 'bytes');
@@ -665,6 +660,7 @@ void main() {
           completed.add(i);
           expectHTTPHeaders(e.headers, i);
         }
+
         final data = sources.bytes[i];
         e.response.headers.contentLength = data.length;
         e.response.headers.contentType = ContentType('video', 'mp4');
@@ -778,6 +774,7 @@ void main() {
         true,
         // EOF
         false,
+
         // Player.seek
         // ---------
       ]),
@@ -864,8 +861,7 @@ void main() {
       final player = Player();
 
       final playable = Playlist([
-        for (int i = 0; i < sources.platform.length; i++)
-          Media(sources.platform[i]),
+        for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
       ], index: sources.platform.length - 1);
 
       expect(player.stream.playlist, emits(playable));
@@ -940,7 +936,7 @@ void main() {
       volume = volume as double;
       i = i as int;
       expect(
-        /* This round() is solely needed because floating-point arithmetic on JavaScript is retarded. */
+        // round() absorbs floating-point error.
         volume.round(),
         equals(i),
       );
@@ -1040,8 +1036,7 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
     expect(
       player.stream.playlist,
@@ -1076,8 +1071,7 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
@@ -1105,16 +1099,14 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
       player.stream.playlist,
       emitsInOrder([
         // index: 0 -> sources.platform.length - 1
-        for (int i = 0; i < sources.platform.length; i++)
-          playable.copyWith(index: i),
+        for (int i = 0; i < sources.platform.length; i++) playable.copyWith(index: i),
         emitsDone,
       ]),
     );
@@ -1130,8 +1122,7 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
@@ -1154,22 +1145,19 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
       player.stream.playlist,
       emitsInOrder([
         // index: 0 -> sources.platform.length - 1
-        for (int i = 0; i < sources.platform.length; i++)
-          playable.copyWith(index: i),
+        for (int i = 0; i < sources.platform.length; i++) playable.copyWith(index: i),
 
         // must loop back to index: 0
 
         // index: 0 -> sources.platform.length - 1
-        for (int i = 0; i < sources.platform.length; i++)
-          playable.copyWith(index: i),
+        for (int i = 0; i < sources.platform.length; i++) playable.copyWith(index: i),
       ]),
     );
 
@@ -1184,16 +1172,14 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
       player.stream.playlist,
       emitsInOrder([
         // index: 0 -> sources.platform.length - 1
-        for (int i = 0; i < sources.platform.length; i++)
-          playable.copyWith(index: i),
+        for (int i = 0; i < sources.platform.length; i++) playable.copyWith(index: i),
         emitsDone,
       ]),
     );
@@ -1216,16 +1202,14 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
       player.stream.playlist,
       emitsInOrder([
         // index: 0 -> sources.platform.length - 1
-        for (int i = 0; i < sources.platform.length; i++)
-          playable.copyWith(index: i),
+        for (int i = 0; i < sources.platform.length; i++) playable.copyWith(index: i),
         emitsDone,
       ]),
     );
@@ -1248,22 +1232,19 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
       player.stream.playlist,
       emitsInOrder([
         // index: 0 -> sources.platform.length - 1
-        for (int i = 0; i < sources.platform.length; i++)
-          playable.copyWith(index: i),
+        for (int i = 0; i < sources.platform.length; i++) playable.copyWith(index: i),
 
         // must loop back to index: 0
 
         // index: 0 -> sources.platform.length - 1
-        for (int i = 0; i < sources.platform.length; i++)
-          playable.copyWith(index: i),
+        for (int i = 0; i < sources.platform.length; i++) playable.copyWith(index: i),
       ]),
     );
 
@@ -1285,8 +1266,7 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
@@ -1294,8 +1274,8 @@ void main() {
       emitsInOrder([
         playable,
         // index: sources.platform.length - 1 -> 0
-        for (int i = sources.platform.length - 1; i >= 0; i--)
-          playable.copyWith(index: i),
+        for (int i = sources.platform.length - 1; i >= 0; i--) playable.copyWith(index: i),
+
         // Cannot test (since index keeps transitioning):
         // emitsDone,
       ]),
@@ -1324,8 +1304,7 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
@@ -1333,8 +1312,8 @@ void main() {
       emitsInOrder([
         playable,
         // index: sources.platform.length - 1 -> 0
-        for (int i = sources.platform.length - 1; i >= 0; i--)
-          playable.copyWith(index: i),
+        for (int i = sources.platform.length - 1; i >= 0; i--) playable.copyWith(index: i),
+
         // Cannot test (since index keeps transitioning):
         // emitsDone,
       ]),
@@ -1363,20 +1342,17 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
     expect(
       player.stream.playlist,
       emitsInOrder([
         playable,
         // index: sources.platform.length - 1 -> 0
-        for (int i = sources.platform.length - 1; i >= 0; i--)
-          playable.copyWith(index: i),
+        for (int i = sources.platform.length - 1; i >= 0; i--) playable.copyWith(index: i),
 
         // must loop back to index: sources.platform.length - 1
-        for (int i = sources.platform.length - 1; i >= 0; i--)
-          playable.copyWith(index: i),
+        for (int i = sources.platform.length - 1; i >= 0; i--) playable.copyWith(index: i),
       ]),
     );
 
@@ -1436,8 +1412,7 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
@@ -1480,8 +1455,7 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
@@ -1517,8 +1491,7 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
@@ -1555,8 +1528,7 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
@@ -1566,8 +1538,7 @@ void main() {
         playable,
         // Player.jump
         Playlist([
-          for (int i = 0; i < sources.platform.length; i++)
-            Media(sources.platform[i]),
+          for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
         ], index: sources.platform.length - 1),
         // Player.remove
         Playlist([
@@ -1598,8 +1569,7 @@ void main() {
     final player = Player();
 
     final playable = Playlist([
-      for (int i = 0; i < sources.platform.length; i++)
-        Media(sources.platform[i]),
+      for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
     ]);
 
     expect(
@@ -1609,8 +1579,7 @@ void main() {
         playable,
         // Player.jump
         Playlist([
-          for (int i = 0; i < sources.platform.length; i++)
-            Media(sources.platform[i]),
+          for (int i = 0; i < sources.platform.length; i++) Media(sources.platform[i]),
         ], index: sources.platform.length - 1),
         // Player.remove
         Playlist([
@@ -1688,14 +1657,14 @@ void main() {
 
     addTearDown(player.dispose);
   });
+
   Future<void> checkShuffle({required int repetitions}) async {
     // A single entry guarantees an unchanged shuffle order. Multiple entries
     // exercise permutations, including the valid unchanged permutation.
     for (final length in [1, sources.platform.length]) {
       final player = Player();
       final playable = Playlist([
-        for (var i = 0; i < length; i++)
-          Media(sources.platform[i], extras: {'i': i}),
+        for (var i = 0; i < length; i++) Media(sources.platform[i], extras: {'i': i}),
       ]);
       final playlistEvents = player.stream.playlist.toList();
       final shuffleEvents = player.stream.shuffle.toList();
@@ -1712,6 +1681,7 @@ void main() {
         expect(player.state.shuffle, isFalse);
 
         var orderChanged = false;
+
         // An unchanged permutation is valid. Retry from the original order
         // so a broken no-op shuffle still fails without rejecting one draw.
         final attempts = length > 1 ? 20 : 1;
@@ -1724,15 +1694,14 @@ void main() {
             shuffled.medias.map((media) => media.extras),
             unorderedEquals(playable.medias.map((media) => media.extras)),
           );
-          expect(
-              shuffled.medias[shuffled.index], playable.medias[playable.index]);
+          expect(shuffled.medias[shuffled.index], playable.medias[playable.index]);
 
-          orderChanged = !const ListEquality<Media>()
-              .equals(shuffled.medias, playable.medias);
+          orderChanged = !const ListEquality<Media>().equals(shuffled.medias, playable.medias);
           // Playlist streams suppress equal consecutive values with distinct.
           if (shuffled != playable) {
             expectedPlaylists.addAll([shuffled, playable]);
           }
+
           expectedShuffleStates.addAll([true, false]);
 
           for (var i = 1; i < repetitions; i++) {
@@ -1747,12 +1716,13 @@ void main() {
             expect(player.state.playlist, playable);
           }
 
-          if (orderChanged) break;
+          if (orderChanged) {
+            break;
+          }
         }
+
         if (length > 1) {
-          expect(orderChanged, isTrue,
-              reason:
-                  'Shuffle kept the original order in all $attempts attempts');
+          expect(orderChanged, isTrue, reason: 'Shuffle kept the original order in all $attempts attempts');
         }
       } finally {
         await player.dispose();
@@ -2070,8 +2040,7 @@ void main() {
 
     await player.open(
       Playlist([
-        for (int i = 0; i < sources.network.length; i++)
-          Media(sources.network[i]),
+        for (int i = 0; i < sources.network.length; i++) Media(sources.network[i]),
       ]),
     );
 
@@ -2292,6 +2261,7 @@ void main() {
             '',
             isTrue,
           ),
+
           // SAME VALUE!
           // TypeMatcher<List<String>>().having(
           //   (subtitle) => ListEquality().equals(
@@ -2338,8 +2308,7 @@ void main() {
             isTrue,
           ),
           TypeMatcher<List<String>>().having(
-            (subtitle) =>
-                ListEquality().equals(subtitle, ['It is there...', '']),
+            (subtitle) => ListEquality().equals(subtitle, ['It is there...', '']),
             'subtitle',
             isTrue,
           ),
@@ -2521,6 +2490,7 @@ void main() {
             'subtitle',
             isTrue,
           ),
+
           // SAME VALUE!
           // TypeMatcher<List<String>>().having(
           //   (subtitle) => ListEquality().equals(
@@ -2619,8 +2589,7 @@ void main() {
             isTrue,
           ),
           TypeMatcher<List<String>>().having(
-            (subtitle) =>
-                ListEquality().equals(subtitle, ['Simply for everyone', '']),
+            (subtitle) => ListEquality().equals(subtitle, ['Simply for everyone', '']),
             'subtitle',
             isTrue,
           ),
@@ -2744,6 +2713,7 @@ Simply for <u>everyone</u>
             'subtitle',
             isTrue,
           ),
+
           // SAME VALUE!
           // TypeMatcher<List<String>>().having(
           //   (subtitle) => ListEquality().equals(
@@ -2842,8 +2812,7 @@ Simply for <u>everyone</u>
             isTrue,
           ),
           TypeMatcher<List<String>>().having(
-            (subtitle) =>
-                ListEquality().equals(subtitle, ['Simply for everyone', '']),
+            (subtitle) => ListEquality().equals(subtitle, ['Simply for everyone', '']),
             'subtitle',
             isTrue,
           ),
@@ -2902,6 +2871,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           'subtitle',
           isTrue,
         ),
+
         // MUST BE RESET!
         // Player.open
         TypeMatcher<List<String>>().having(
@@ -2954,6 +2924,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           'subtitle',
           isTrue,
         ),
+
         // MUST BE RESET!
         // Player.setSubtitleTrack
         TypeMatcher<List<String>>().having(
@@ -2980,7 +2951,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     final player = Player();
     final property = 'volume';
 
-
     expect(player.stream.volume, emits(equals(69.0)));
 
     await player.setProperty(property, '69.0');
@@ -2993,7 +2963,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   test('player-native-player-observe-property', () async {
     final player = Player();
     final property = 'demuxer-cache-state';
-
 
     final expectListener = expectAsync1(
       (value) {
@@ -3059,6 +3028,7 @@ List<T> move<T>(List<T> list, int from, int to) {
   if (item != null) {
     map[to - 0.5] = item;
   }
+
   return map.values.toList();
 }
 

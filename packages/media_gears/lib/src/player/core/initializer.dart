@@ -49,6 +49,7 @@ class Initializer {
     if (kDebugMode && isMainIsolate()) {
       return InitializerIsolate().create(callback, options: options);
     }
+
     if (!isExecmemRestricted) {
       return InitializerNativeCallable(mpv).create(callback, options: options);
     } else {
@@ -62,6 +63,7 @@ class Initializer {
       InitializerIsolate().dispose(mpv, ctx);
       return;
     }
+
     if (!isExecmemRestricted) {
       InitializerNativeCallable(mpv).dispose(ctx);
     } else {

@@ -26,12 +26,9 @@ Widget DesktopControls(VideoState state) {
 }
 
 /// [DesktopControlsThemeData] available in this [context].
-DesktopControlsThemeData _theme(BuildContext context) =>
-    FullscreenInheritedWidget.maybeOf(context) == null
-        ? DesktopControlsTheme.maybeOf(context)?.normal ??
-            const DesktopControlsThemeData()
-        : DesktopControlsTheme.maybeOf(context)?.fullscreen ??
-            const DesktopControlsThemeData();
+DesktopControlsThemeData _theme(BuildContext context) => FullscreenInheritedWidget.maybeOf(context) == null
+    ? DesktopControlsTheme.maybeOf(context)?.normal ?? const DesktopControlsThemeData()
+    : DesktopControlsTheme.maybeOf(context)?.fullscreen ?? const DesktopControlsThemeData();
 
 /// {@template material_desktop_video_controls_theme_data}
 ///
@@ -264,42 +261,31 @@ class DesktopControlsThemeData {
   }) {
     return DesktopControlsThemeData(
       displaySeekBar: displaySeekBar ?? this.displaySeekBar,
-      automaticallyImplySkipNextButton: automaticallyImplySkipNextButton ??
-          this.automaticallyImplySkipNextButton,
+      automaticallyImplySkipNextButton: automaticallyImplySkipNextButton ?? this.automaticallyImplySkipNextButton,
       automaticallyImplySkipPreviousButton:
-          automaticallyImplySkipPreviousButton ??
-              this.automaticallyImplySkipPreviousButton,
-      toggleFullscreenOnDoublePress:
-          toggleFullscreenOnDoublePress ?? this.toggleFullscreenOnDoublePress,
+          automaticallyImplySkipPreviousButton ?? this.automaticallyImplySkipPreviousButton,
+      toggleFullscreenOnDoublePress: toggleFullscreenOnDoublePress ?? this.toggleFullscreenOnDoublePress,
       playAndPauseOnTap: playAndPauseOnTap ?? this.playAndPauseOnTap,
       modifyVolumeOnScroll: modifyVolumeOnScroll ?? this.modifyVolumeOnScroll,
       keyboardShortcuts: keyboardShortcuts ?? this.keyboardShortcuts,
       visibleOnMount: visibleOnMount ?? this.visibleOnMount,
-      hideMouseOnControlsRemoval:
-          hideMouseOnControlsRemoval ?? this.hideMouseOnControlsRemoval,
-      controlsHoverDuration:
-          controlsHoverDuration ?? this.controlsHoverDuration,
-      bufferingIndicatorBuilder:
-          bufferingIndicatorBuilder ?? this.bufferingIndicatorBuilder,
-      controlsTransitionDuration:
-          controlsTransitionDuration ?? this.controlsTransitionDuration,
+      hideMouseOnControlsRemoval: hideMouseOnControlsRemoval ?? this.hideMouseOnControlsRemoval,
+      controlsHoverDuration: controlsHoverDuration ?? this.controlsHoverDuration,
+      bufferingIndicatorBuilder: bufferingIndicatorBuilder ?? this.bufferingIndicatorBuilder,
+      controlsTransitionDuration: controlsTransitionDuration ?? this.controlsTransitionDuration,
       topButtonBar: topButtonBar ?? this.topButtonBar,
       topButtonBarMargin: topButtonBarMargin ?? this.topButtonBarMargin,
       bottomButtonBar: bottomButtonBar ?? this.bottomButtonBar,
-      bottomButtonBarMargin:
-          bottomButtonBarMargin ?? this.bottomButtonBarMargin,
+      bottomButtonBarMargin: bottomButtonBarMargin ?? this.bottomButtonBarMargin,
       buttonBarHeight: buttonBarHeight ?? this.buttonBarHeight,
       buttonBarButtonSize: buttonBarButtonSize ?? this.buttonBarButtonSize,
       buttonBarButtonColor: buttonBarButtonColor ?? this.buttonBarButtonColor,
-      seekBarTransitionDuration:
-          seekBarTransitionDuration ?? this.seekBarTransitionDuration,
-      seekBarThumbTransitionDuration:
-          seekBarThumbTransitionDuration ?? this.seekBarThumbTransitionDuration,
+      seekBarTransitionDuration: seekBarTransitionDuration ?? this.seekBarTransitionDuration,
+      seekBarThumbTransitionDuration: seekBarThumbTransitionDuration ?? this.seekBarThumbTransitionDuration,
       seekBarMargin: seekBarMargin ?? this.seekBarMargin,
       seekBarHeight: seekBarHeight ?? this.seekBarHeight,
       seekBarHoverHeight: seekBarHoverHeight ?? this.seekBarHoverHeight,
-      seekBarContainerHeight:
-          seekBarContainerHeight ?? this.seekBarContainerHeight,
+      seekBarContainerHeight: seekBarContainerHeight ?? this.seekBarContainerHeight,
       seekBarColor: seekBarColor ?? this.seekBarColor,
       seekBarHoverColor: seekBarHoverColor ?? this.seekBarHoverColor,
       seekBarPositionColor: seekBarPositionColor ?? this.seekBarPositionColor,
@@ -310,11 +296,9 @@ class DesktopControlsThemeData {
       volumeBarActiveColor: volumeBarActiveColor ?? this.volumeBarActiveColor,
       volumeBarThumbSize: volumeBarThumbSize ?? this.volumeBarThumbSize,
       volumeBarThumbColor: volumeBarThumbColor ?? this.volumeBarThumbColor,
-      volumeBarTransitionDuration:
-          volumeBarTransitionDuration ?? this.volumeBarTransitionDuration,
+      volumeBarTransitionDuration: volumeBarTransitionDuration ?? this.volumeBarTransitionDuration,
       shiftSubtitlesOnControlsVisibilityChange:
-          shiftSubtitlesOnControlsVisibilityChange ??
-              this.shiftSubtitlesOnControlsVisibilityChange,
+          shiftSubtitlesOnControlsVisibilityChange ?? this.shiftSubtitlesOnControlsVisibilityChange,
     );
   }
 }
@@ -327,6 +311,7 @@ class DesktopControlsThemeData {
 class DesktopControlsTheme extends InheritedWidget {
   final DesktopControlsThemeData normal;
   final DesktopControlsThemeData fullscreen;
+
   const DesktopControlsTheme({
     super.key,
     required this.normal,
@@ -335,8 +320,7 @@ class DesktopControlsTheme extends InheritedWidget {
   });
 
   static DesktopControlsTheme? maybeOf(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<
-        DesktopControlsTheme>();
+    return context.dependOnInheritedWidgetOfExactType<DesktopControlsTheme>();
   }
 
   static DesktopControlsTheme of(BuildContext context) {
@@ -350,8 +334,7 @@ class DesktopControlsTheme extends InheritedWidget {
 
   @override
   bool updateShouldNotify(DesktopControlsTheme oldWidget) =>
-      identical(normal, oldWidget.normal) &&
-      identical(fullscreen, oldWidget.fullscreen);
+      identical(normal, oldWidget.normal) && identical(fullscreen, oldWidget.fullscreen);
 }
 
 /// {@macro material_desktop_video_controls}
@@ -359,13 +342,11 @@ class _DesktopControls extends StatefulWidget {
   const _DesktopControls();
 
   @override
-  State<_DesktopControls> createState() =>
-      _DesktopControlsState();
+  State<_DesktopControls> createState() => _DesktopControlsState();
 }
 
 /// {@macro material_desktop_video_controls}
-class _DesktopControlsState
-    extends State<_DesktopControls> {
+class _DesktopControlsState extends State<_DesktopControls> {
   late bool mount;
   late bool visible;
 
@@ -381,9 +362,7 @@ class _DesktopControlsState
   double get subtitleVerticalShiftOffset =>
       (_theme(context).padding?.bottom ?? 0.0) +
       (_theme(context).bottomButtonBarMargin.vertical) +
-      (_theme(context).bottomButtonBar.isNotEmpty
-          ? _theme(context).buttonBarHeight
-          : 0.0);
+      (_theme(context).bottomButtonBar.isNotEmpty ? _theme(context).buttonBarHeight : 0.0);
 
   @override
   void setState(VoidCallback fn) {
@@ -439,6 +418,7 @@ class _DesktopControlsState
     for (final subscription in subscriptions) {
       subscription.cancel();
     }
+
     super.dispose();
   }
 
@@ -506,6 +486,19 @@ class _DesktopControlsState
     _timer?.cancel();
   }
 
+  /// The mouse cursor hides with the controls when the theme asks for it.
+  MouseCursor get _cursor {
+    if (!_theme(context).hideMouseOnControlsRemoval) {
+      return SystemMouseCursors.basic;
+    }
+
+    if (mount) {
+      return SystemMouseCursors.basic;
+    }
+
+    return SystemMouseCursors.none;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -520,36 +513,26 @@ class _DesktopControlsState
             {
               // Default key-board shortcuts.
               // https://support.google.com/youtube/answer/7631406
-              const SingleActivator(LogicalKeyboardKey.mediaPlay): () =>
-                  controller(context).player.play(),
-              const SingleActivator(LogicalKeyboardKey.mediaPause): () =>
-                  controller(context).player.pause(),
-              const SingleActivator(LogicalKeyboardKey.mediaPlayPause): () =>
-                  controller(context).player.playOrPause(),
-              const SingleActivator(LogicalKeyboardKey.mediaTrackNext): () =>
-                  controller(context).player.next(),
-              const SingleActivator(LogicalKeyboardKey.mediaTrackPrevious):
-                  () => controller(context).player.previous(),
-              const SingleActivator(LogicalKeyboardKey.space): () =>
-                  controller(context).player.playOrPause(),
+              const SingleActivator(LogicalKeyboardKey.mediaPlay): () => controller(context).player.play(),
+              const SingleActivator(LogicalKeyboardKey.mediaPause): () => controller(context).player.pause(),
+              const SingleActivator(LogicalKeyboardKey.mediaPlayPause): () => controller(context).player.playOrPause(),
+              const SingleActivator(LogicalKeyboardKey.mediaTrackNext): () => controller(context).player.next(),
+              const SingleActivator(LogicalKeyboardKey.mediaTrackPrevious): () => controller(context).player.previous(),
+              const SingleActivator(LogicalKeyboardKey.space): () => controller(context).player.playOrPause(),
               const SingleActivator(LogicalKeyboardKey.keyJ): () {
-                final rate = controller(context).player.state.position -
-                    const Duration(seconds: 10);
+                final rate = controller(context).player.state.position - const Duration(seconds: 10);
                 controller(context).player.seek(rate);
               },
               const SingleActivator(LogicalKeyboardKey.keyI): () {
-                final rate = controller(context).player.state.position +
-                    const Duration(seconds: 10);
+                final rate = controller(context).player.state.position + const Duration(seconds: 10);
                 controller(context).player.seek(rate);
               },
               const SingleActivator(LogicalKeyboardKey.arrowLeft): () {
-                final rate = controller(context).player.state.position -
-                    const Duration(seconds: 2);
+                final rate = controller(context).player.state.position - const Duration(seconds: 2);
                 controller(context).player.seek(rate);
               },
               const SingleActivator(LogicalKeyboardKey.arrowRight): () {
-                final rate = controller(context).player.state.position +
-                    const Duration(seconds: 2);
+                final rate = controller(context).player.state.position + const Duration(seconds: 2);
                 controller(context).player.seek(rate);
               },
               const SingleActivator(LogicalKeyboardKey.arrowUp): () {
@@ -560,10 +543,8 @@ class _DesktopControlsState
                 final volume = controller(context).player.state.volume - 5.0;
                 controller(context).player.setVolume(volume.clamp(0.0, 100.0));
               },
-              const SingleActivator(LogicalKeyboardKey.keyF): () =>
-                  toggleFullscreen(context),
-              const SingleActivator(LogicalKeyboardKey.escape): () =>
-                  exitFullscreen(context),
+              const SingleActivator(LogicalKeyboardKey.keyF): () => toggleFullscreen(context),
+              const SingleActivator(LogicalKeyboardKey.escape): () => exitFullscreen(context),
             },
 
         /// Add [Directionality] to ltr to avoid wrong animation of sides.
@@ -584,18 +565,13 @@ class _DesktopControlsState
                     ? (e) {
                         if (e is PointerScrollEvent) {
                           if (e.delta.dy > 0) {
-                            final volume =
-                                controller(context).player.state.volume - 5.0;
-                            controller(context)
-                                .player
-                                .setVolume(volume.clamp(0.0, 100.0));
+                            final volume = controller(context).player.state.volume - 5.0;
+                            controller(context).player.setVolume(volume.clamp(0.0, 100.0));
                           }
+
                           if (e.delta.dy < 0) {
-                            final volume =
-                                controller(context).player.state.volume + 5.0;
-                            controller(context)
-                                .player
-                                .setVolume(volume.clamp(0.0, 100.0));
+                            final volume = controller(context).player.state.volume + 5.0;
+                            controller(context).player.setVolume(volume.clamp(0.0, 100.0));
                           }
                         }
                       }
@@ -604,16 +580,10 @@ class _DesktopControlsState
                   onTapDown: !_theme(context).playAndPauseOnTap
                       ? null
                       : (TapDownDetails details) {
-                          final RenderBox box =
-                              context.findRenderObject() as RenderBox;
-                          final Offset localPosition =
-                              box.globalToLocal(details.globalPosition);
+                          final RenderBox box = context.findRenderObject() as RenderBox;
+                          final Offset localPosition = box.globalToLocal(details.globalPosition);
                           const double tapPadding = 10.0;
-                          if (!mount ||
-                              localPosition.dy <
-                                  box.size.height -
-                                      subtitleVerticalShiftOffset -
-                                      tapPadding) {
+                          if (!mount || localPosition.dy < box.size.height - subtitleVerticalShiftOffset - tapPadding) {
                             // Only play and pause when the bottom seek bar is visible
                             // and when clicking outside of the bottom seek bar region
                             controller(context).player.playOrPause();
@@ -632,26 +602,18 @@ class _DesktopControlsState
                   onPanUpdate: _theme(context).modifyVolumeOnScroll
                       ? (e) {
                           if (e.delta.dy > 0) {
-                            final volume =
-                                controller(context).player.state.volume - 5.0;
-                            controller(context)
-                                .player
-                                .setVolume(volume.clamp(0.0, 100.0));
+                            final volume = controller(context).player.state.volume - 5.0;
+                            controller(context).player.setVolume(volume.clamp(0.0, 100.0));
                           }
+
                           if (e.delta.dy < 0) {
-                            final volume =
-                                controller(context).player.state.volume + 5.0;
-                            controller(context)
-                                .player
-                                .setVolume(volume.clamp(0.0, 100.0));
+                            final volume = controller(context).player.state.volume + 5.0;
+                            controller(context).player.setVolume(volume.clamp(0.0, 100.0));
                           }
                         }
                       : null,
                   child: MouseRegion(
-                    cursor:
-                        (_theme(context).hideMouseOnControlsRemoval && !mount)
-                            ? SystemMouseCursors.none
-                            : SystemMouseCursors.basic,
+                    cursor: _cursor,
                     onHover: (_) => onHover(),
                     onEnter: (_) => onEnter(),
                     onExit: (_) => onExit(),
@@ -713,9 +675,7 @@ class _DesktopControlsState
                                   padding: _theme(context).padding ??
                                       (
                                           // Add padding in fullscreen!
-                                          isFullscreen(context)
-                                              ? MediaQuery.of(context).padding
-                                              : EdgeInsets.zero),
+                                          isFullscreen(context) ? MediaQuery.of(context).padding : EdgeInsets.zero),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -723,16 +683,12 @@ class _DesktopControlsState
                                     children: [
                                       Container(
                                         height: _theme(context).buttonBarHeight,
-                                        margin:
-                                            _theme(context).topButtonBarMargin,
+                                        margin: _theme(context).topButtonBarMargin,
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children:
-                                              _theme(context).topButtonBar,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: _theme(context).topButtonBar,
                                         ),
                                       ),
                                       // Only display [primaryButtonBar] if [buffering] is false.
@@ -740,26 +696,20 @@ class _DesktopControlsState
                                         child: AnimatedOpacity(
                                           curve: Curves.easeInOut,
                                           opacity: buffering ? 0.0 : 1.0,
-                                          duration: _theme(context)
-                                              .controlsTransitionDuration,
+                                          duration: _theme(context).controlsTransitionDuration,
                                           child: Center(
                                             child: Row(
                                               mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: _theme(context)
-                                                  .primaryButtonBar,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: _theme(context).primaryButtonBar,
                                             ),
                                           ),
                                         ),
                                       ),
                                       if (_theme(context).displaySeekBar)
                                         Transform.translate(
-                                          offset: _theme(context)
-                                                  .bottomButtonBar
-                                                  .isNotEmpty
+                                          offset: _theme(context).bottomButtonBar.isNotEmpty
                                               ? const Offset(0.0, 16.0)
                                               : Offset.zero,
                                           child: SeekBar(
@@ -768,8 +718,7 @@ class _DesktopControlsState
                                             },
                                             onSeekEnd: () {
                                               _timer = Timer(
-                                                _theme(context)
-                                                    .controlsHoverDuration,
+                                                _theme(context).controlsHoverDuration,
                                                 () {
                                                   if (mounted) {
                                                     setState(() {
@@ -782,22 +731,15 @@ class _DesktopControlsState
                                             },
                                           ),
                                         ),
-                                      if (_theme(context)
-                                          .bottomButtonBar
-                                          .isNotEmpty)
+                                      if (_theme(context).bottomButtonBar.isNotEmpty)
                                         Container(
-                                          height:
-                                              _theme(context).buttonBarHeight,
-                                          margin: _theme(context)
-                                              .bottomButtonBarMargin,
+                                          height: _theme(context).buttonBarHeight,
+                                          margin: _theme(context).bottomButtonBarMargin,
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children:
-                                                _theme(context).bottomButtonBar,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: _theme(context).bottomButtonBar,
                                           ),
                                         ),
                                     ],
@@ -812,9 +754,7 @@ class _DesktopControlsState
                             padding: _theme(context).padding ??
                                 (
                                     // Add padding in fullscreen!
-                                    isFullscreen(context)
-                                        ? MediaQuery.of(context).padding
-                                        : EdgeInsets.zero),
+                                    isFullscreen(context) ? MediaQuery.of(context).padding : EdgeInsets.zero),
                             child: Column(
                               children: [
                                 Container(
@@ -829,20 +769,17 @@ class _DesktopControlsState
                                           begin: 0.0,
                                           end: buffering ? 1.0 : 0.0,
                                         ),
-                                        duration: _theme(context)
-                                            .controlsTransitionDuration,
+                                        duration: _theme(context).controlsTransitionDuration,
                                         builder: (context, value, child) {
                                           // Only mount the buffering indicator if the opacity is greater than 0.0.
                                           // This has been done to prevent redundant resource usage in [CircularProgressIndicator].
                                           if (value > 0.0) {
                                             return Opacity(
                                               opacity: value,
-                                              child: _theme(context)
-                                                      .bufferingIndicatorBuilder
-                                                      ?.call(context) ??
-                                                  child!,
+                                              child: _theme(context).bufferingIndicatorBuilder?.call(context) ?? child!,
                                             );
                                           }
+
                                           return const SizedBox.shrink();
                                         },
                                         child: const CircularProgressIndicator(
@@ -927,7 +864,9 @@ class SeekBarState extends State<SeekBar> {
           }),
           controller(context).player.stream.position.listen((event) {
             setState(() {
-              if (!click) position = event;
+              if (!click) {
+                position = event;
+              }
             });
           }),
           controller(context).player.stream.duration.listen((event) {
@@ -950,6 +889,7 @@ class SeekBarState extends State<SeekBar> {
     for (final subscription in subscriptions) {
       subscription.cancel();
     }
+
     super.dispose();
   }
 
@@ -1024,6 +964,12 @@ class SeekBarState extends State<SeekBar> {
 
   @override
   Widget build(BuildContext context) {
+    // The thumb shows while the pointer is over the bar or pressing it.
+    var thumb = 0.0;
+    if (hover || click) {
+      thumb = _theme(context).seekBarThumbSize;
+    }
+
     return Container(
       clipBehavior: Clip.none,
       margin: _theme(context).seekBarMargin,
@@ -1047,9 +993,7 @@ class SeekBarState extends State<SeekBar> {
                 children: [
                   AnimatedContainer(
                     width: constraints.maxWidth,
-                    height: hover
-                        ? _theme(context).seekBarHoverHeight
-                        : _theme(context).seekBarHeight,
+                    height: hover ? _theme(context).seekBarHoverHeight : _theme(context).seekBarHeight,
                     alignment: Alignment.centerLeft,
                     duration: _theme(context).seekBarThumbTransitionDuration,
                     color: _theme(context).seekBarColor,
@@ -1066,9 +1010,7 @@ class SeekBarState extends State<SeekBar> {
                           color: _theme(context).seekBarBufferColor,
                         ),
                         Container(
-                          width: click
-                              ? constraints.maxWidth * slider
-                              : constraints.maxWidth * positionPercent,
+                          width: click ? constraints.maxWidth * slider : constraints.maxWidth * positionPercent,
                           color: _theme(context).seekBarPositionColor,
                         ),
                       ],
@@ -1076,19 +1018,11 @@ class SeekBarState extends State<SeekBar> {
                   ),
                   Positioned(
                     left: click
-                        ? (constraints.maxWidth -
-                                _theme(context).seekBarThumbSize / 2) *
-                            slider
-                        : (constraints.maxWidth -
-                                _theme(context).seekBarThumbSize / 2) *
-                            positionPercent,
+                        ? (constraints.maxWidth - _theme(context).seekBarThumbSize / 2) * slider
+                        : (constraints.maxWidth - _theme(context).seekBarThumbSize / 2) * positionPercent,
                     child: AnimatedContainer(
-                      width: hover || click
-                          ? _theme(context).seekBarThumbSize
-                          : 0.0,
-                      height: hover || click
-                          ? _theme(context).seekBarThumbSize
-                          : 0.0,
+                      width: thumb,
+                      height: thumb,
                       duration: _theme(context).seekBarThumbTransitionDuration,
                       decoration: BoxDecoration(
                         color: _theme(context).seekBarThumbColor,
@@ -1125,13 +1059,10 @@ class PlayPauseButton extends StatefulWidget {
   });
 
   @override
-  PlayPauseButtonState createState() =>
-      PlayPauseButtonState();
+  PlayPauseButtonState createState() => PlayPauseButtonState();
 }
 
-class PlayPauseButtonState
-    extends State<PlayPauseButton>
-    with SingleTickerProviderStateMixin {
+class PlayPauseButtonState extends State<PlayPauseButton> with SingleTickerProviderStateMixin {
   late final animation = AnimationController(
     vsync: this,
     value: controller(context).player.state.playing ? 1 : 0,
@@ -1214,6 +1145,7 @@ class NextButton extends StatelessWidget {
         color: iconColor ?? _theme(context).buttonBarButtonColor,
       );
     }
+
     return const SizedBox.shrink();
   }
 }
@@ -1250,6 +1182,7 @@ class PreviousButton extends StatelessWidget {
         color: iconColor ?? _theme(context).buttonBarButtonColor,
       );
     }
+
     return const SizedBox.shrink();
   }
 }
@@ -1278,10 +1211,7 @@ class FullscreenButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () => toggleFullscreen(context),
-      icon: icon ??
-          (isFullscreen(context)
-              ? const Icon(Icons.fullscreen_exit)
-              : const Icon(Icons.fullscreen)),
+      icon: icon ?? (isFullscreen(context) ? const Icon(Icons.fullscreen_exit) : const Icon(Icons.fullscreen)),
       iconSize: iconSize ?? _theme(context).buttonBarButtonSize,
       color: iconColor ?? _theme(context).buttonBarButtonColor,
     );
@@ -1356,13 +1286,10 @@ class VolumeButton extends StatefulWidget {
   });
 
   @override
-  VolumeButtonState createState() =>
-      VolumeButtonState();
+  VolumeButtonState createState() => VolumeButtonState();
 }
 
-class VolumeButtonState
-    extends State<VolumeButton>
-    with SingleTickerProviderStateMixin {
+class VolumeButtonState extends State<VolumeButton> with SingleTickerProviderStateMixin {
   late double volume = controller(context).player.state.volume;
 
   StreamSubscription<double>? subscription;
@@ -1416,6 +1343,7 @@ class VolumeButtonState
                     (volume + 5.0).clamp(0.0, 100.0),
                   );
             }
+
             if (event.scrollDelta.dy > 0) {
               controller(context).player.setVolume(
                     (volume - 5.0).clamp(0.0, 100.0),
@@ -1445,8 +1373,7 @@ class VolumeButtonState
 
                 setState(() {});
               },
-              iconSize: widget.iconSize ??
-                  (_theme(context).buttonBarButtonSize * 0.8),
+              iconSize: widget.iconSize ?? (_theme(context).buttonBarButtonSize * 0.8),
               color: widget.iconColor ?? _theme(context).buttonBarButtonColor,
               icon: AnimatedSwitcher(
                 duration: _theme(context).volumeBarTransitionDuration,
@@ -1473,8 +1400,7 @@ class VolumeButtonState
               opacity: hover ? 1.0 : 0.0,
               duration: _theme(context).volumeBarTransitionDuration,
               child: AnimatedContainer(
-                width:
-                    hover ? (12.0 + (widget.sliderWidth ?? 52.0) + 18.0) : 12.0,
+                width: hover ? (12.0 + (widget.sliderWidth ?? 52.0) + 18.0) : 12.0,
                 duration: _theme(context).volumeBarTransitionDuration,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -1487,12 +1413,10 @@ class VolumeButtonState
                           data: SliderThemeData(
                             trackHeight: 1.2,
                             inactiveTrackColor: _theme(context).volumeBarColor,
-                            activeTrackColor:
-                                _theme(context).volumeBarActiveColor,
+                            activeTrackColor: _theme(context).volumeBarActiveColor,
                             thumbColor: _theme(context).volumeBarThumbColor,
                             thumbShape: RoundSliderThumbShape(
-                              enabledThumbRadius:
-                                  _theme(context).volumeBarThumbSize / 2,
+                              enabledThumbRadius: _theme(context).volumeBarThumbSize / 2,
                               elevation: 0.0,
                               pressedElevation: 0.0,
                             ),
@@ -1530,15 +1454,14 @@ class VolumeButtonState
 class PositionIndicator extends StatefulWidget {
   /// Overriden [TextStyle] for the [PositionIndicator].
   final TextStyle? style;
+
   const PositionIndicator({super.key, this.style});
 
   @override
-  PositionIndicatorState createState() =>
-      PositionIndicatorState();
+  PositionIndicatorState createState() => PositionIndicatorState();
 }
 
-class PositionIndicatorState
-    extends State<PositionIndicator> {
+class PositionIndicatorState extends State<PositionIndicator> {
   late Duration position = controller(context).player.state.position;
   late Duration duration = controller(context).player.state.duration;
 
@@ -1577,6 +1500,7 @@ class PositionIndicatorState
     for (final subscription in subscriptions) {
       subscription.cancel();
     }
+
     super.dispose();
   }
 

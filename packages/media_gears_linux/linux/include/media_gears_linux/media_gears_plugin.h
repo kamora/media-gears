@@ -21,13 +21,12 @@ G_BEGIN_DECLS
 
 typedef struct _MediaGearsPlugin MediaGearsPlugin;
 typedef struct {
-  GObjectClass parent_class;
+	GObjectClass parent_class;
 } MediaGearsPluginClass;
 
 FLUTTER_PLUGIN_EXPORT GType media_gears_plugin_get_type();
 
-FLUTTER_PLUGIN_EXPORT void media_gears_plugin_register_with_registrar(
-    FlPluginRegistrar* registrar);
+FLUTTER_PLUGIN_EXPORT void media_gears_plugin_register_with_registrar(FlPluginRegistrar* registrar);
 
 G_END_DECLS
 

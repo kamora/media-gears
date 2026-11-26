@@ -1,12 +1,9 @@
 import CoreGraphics
-
-#if canImport(Flutter)
-  import Flutter
-#elseif canImport(FlutterMacOS)
-  import FlutterMacOS
-#endif
+import FlutterMacOS
 
 public protocol ResizableTextureProtocol: NSObject, FlutterTexture {
-  func resize(_ size: CGSize)
-  func render(_ size: CGSize)
+
+	func resize(_ size: CGSize)
+
+	func render(_ size: CGSize)
 }

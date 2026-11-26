@@ -34,8 +34,7 @@ class Media extends Playable {
   /// This has been done to:
   /// 1. Evict the [Media] instance from [cache].
   /// 2. Delete the temporary file created by [Media.memory].
-  static final Finalizer<_MediaFinalizerContext> _finalizer =
-      Finalizer<_MediaFinalizerContext>(
+  static final Finalizer<_MediaFinalizerContext> _finalizer = Finalizer<_MediaFinalizerContext>(
     (context) async {
       final uri = context.uri;
       final memory = context.memory;
@@ -47,6 +46,7 @@ class Media extends Playable {
         cache.remove(uri);
         ref.remove(uri);
       }
+
       // Media.memory : Delete the temporary file.
       try {
         if (memory) {
@@ -109,8 +109,7 @@ class Media extends Playable {
     required bool memory,
   })  : uri = normalizeURI(resource),
         extras = extras ?? cache[normalizeURI(resource)]?.extras,
-        httpHeaders =
-            httpHeaders ?? cache[normalizeURI(resource)]?.httpHeaders {
+        httpHeaders = httpHeaders ?? cache[normalizeURI(resource)]?.httpHeaders {
     // Increment reference count.
     ref[uri] = ((ref[uri] ?? 0) + 1).clamp(0, 1 << 32);
     // Store [this] instance in [cache].
@@ -149,6 +148,7 @@ class Media extends Playable {
       // Handle asset:// scheme. Only for Flutter.
       return AssetLoader.load(uri);
     }
+
     // Keep the resulting URI normalization same as used by libmpv internally.
     // [File] or network URIs.
     final parser = URIParser(uri);
@@ -172,6 +172,7 @@ class Media extends Playable {
     if (other is Media) {
       return other.uri == uri;
     }
+
     return false;
   }
 
@@ -197,16 +198,14 @@ class Media extends Playable {
   }
 
   @override
-  String toString() =>
-      'Media($uri, extras: $extras, httpHeaders: $httpHeaders, start: $start, end: $end)';
+  String toString() => 'Media($uri, extras: $extras, httpHeaders: $httpHeaders, start: $start, end: $end)';
 
   /// URI scheme used to identify Flutter assets.
   static const String _kAssetScheme = 'asset://';
 
   /// Previously created [Media] instances.
   /// This [HashMap] is used to retrieve previously set [extras] & [httpHeaders].
-  static final HashMap<String, _MediaCache> cache =
-      HashMap<String, _MediaCache>();
+  static final HashMap<String, _MediaCache> cache = HashMap<String, _MediaCache>();
 
   /// Previously created [Media] instances' reference count.
   static final HashMap<String, int> ref = HashMap<String, int>();

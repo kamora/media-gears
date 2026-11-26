@@ -10,9 +10,11 @@
 #include "media_gears/utils.h"
 
 void utils_enter_native_fullscreen(GtkWidget* window) {
-  gtk_window_fullscreen(GTK_WINDOW(window));
+
+	gtk_window_fullscreen(GTK_WINDOW(window));
 }
 
 void utils_exit_native_fullscreen(GtkWidget* window) {
-  gtk_window_unfullscreen(GTK_WINDOW(window));
+
+	gtk_window_unfullscreen(GTK_WINDOW(window));
 }

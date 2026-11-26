@@ -1,12 +1,24 @@
-# Defines the Chromium style for automatic reformatting.
-# http://clang.llvm.org/docs/ClangFormatStyleOptions.html
-BasedOnStyle: Chromium
-# This defaults to 'Auto'. Explicitly set it for a while, so that
-# 'vector<vector<int> >' in existing files gets formatted to
-# 'vector<vector<int>>'. ('Auto' means that clang-format will only use
-# 'int>>' if the file already contains at least one such instance.)
-Standard: Cpp11
-SortIncludes: true
----
-Language: ObjC
-ColumnLimit: 100
+# Kai's canons: tabs shown 4 wide, K&R brackets, brackets on every block, 120 columns.
+BasedOnStyle: Google
+UseTab: ForContinuationAndIndentation
+IndentWidth: 4
+TabWidth: 4
+ContinuationIndentWidth: 4
+AccessModifierOffset: -4
+ColumnLimit: 120
+BreakBeforeBraces: Attach
+InsertBraces: true
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
+AllowShortFunctionsOnASingleLine: None
+AllowShortLambdasOnASingleLine: None
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+SortIncludes: Never
+MaxEmptyLinesToKeep: 1
+KeepEmptyLines:
+  AtStartOfBlock: true
+  AtStartOfFile: false
+InsertNewlineAtEOF: true
+EmptyLineAfterAccessModifier: Leave

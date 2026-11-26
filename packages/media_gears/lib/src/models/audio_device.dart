@@ -33,6 +33,7 @@ class AudioDevice {
     if (other is AudioDevice) {
       return other.name == name;
     }
+
     return false;
   }
 

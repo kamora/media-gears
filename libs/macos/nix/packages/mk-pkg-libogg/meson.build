@@ -5,12 +5,12 @@ project('libogg', 'c')
 mod = import('unstable-external_project')
 
 p = mod.add_project('configure',
-    configure_options : [
-        '--prefix=@PREFIX@',
-        '--disable-static',
-        '--enable-shared',
-    ],
-    verbose: true,
+	configure_options : [
+		'--prefix=@PREFIX@',
+		'--disable-static',
+		'--enable-shared',
+	],
+	verbose: true,
 )
 
 libogg_dep = p.dependency('libogg')

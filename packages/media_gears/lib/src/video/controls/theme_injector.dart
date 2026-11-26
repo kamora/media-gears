@@ -31,22 +31,18 @@ class VideoControlsThemeDataInjector extends StatefulWidget {
   });
 
   @override
-  State<VideoControlsThemeDataInjector> createState() =>
-      _VideoControlsThemeDataInjectorState();
+  State<VideoControlsThemeDataInjector> createState() => _VideoControlsThemeDataInjectorState();
 }
 
-class _VideoControlsThemeDataInjectorState
-    extends State<VideoControlsThemeDataInjector> {
+class _VideoControlsThemeDataInjectorState extends State<VideoControlsThemeDataInjector> {
   late final builders = <Widget Function(Widget)>[
     // DesktopControlsTheme
     (child) {
       final theme = DesktopControlsTheme.maybeOf(
         widget.context ?? context,
       );
-      final normal =
-          theme?.normal ?? const DesktopControlsThemeData();
-      final fullscreen = theme?.fullscreen ??
-          const DesktopControlsThemeData();
+      final normal = theme?.normal ?? const DesktopControlsThemeData();
+      final fullscreen = theme?.fullscreen ?? const DesktopControlsThemeData();
       return DesktopControlsTheme(
         normal: normal,
         fullscreen: fullscreen,

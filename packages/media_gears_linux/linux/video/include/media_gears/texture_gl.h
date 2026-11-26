@@ -17,19 +17,14 @@
 
 G_DECLARE_FINAL_TYPE(TextureGL, texture_gl, TEXTURE_GL, TEXTURE_GL, FlTextureGL)
 
-#define TEXTURE_GL(obj) \
-  (G_TYPE_CHECK_INSTANCE_CAST((obj), texture_gl_get_type(), TextureGL))
+#define TEXTURE_GL(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), texture_gl_get_type(), TextureGL))
 
 TextureGL* texture_gl_new(VideoOutput* video_output);
 
 /**
  * @brief Populates texture with video frame.
  */
-gboolean texture_gl_populate_texture(FlTextureGL* texture,
-                                     guint32* target,
-                                     guint32* name,
-                                     guint32* width,
-                                     guint32* height,
-                                     GError** error);
+gboolean texture_gl_populate_texture(FlTextureGL* texture, guint32* target, guint32* name, guint32* width,
+									 guint32* height, GError** error);
 
 #endif  // TEXTURE_GL_H_

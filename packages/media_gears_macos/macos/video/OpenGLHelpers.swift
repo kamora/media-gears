@@ -3,262 +3,264 @@ import OpenGL.GL
 import OpenGL.GL3
 
 public class OpenGLHelpers {
-  static public func createPixelFormat() -> CGLPixelFormatObj {
-    // from mpv
-    let attributes: [CGLPixelFormatAttribute] = [
-      kCGLPFAOpenGLProfile,
-      CGLPixelFormatAttribute(kCGLOGLPVersion_3_2_Core.rawValue),
-      kCGLPFAAccelerated,
-      kCGLPFADoubleBuffer,
-      kCGLPFAColorSize, _CGLPixelFormatAttribute(rawValue: 64),
-      kCGLPFAColorFloat,
-      kCGLPFABackingStore,
-      kCGLPFAAllowOfflineRenderers,
-      kCGLPFASupportsAutomaticGraphicsSwitching,
-      _CGLPixelFormatAttribute(rawValue: 0),
-    ]
 
-    var npix: GLint = 0
-    var pixelFormat: CGLPixelFormatObj?
-    CGLChoosePixelFormat(attributes, &pixelFormat, &npix)
+	static public func createPixelFormat() -> CGLPixelFormatObj {
+		// from mpv
+		let attributes: [CGLPixelFormatAttribute] = [
+			kCGLPFAOpenGLProfile,
+			CGLPixelFormatAttribute(kCGLOGLPVersion_3_2_Core.rawValue),
+			kCGLPFAAccelerated,
+			kCGLPFADoubleBuffer,
+			kCGLPFAColorSize, _CGLPixelFormatAttribute(rawValue: 64),
+			kCGLPFAColorFloat,
+			kCGLPFABackingStore,
+			kCGLPFAAllowOfflineRenderers,
+			kCGLPFASupportsAutomaticGraphicsSwitching,
+			_CGLPixelFormatAttribute(rawValue: 0),
+		]
 
-    return pixelFormat!
-  }
+		var npix: GLint = 0
+		var pixelFormat: CGLPixelFormatObj?
+		CGLChoosePixelFormat(attributes, &pixelFormat, &npix)
 
-  static public func createContext(
-    _ pixelFormat: CGLPixelFormatObj
-  ) -> CGLContextObj {
-    var context: CGLContextObj?
-    let error = CGLCreateContext(pixelFormat, nil, &context)
-    if error != kCGLNoError {
-      let errS = String(cString: CGLErrorString(error))
-      NSLog(errS)
-      exit(1)
-    }
+		return pixelFormat!
+	}
 
-    return context!
-  }
+	static public func createContext(
+		_ pixelFormat: CGLPixelFormatObj
+	) -> CGLContextObj {
+		var context: CGLContextObj?
+		let error = CGLCreateContext(pixelFormat, nil, &context)
+		if error != kCGLNoError {
+			let errS = String(cString: CGLErrorString(error))
+			NSLog(errS)
+			exit(1)
+		}
 
-  static public func createTextureCache(
-    _ context: CGLContextObj,
-    _ pixelFormat: CGLPixelFormatObj
-  ) -> CVOpenGLTextureCache {
-    var textureCache: CVOpenGLTextureCache?
+		return context!
+	}
 
-    let cvret: CVReturn = CVOpenGLTextureCacheCreate(
-      kCFAllocatorDefault,
-      nil,
-      context,
-      pixelFormat,
-      nil,
-      &textureCache
-    )
-    assert(cvret == kCVReturnSuccess, "CVOpenGLTextureCacheCreate")
+	static public func createTextureCache(
+		_ context: CGLContextObj,
+		_ pixelFormat: CGLPixelFormatObj
+	) -> CVOpenGLTextureCache {
+		var textureCache: CVOpenGLTextureCache?
 
-    return textureCache!
-  }
+		let cvret: CVReturn = CVOpenGLTextureCacheCreate(
+			kCFAllocatorDefault,
+			nil,
+			context,
+			pixelFormat,
+			nil,
+			&textureCache
+		)
+		assert(cvret == kCVReturnSuccess, "CVOpenGLTextureCacheCreate")
 
-  static public func createPixelBuffer(_ size: CGSize) -> CVPixelBuffer {
-    var pixelBuffer: CVPixelBuffer?
+		return textureCache!
+	}
 
-    let attrs =
-      [
-        kCVPixelBufferMetalCompatibilityKey: true
-      ] as CFDictionary
+	static public func createPixelBuffer(_ size: CGSize) -> CVPixelBuffer {
+		var pixelBuffer: CVPixelBuffer?
 
-    let cvret: CVReturn = CVPixelBufferCreate(
-      kCFAllocatorDefault,
-      Int(size.width),
-      Int(size.height),
-      kCVPixelFormatType_32BGRA,
-      attrs,
-      &pixelBuffer
-    )
-    assert(cvret == kCVReturnSuccess, "CVPixelBufferCreate")
+		let attrs =
+			[
+				kCVPixelBufferMetalCompatibilityKey: true
+			] as CFDictionary
 
-    return pixelBuffer!
-  }
+		let cvret: CVReturn = CVPixelBufferCreate(
+			kCFAllocatorDefault,
+			Int(size.width),
+			Int(size.height),
+			kCVPixelFormatType_32BGRA,
+			attrs,
+			&pixelBuffer
+		)
+		assert(cvret == kCVReturnSuccess, "CVPixelBufferCreate")
 
-  static public func createTexture(
-    _ textureCache: CVOpenGLTextureCache,
-    _ pixelBuffer: CVPixelBuffer
-  ) -> CVOpenGLTexture {
-    var texture: CVOpenGLTexture?
+		return pixelBuffer!
+	}
 
-    let cvret: CVReturn = CVOpenGLTextureCacheCreateTextureFromImage(
-      kCFAllocatorDefault,
-      textureCache,
-      pixelBuffer,
-      nil,
-      &texture
-    )
-    assert(
-      cvret == kCVReturnSuccess,
-      "CVOpenGLTextureCacheCreateTextureFromImage"
-    )
+	static public func createTexture(
+		_ textureCache: CVOpenGLTextureCache,
+		_ pixelBuffer: CVPixelBuffer
+	) -> CVOpenGLTexture {
+		var texture: CVOpenGLTexture?
 
-    return texture!
-  }
+		let cvret: CVReturn = CVOpenGLTextureCacheCreateTextureFromImage(
+			kCFAllocatorDefault,
+			textureCache,
+			pixelBuffer,
+			nil,
+			&texture
+		)
+		assert(
+			cvret == kCVReturnSuccess,
+			"CVOpenGLTextureCacheCreateTextureFromImage"
+		)
 
-  static public func createRenderBuffer(
-    _ context: CGLContextObj,
-    _ size: CGSize
-  ) -> GLuint {
-    CGLSetCurrentContext(context)
-    defer {
-      OpenGLHelpers.checkError("createRenderBuffer")
-      CGLSetCurrentContext(nil)
-    }
+		return texture!
+	}
 
-    var renderBuffer: GLuint = GLuint()
-    glGenRenderbuffers(1, &renderBuffer)
-    glBindRenderbuffer(GLenum(GL_RENDERBUFFER), renderBuffer)
-    defer {
-      glBindRenderbuffer(GLenum(GL_RENDERBUFFER), 0)
-    }
+	static public func createRenderBuffer(
+		_ context: CGLContextObj,
+		_ size: CGSize
+	) -> GLuint {
+		CGLSetCurrentContext(context)
+		defer {
+			OpenGLHelpers.checkError("createRenderBuffer")
+			CGLSetCurrentContext(nil)
+		}
 
-    glRenderbufferStorage(
-      GLenum(GL_RENDERBUFFER),
-      GLenum(GL_DEPTH24_STENCIL8),
-      GLsizei(size.width),
-      GLsizei(size.height)
-    )
+		var renderBuffer: GLuint = GLuint()
+		glGenRenderbuffers(1, &renderBuffer)
+		glBindRenderbuffer(GLenum(GL_RENDERBUFFER), renderBuffer)
+		defer {
+			glBindRenderbuffer(GLenum(GL_RENDERBUFFER), 0)
+		}
 
-    return renderBuffer
-  }
+		glRenderbufferStorage(
+			GLenum(GL_RENDERBUFFER),
+			GLenum(GL_DEPTH24_STENCIL8),
+			GLsizei(size.width),
+			GLsizei(size.height)
+		)
 
-  static public func createFrameBuffer(
-    context: CGLContextObj,
-    renderBuffer: GLuint,
-    texture: CVOpenGLTexture,
-    size: CGSize
-  ) -> GLuint {
-    CGLSetCurrentContext(context)
-    defer {
-      OpenGLHelpers.checkError("createFrameBuffer")
-      CGLSetCurrentContext(nil)
-    }
+		return renderBuffer
+	}
 
-    let textureName: GLuint = CVOpenGLTextureGetName(texture)
-    glBindTexture(GLenum(GL_TEXTURE_RECTANGLE), textureName)
-    defer {
-      glBindTexture(GLenum(GL_TEXTURE_RECTANGLE), 0)
-    }
+	static public func createFrameBuffer(
+		context: CGLContextObj,
+		renderBuffer: GLuint,
+		texture: CVOpenGLTexture,
+		size: CGSize
+	) -> GLuint {
+		CGLSetCurrentContext(context)
+		defer {
+			OpenGLHelpers.checkError("createFrameBuffer")
+			CGLSetCurrentContext(nil)
+		}
 
-    glTexParameteri(
-      GLenum(GL_TEXTURE_RECTANGLE),
-      GLenum(GL_TEXTURE_MAG_FILTER),
-      GL_LINEAR
-    )
-    glTexParameteri(
-      GLenum(GL_TEXTURE_RECTANGLE),
-      GLenum(GL_TEXTURE_MIN_FILTER),
-      GL_LINEAR
-    )
+		let textureName: GLuint = CVOpenGLTextureGetName(texture)
+		glBindTexture(GLenum(GL_TEXTURE_RECTANGLE), textureName)
+		defer {
+			glBindTexture(GLenum(GL_TEXTURE_RECTANGLE), 0)
+		}
 
-    glViewport(0, 0, GLsizei(size.width), GLsizei(size.height))
+		glTexParameteri(
+			GLenum(GL_TEXTURE_RECTANGLE),
+			GLenum(GL_TEXTURE_MAG_FILTER),
+			GL_LINEAR
+		)
+		glTexParameteri(
+			GLenum(GL_TEXTURE_RECTANGLE),
+			GLenum(GL_TEXTURE_MIN_FILTER),
+			GL_LINEAR
+		)
 
-    var frameBuffer: GLuint = 0
-    glGenFramebuffers(1, &frameBuffer)
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
-    defer {
-      glBindFramebuffer(GLenum(GL_FRAMEBUFFER), 0)
-    }
+		glViewport(0, 0, GLsizei(size.width), GLsizei(size.height))
 
-    glFramebufferTexture2D(
-      GLenum(GL_FRAMEBUFFER),
-      GLenum(GL_COLOR_ATTACHMENT0),
-      GLenum(GL_TEXTURE_RECTANGLE),
-      textureName,
-      0
-    )
+		var frameBuffer: GLuint = 0
+		glGenFramebuffers(1, &frameBuffer)
+		glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
+		defer {
+			glBindFramebuffer(GLenum(GL_FRAMEBUFFER), 0)
+		}
 
-    glFramebufferRenderbuffer(
-      GLenum(GL_FRAMEBUFFER),
-      GLenum(GL_DEPTH_ATTACHMENT),
-      GLenum(GL_RENDERBUFFER),
-      renderBuffer
-    )
+		glFramebufferTexture2D(
+			GLenum(GL_FRAMEBUFFER),
+			GLenum(GL_COLOR_ATTACHMENT0),
+			GLenum(GL_TEXTURE_RECTANGLE),
+			textureName,
+			0
+		)
 
-    return frameBuffer
-  }
+		glFramebufferRenderbuffer(
+			GLenum(GL_FRAMEBUFFER),
+			GLenum(GL_DEPTH_ATTACHMENT),
+			GLenum(GL_RENDERBUFFER),
+			renderBuffer
+		)
 
-  static public func deletePixelFormat(_ pixelFormat: CGLPixelFormatObj) {
-    CGLReleasePixelFormat(pixelFormat)
-  }
+		return frameBuffer
+	}
 
-  static public func deleteContext(_ context: CGLContextObj) {
-    CGLSetCurrentContext(nil)
-    CGLReleaseContext(context)
-  }
+	static public func deletePixelFormat(_ pixelFormat: CGLPixelFormatObj) {
+		CGLReleasePixelFormat(pixelFormat)
+	}
 
-  static public func deleteTextureCache(_ textureCache: CVOpenGLTextureCache) {
-    CVOpenGLTextureCacheFlush(textureCache, 0)
+	static public func deleteContext(_ context: CGLContextObj) {
+		CGLSetCurrentContext(nil)
+		CGLReleaseContext(context)
+	}
 
-    // 'CVOpenGLTextureCacheRelease' is unavailable: Core Foundation objects are
-    // automatically memory managed
-  }
+	static public func deleteTextureCache(_ textureCache: CVOpenGLTextureCache) {
+		CVOpenGLTextureCacheFlush(textureCache, 0)
 
-  static public func deletePixeBuffer(
-    _ context: CGLContextObj,
-    _ pixelBuffer: CVPixelBuffer
-  ) {
-    // 'CVPixelBufferRelease' is unavailable: Core Foundation objects are
-    // automatically memory managed
-  }
+		// 'CVOpenGLTextureCacheRelease' is unavailable: Core Foundation objects are
+		// automatically memory managed
+	}
 
-  // BUG: `glDeleteTextures` does not release `CVOpenGLTexture`.
-  // `CVOpenGLTextureCache` retains a direct or indirect reference to
-  // `IOSurface`, which causes a memory leak until `CVOpenGLTextureCache` is
-  // released.
-  static public func deleteTexture(
-    _ context: CGLContextObj,
-    _ texture: CVOpenGLTexture
-  ) {
-    CGLSetCurrentContext(context)
-    defer {
-      OpenGLHelpers.checkError("deleteTexture")
-      CGLSetCurrentContext(nil)
-    }
+	static public func deletePixeBuffer(
+		_ context: CGLContextObj,
+		_ pixelBuffer: CVPixelBuffer
+	) {
 
-    var textureName: GLuint = CVOpenGLTextureGetName(texture)
-    glDeleteTextures(1, &textureName)
-  }
+		// 'CVPixelBufferRelease' is unavailable: Core Foundation objects are
+		// automatically memory managed
+	}
 
-  static public func deleteRenderBuffer(
-    _ context: CGLContextObj,
-    _ renderBuffer: GLuint
-  ) {
-    CGLSetCurrentContext(context)
-    defer {
-      OpenGLHelpers.checkError("deleteRenderBuffer")
-      CGLSetCurrentContext(nil)
-    }
+	// BUG: `glDeleteTextures` does not release `CVOpenGLTexture`.
+	// `CVOpenGLTextureCache` retains a direct or indirect reference to
+	// `IOSurface`, which causes a memory leak until `CVOpenGLTextureCache` is
+	// released.
+	static public func deleteTexture(
+		_ context: CGLContextObj,
+		_ texture: CVOpenGLTexture
+	) {
+		CGLSetCurrentContext(context)
+		defer {
+			OpenGLHelpers.checkError("deleteTexture")
+			CGLSetCurrentContext(nil)
+		}
 
-    var renderBuffer = renderBuffer
-    glDeleteRenderbuffers(1, &renderBuffer)
-  }
+		var textureName: GLuint = CVOpenGLTextureGetName(texture)
+		glDeleteTextures(1, &textureName)
+	}
 
-  static public func deleteFrameBuffer(
-    _ context: CGLContextObj,
-    _ frameBuffer: GLuint
-  ) {
-    CGLSetCurrentContext(context)
-    defer {
-      OpenGLHelpers.checkError("deleteFrameBuffer")
-      CGLSetCurrentContext(nil)
-    }
+	static public func deleteRenderBuffer(
+		_ context: CGLContextObj,
+		_ renderBuffer: GLuint
+	) {
+		CGLSetCurrentContext(context)
+		defer {
+			OpenGLHelpers.checkError("deleteRenderBuffer")
+			CGLSetCurrentContext(nil)
+		}
 
-    var frameBuffer = frameBuffer
-    glDeleteFramebuffers(1, &frameBuffer)
-  }
+		var renderBuffer = renderBuffer
+		glDeleteRenderbuffers(1, &renderBuffer)
+	}
 
-  static public func checkError(_ message: String) {
-    let error = glGetError()
-    if error == GL_NO_ERROR {
-      return
-    }
+	static public func deleteFrameBuffer(
+		_ context: CGLContextObj,
+		_ frameBuffer: GLuint
+	) {
+		CGLSetCurrentContext(context)
+		defer {
+			OpenGLHelpers.checkError("deleteFrameBuffer")
+			CGLSetCurrentContext(nil)
+		}
 
-    NSLog("OpenGLHelpers: error: \(message): \(error)")
-  }
+		var frameBuffer = frameBuffer
+		glDeleteFramebuffers(1, &frameBuffer)
+	}
+
+	static public func checkError(_ message: String) {
+		let error = glGetError()
+		if error == GL_NO_ERROR {
+			return
+		}
+
+		NSLog("OpenGLHelpers: error: \(message): \(error)")
+	}
 }

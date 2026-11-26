@@ -5,3 +5,6 @@ analyzer:
     unintended_html_in_doc_comment: ignore
   exclude:
     - build/**
+
+formatter:
+  page_width: 120

@@ -17,34 +17,23 @@
 #include "mpv/render_gl.h"
 
 typedef struct _VideoOutputConfiguration {
-  gint64 width;
-  gint64 height;
-  bool enable_hardware_acceleration;
+	gint64 width;
+	gint64 height;
+	bool enable_hardware_acceleration;
 
-  _VideoOutputConfiguration(gint64 width = NULL,
-                            gint64 height = NULL,
-                            bool enable_hardware_acceleration = true)
-      : width(width),
-        height(height),
-        enable_hardware_acceleration(enable_hardware_acceleration) {}
+	_VideoOutputConfiguration(gint64 width = NULL, gint64 height = NULL, bool enable_hardware_acceleration = true)
+		: width(width), height(height), enable_hardware_acceleration(enable_hardware_acceleration) {
+	}
 } VideoOutputConfiguration;
 
 // Callback invoked when the texture ID updates i.e. video dimensions changes.
-typedef void (*TextureUpdateCallback)(gint64 id,
-                                      gint64 width,
-                                      gint64 height,
-                                      gpointer context);
+typedef void (*TextureUpdateCallback)(gint64 id, gint64 width, gint64 height, gpointer context);
 
 #define VIDEO_OUTPUT_TYPE (video_output_get_type())
 
-G_DECLARE_FINAL_TYPE(VideoOutput,
-                     video_output,
-                     VIDEO_OUTPUT,
-                     VIDEO_OUTPUT,
-                     GObject)
+G_DECLARE_FINAL_TYPE(VideoOutput, video_output, VIDEO_OUTPUT, VIDEO_OUTPUT, GObject)
 
-#define VIDEO_OUTPUT(obj) \
-  (G_TYPE_CHECK_INSTANCE_CAST((obj), video_output_get_type(), VideoOutput))
+#define VIDEO_OUTPUT(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), video_output_get_type(), VideoOutput))
 
 /**
  * @brief Creates a new |VideoOutput| instance for given |handle|.
@@ -58,10 +47,8 @@ G_DECLARE_FINAL_TYPE(VideoOutput,
  * @param enable_hardware_acceleration Whether to enable hardware acceleration.
  * @return VideoOutput*
  */
-VideoOutput* video_output_new(FlTextureRegistrar* texture_registrar,
-                              FlView* view,
-                              gint64 handle,
-                              VideoOutputConfiguration configuration);
+VideoOutput* video_output_new(FlTextureRegistrar* texture_registrar, FlView* view, gint64 handle,
+							  VideoOutputConfiguration configuration);
 
 /**
  * @brief Sets the callback invoked when the texture ID updates i.e. video
@@ -71,10 +58,8 @@ VideoOutput* video_output_new(FlTextureRegistrar* texture_registrar,
  * @param texture_update_callback Callback.
  * @param texture_update_callback_context Callback context.
  */
-void video_output_set_texture_update_callback(
-    VideoOutput* self,
-    TextureUpdateCallback texture_update_callback,
-    gpointer texture_update_callback_context);
+void video_output_set_texture_update_callback(VideoOutput* self, TextureUpdateCallback texture_update_callback,
+											  gpointer texture_update_callback_context);
 
 /**
  * @brief Sets the required video output size. This forces |VideoOutput| to

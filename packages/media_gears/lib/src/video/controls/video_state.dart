@@ -8,21 +8,18 @@ import 'package:media_gears/media_gears.dart';
 import 'package:media_gears/src/video/utils/dispose_safe_notifer.dart';
 
 /// Returns the [VideoState] associated with the [Video] present in the current [BuildContext].
-VideoState state(BuildContext context) =>
-    VideoStateInheritedWidget.of(context).state;
+VideoState state(BuildContext context) => VideoStateInheritedWidget.of(context).state;
 
 /// Returns the [ValueNotifier<BuildContext>] associated with the [Video] present in the current [BuildContext].
 DisposeSafeNotifier<BuildContext?> contextNotifier(BuildContext context) =>
     VideoStateInheritedWidget.of(context).contextNotifier;
 
 /// Returns the [ValueNotifier<VideoViewParameters>] associated with the [Video] present in the current [BuildContext].
-ValueNotifier<VideoViewParameters> videoViewParametersNotifier(
-        BuildContext context) =>
+ValueNotifier<VideoViewParameters> videoViewParametersNotifier(BuildContext context) =>
     VideoStateInheritedWidget.of(context).videoViewParametersNotifier;
 
 /// Returns the [VideoController] associated with the [Video] present in the current [BuildContext].
-VideoController controller(BuildContext context) =>
-    VideoStateInheritedWidget.of(context).state.widget.controller;
+VideoController controller(BuildContext context) => VideoStateInheritedWidget.of(context).state.widget.controller;
 
 /// Returns the callback which must be invoked when the video enters fullscreen mode.
 Future<void> Function()? onEnterFullscreen(BuildContext context) =>

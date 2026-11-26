@@ -18,6 +18,7 @@ import 'package:media_gears/src/player/core/native_library.dart';
 import 'package:media_gears/src/generated/libmpv/bindings.dart';
 
 MPV? _mpv;
+
 MPV get mpv => _mpv!;
 
 void main() {
@@ -72,12 +73,12 @@ void main() {
         (event) async {
           if (event.ref.event_id == mpv_event_id.MPV_EVENT_PROPERTY_CHANGE) {
             final prop = event.ref.data.cast<mpv_event_property>();
-            if (prop.ref.name.cast<Utf8>().toDartString() == 'pause' &&
-                prop.ref.format == mpv_format.MPV_FORMAT_FLAG) {
+            if (prop.ref.name.cast<Utf8>().toDartString() == 'pause' && prop.ref.format == mpv_format.MPV_FORMAT_FLAG) {
               final value = prop.ref.data.cast<Bool>().value;
               expectPauseTrue(value);
             }
           }
+
           if (event.ref.event_id == mpv_event_id.MPV_EVENT_SHUTDOWN) {
             expectShutdown();
           }

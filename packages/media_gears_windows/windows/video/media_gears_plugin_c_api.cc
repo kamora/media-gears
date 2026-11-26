@@ -11,6 +11,7 @@
 #include "media_gears_plugin.h"
 
 void MediaGearsPluginCApiRegisterWithRegistrar(FlutterDesktopPluginRegistrarRef registrar) {
+
 	media_gears::MediaGearsPlugin::RegisterWithRegistrar(
 		flutter::PluginRegistrarManager::GetInstance()->GetRegistrar<flutter::PluginRegistrarWindows>(registrar));
 }

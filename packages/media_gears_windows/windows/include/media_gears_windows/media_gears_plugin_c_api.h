@@ -20,8 +20,7 @@
 extern "C" {
 #endif
 
-FLUTTER_PLUGIN_EXPORT void MediaGearsPluginCApiRegisterWithRegistrar(
-    FlutterDesktopPluginRegistrarRef registrar);
+FLUTTER_PLUGIN_EXPORT void MediaGearsPluginCApiRegisterWithRegistrar(FlutterDesktopPluginRegistrarRef registrar);
 
 #if defined(__cplusplus)
 }  // extern "C"
