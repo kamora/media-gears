@@ -55,6 +55,16 @@ jobs:
       - name: Build
         run: nix develop -c make XCODE_PATH=${{ steps.xcode.outputs.path }} VERSION=${{ steps.version.outputs.version }}
 
+      # A build that silently produced nothing once passed; the frameworks the plugin needs must be in the archive.
+      - name: Check
+        run: |
+          archive=$(ls result/libmpv-xcframeworks_*_macos-universal-video-default.tar.gz)
+          for framework in Mpv Avcodec Avformat Avutil Swscale; do
+            tar -tzf "$archive" | grep -q "/$framework.xcframework/" || { echo "missing $framework.xcframework"; exit 1; }
+          done
+
+          ls -lh result
+
       - uses: actions/upload-artifact@v7
         with:
           name: libs-macos-${{ steps.version.outputs.version }}
