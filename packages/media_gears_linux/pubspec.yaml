@@ -1,0 +1,18 @@
+name: media_gears_linux
+description: The Linux implementation of media_gears, with its mpv and FFmpeg libraries.
+version: 0.1.0-dev.1
+environment:
+  sdk: ^3.6.0
+  flutter: ">=3.27.0"
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+  plugin:
+    implements: media_gears
+    platforms:
+      linux:
+        pluginClass: MediaGearsPlugin

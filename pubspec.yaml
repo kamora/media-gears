@@ -1,30 +1,11 @@
-name: media_kit_workspace
+name: media_gears_workspace
+publish_to: none
 environment:
   sdk: ^3.6.0
 
 workspace:
-  - libs/android/media_kit_libs_android_audio
-  - libs/android/media_kit_libs_android_video
-  - libs/ios/media_kit_libs_ios_audio
-  - libs/ios/media_kit_libs_ios_video
-  - libs/linux/media_kit_libs_linux
-  - libs/macos/media_kit_libs_macos_audio
-  - libs/macos/media_kit_libs_macos_video
-  - libs/universal/media_kit_libs_audio
-  - libs/universal/media_kit_libs_video
-  - libs/windows/media_kit_libs_windows_audio
-  - libs/windows/media_kit_libs_windows_video
-  - media_kit
-  - media_kit_test
-  - media_kit_video
-  - video_player_media_kit
-  - video_player_media_kit/example
-
-dev_dependencies:
-  flutter_lints: any
-  melos: ^8.10.1
-
-melos:
-  scripts:
-    upgrade_major_versions:
-      run: melos exec -- flutter pub upgrade --major-versions
+  - packages/media_gears
+  - packages/media_gears/example
+  - packages/media_gears_linux
+  - packages/media_gears_macos
+  - packages/media_gears_windows
