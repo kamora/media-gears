@@ -17,11 +17,6 @@ class PlayerConfiguration {
   /// Default: `null`.
   final String? vo;
 
-  /// Enables on-screen controls for native backend.
-  ///
-  /// Default: `false`.
-  final bool osc;
-
   /// Enables or disables pitch shift control for native backend.
   ///
   /// Enabling this option may result in de-syncing of audio & video.
@@ -78,7 +73,6 @@ class PlayerConfiguration {
   /// {@macro player_configuration}
   const PlayerConfiguration({
     this.vo = 'null',
-    this.osc = false,
     this.pitch = false,
     this.title = 'package:media_gears',
     this.ready,

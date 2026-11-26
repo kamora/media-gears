@@ -75,7 +75,11 @@ void main() {
             final prop = event.ref.data.cast<mpv_event_property>();
             if (prop.ref.name.cast<Utf8>().toDartString() == 'pause' && prop.ref.format == mpv_format.MPV_FORMAT_FLAG) {
               final value = prop.ref.data.cast<Bool>().value;
-              expectPauseTrue(value);
+
+              // Observing a property first reports its current value, false; the cycle below makes it true.
+              if (value) {
+                expectPauseTrue(value);
+              }
             }
           }
 

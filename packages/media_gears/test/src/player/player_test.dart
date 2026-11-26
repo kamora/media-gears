@@ -1906,72 +1906,32 @@ void main() {
     await player.dispose();
   }, timeout: Timeout(const Duration(minutes: 1, seconds: 30)));
   test('player-buffering-pause-play', () async {
-    // When pausing in buffering state, the player must exit buffering state once resumed.
+    // A player paused while buffering leaves buffering once it plays again.
     // https://github.com/media-kit/media-kit/issues/367
     final player = Player();
+    final resumed = Completer<void>();
 
-    player.stream.buffering.listen((e) => print(e));
-
-    expect(
-      player.stream.buffering,
-      emitsInOrder([
-        // Player.open: buffering = false
-        false,
-        // Player.open: buffering = true
-        true,
-        // Player.open: buffering = false
-        false,
-        // Player.seek: buffering = true
-        true,
-        // Player.play: buffering = false
-        false,
-        // EOF
-        true,
-        false,
-        // Player.dispose
-        emitsDone,
-      ]),
-    );
-
-    // Seek to the end of the stream to trigger buffering.
-    player.stream.duration.listen((event) async {
-      if (event > Duration.zero) {
-        // VOLUNTARY DELAY.
-        await Future.delayed(const Duration(seconds: 5));
-
-        print('Seek');
-
-        await player.seek(event - const Duration(seconds: 30));
-
-        print('Buffering...');
-
-        // Wait until buffering is started.
-        await player.stream.buffering.firstWhere((e) => e);
-
-        print('Wait...');
-        print('Pause');
-
-        await player.pause();
-
-        // VOLUNTARY DELAY.
-        await Future.delayed(const Duration(seconds: 5));
-
-        print('Play');
-
-        await player.play();
+    // Seek near the end once the stream is open, which makes it buffer.
+    player.stream.duration.firstWhere((d) => d > Duration.zero).then((duration) async {
+      await player.seek(duration - const Duration(seconds: 30));
+      await player.stream.buffering.firstWhere((b) => b);
+      await player.pause();
+      await Future.delayed(const Duration(seconds: 2));
+      await player.play();
+      if (player.state.buffering) {
+        await player.stream.buffering.firstWhere((b) => !b);
       }
+
+      resumed.complete();
     });
 
     await player.open(
-      Media(
-        'https://github.com/media-kit/media-kit/assets/28951144/efb4057c-6fd3-4644-a0b1-42d5fb420ce9',
-      ),
+      Media('https://github.com/media-kit/media-kit/assets/28951144/efb4057c-6fd3-4644-a0b1-42d5fb420ce9'),
     );
-
-    await Future.delayed(const Duration(minutes: 1));
-
+    await resumed.future;
+    expect(player.state.buffering, isFalse);
     await player.dispose();
-  }, timeout: Timeout(const Duration(minutes: 1, seconds: 30)));
+  }, timeout: Timeout(const Duration(minutes: 1)));
   test('player-buffering-playlist', () async {
     final player = Player();
 

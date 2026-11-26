@@ -6,6 +6,7 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:ffi';
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:image/image.dart';
 import 'package:meta/meta.dart';
@@ -2327,14 +2328,18 @@ class Player {
         'hdr-compute-peak': 'no',
         'subs-fallback': 'yes',
         'subs-with-matching-audio': 'yes',
+
+        // mpv draws no on-screen display of its own; the app shows what it needs.
+        'osd-level': '0',
+
+        // FFmpeg verifies TLS certificates, and the mbedTLS it uses on macOS knows no trusted ones by itself, so it
+        // reads the system's bundle; without it every https:// URL fails.
+        if (Platform.isMacOS) 'tls-ca-file': '/etc/ssl/cert.pem',
+        'tls-verify': 'yes',
       };
       // Other properties based on [PlayerConfiguration].
       properties.addAll(
         {
-          if (!configuration.osc) ...{
-            'osc': 'no',
-            'osd-level': '0',
-          },
           'title': configuration.title,
           'demuxer-max-bytes': configuration.bufferSize.toString(),
           'demuxer-max-back-bytes': configuration.bufferSize.toString(),
