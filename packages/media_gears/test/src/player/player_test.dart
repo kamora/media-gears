@@ -1799,7 +1799,7 @@ void main() {
       ]),
     );
 
-    await player.open(Media(sources.network[0]));
+    await player.open(Media(sources.https));
 
     await untilEnd(player);
 
@@ -1888,17 +1888,17 @@ void main() {
     player.stream.duration.listen((event) async {
       if (event > Duration.zero) {
         // VOLUNTARY DELAY.
-        await Future.delayed(const Duration(seconds: 5));
+        await Future.delayed(const Duration(seconds: 1));
 
         print('Seek');
 
-        await player.seek(event - const Duration(seconds: 30));
+        await player.seek(event - const Duration(seconds: 4));
       }
     });
 
     await player.open(
       Media(
-        'https://github.com/media-kit/media-kit/assets/28951144/efb4057c-6fd3-4644-a0b1-42d5fb420ce9',
+        sources.long,
       ),
     );
 
@@ -1914,7 +1914,7 @@ void main() {
 
     // Seek near the end once the stream is open, which makes it buffer.
     player.stream.duration.firstWhere((d) => d > Duration.zero).then((duration) async {
-      await player.seek(duration - const Duration(seconds: 30));
+      await player.seek(duration - const Duration(seconds: 4));
       await player.stream.buffering.firstWhere((b) => b);
       await player.pause();
       await Future.delayed(const Duration(seconds: 2));
@@ -1927,7 +1927,7 @@ void main() {
     });
 
     await player.open(
-      Media('https://github.com/media-kit/media-kit/assets/28951144/efb4057c-6fd3-4644-a0b1-42d5fb420ce9'),
+      Media(sources.long),
     );
     await resumed.future;
     expect(player.state.buffering, isFalse);
@@ -2292,7 +2292,7 @@ void main() {
 
       await player.open(
         Media(
-          'https://github.com/ietf-wg-cellar/matroska-test-files/raw/master/test_files/test5.mkv',
+          sources.subtitles,
         ),
       );
 
@@ -2376,10 +2376,10 @@ void main() {
       await player.open(
         Playlist([
           Media(
-            'https://github.com/ietf-wg-cellar/matroska-test-files/raw/master/test_files/test5.mkv',
+            sources.tracks,
           ),
           Media(
-            'https://github.com/ietf-wg-cellar/matroska-test-files/raw/master/test_files/test5.mkv',
+            sources.tracks,
           ),
         ]),
       );
