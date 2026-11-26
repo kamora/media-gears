@@ -14,6 +14,11 @@
     url = "https://github.com/moffatman/fftools-ffi/archive/9b0d4da026d9c830702ec043c1f1f98d407025af.tar.gz";
     sha256 = "mgf3ddt3yjmYBd2D0WeEnhgxKNjrEbjYnDx2t4YCfU8=";
   };
+  fastFloat = {
+    version = "8.2.2";
+    url = "https://github.com/fastfloat/fast_float/archive/97b54ca9e75f5303507699d27c6b4f4efe4641a1.tar.gz";
+    sha256 = "2b132274539286e41f37857cac22aa8441d21bd86d55de825a3342b149f66801";
+  };
   freetype = {
     version = "2.13.2";
     url = "https://downloads.sourceforge.net/project/freetype/freetype2/2.13.2/freetype-2.13.2.tar.xz";

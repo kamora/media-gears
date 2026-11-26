@@ -32,13 +32,27 @@ let
     name = "${pname}-source-${version}";
     inherit (packageLock) url sha256;
   };
+
+  # fast_float, a header-only git submodule of libplacebo, at the commit libplacebo pins (v8.2.2). The release archive
+  # leaves it out, and libplacebo needs it to convert floating-point numbers.
+  fastFloat = callPackage ../../utils/fetch-tarball/default.nix {
+    name = "${pname}-fast-float-${fastFloatLock.version}";
+    inherit (fastFloatLock) url sha256;
+  };
+  fastFloatLock = (import ../../../packages.lock.nix).fastFloat;
+  patchedSource = pkgs.runCommand "${pname}-patched-source-${version}" { } ''
+    cp -r ${src} $out
+    chmod -R u+w $out
+    mkdir -p $out/3rdparty/fast_float
+    cp -r ${fastFloat}/include $out/3rdparty/fast_float/include
+  '';
 in
 
 pkgs.stdenvNoCC.mkDerivation {
   name = "${pname}-${os}-${arch}-${version}";
   pname = pname;
   inherit version;
-  inherit src;
+  src = patchedSource;
   dontUnpack = true;
   enableParallelBuilding = true;
   nativeBuildInputs = [
