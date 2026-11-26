@@ -5,7 +5,7 @@
 		<key>CFBundleExecutable</key>
 		<string>${FRAMEWORK_NAME}</string>
 		<key>CFBundleIdentifier</key>
-		<string>com.github.media-kit.${FRAMEWORK_NAME}</string>
+		<string>com.github.kamora.media-gears.${FRAMEWORK_NAME}</string>
 		<key>CFBundleShortVersionString</key>
 		<string>1.0</string>
 		<key>CFBundleVersion</key>
