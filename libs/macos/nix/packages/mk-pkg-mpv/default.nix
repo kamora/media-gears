@@ -30,6 +30,9 @@ let
   # minimum macOS as the cross files.
   swiftArch = if arch == "amd64" then "x86_64" else arch;
   swiftTarget = "${swiftArch}-apple-macos12.0";
+
+  # Xcode's SDK, whose Swift modules match Xcode's swiftc; Nix's build environment sets SDKROOT to its own, older SDK.
+  xcodeSdk = "${pkgs.darwin.xcode}/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk";
   ffmpeg = callPackage ../mk-pkg-ffmpeg/default.nix { };
   uchardet = callPackage ../mk-pkg-uchardet/default.nix { };
   libass = callPackage ../mk-pkg-libass/default.nix { };
@@ -262,7 +265,7 @@ pkgs.stdenvNoCC.mkDerivation {
     export HOME="$TMPDIR"
 
     # mpv reads the SDK from the environment before asking xcrun.
-    export MACOS_SDK="$SDKROOT"
+    export MACOS_SDK="${xcodeSdk}"
     export MACOS_SDK_VERSION=$(xcrun --sdk macosx --show-sdk-version)
 
     meson setup build $src \
