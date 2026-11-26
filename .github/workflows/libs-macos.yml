@@ -1,0 +1,72 @@
+# Builds mpv and FFmpeg for macOS (LGPL, video, universal) with the Nix build in libs/macos. A run keeps its archives as
+# workflow artifacts; a tag named libs-macos-v* also publishes them as a GitHub release, which media_gears_macos
+# downloads.
+name: libs-macos
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - libs/macos/**
+      - .github/workflows/libs-macos.yml
+    tags:
+      - libs-macos-v*
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: libs/macos
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: DeterminateSystems/nix-installer-action@v22
+        with:
+          extra-conf: |
+            sandbox = true
+            sandbox-fallback = false
+
+      - uses: DeterminateSystems/magic-nix-cache-action@v13
+        with:
+          use-flakehub: false
+
+      - name: Xcode
+        id: xcode
+        run: |
+          XCODE_PATH=$(realpath "$(xcode-select -p)/../..")
+          "$XCODE_PATH/Contents/Developer/usr/bin/xcodebuild" -version
+          echo "path=$XCODE_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Version
+        id: version
+        run: |
+          VERSION=dev
+          if [[ "$GITHUB_REF" == refs/tags/libs-macos-* ]]; then
+            VERSION="${GITHUB_REF#refs/tags/libs-macos-}"
+          fi
+
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Build
+        run: nix develop -c make XCODE_PATH=${{ steps.xcode.outputs.path }} VERSION=${{ steps.version.outputs.version }}
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: libs-macos-${{ steps.version.outputs.version }}
+          if-no-files-found: error
+          path: |
+            libs/macos/result/*.tar.gz
+            libs/macos/result/*.zip
+
+      - uses: softprops/action-gh-release@v3
+        if: startsWith(github.ref, 'refs/tags/libs-macos-')
+        with:
+          fail_on_unmatched_files: true
+          files: |
+            libs/macos/result/*.tar.gz
+            libs/macos/result/*.zip
