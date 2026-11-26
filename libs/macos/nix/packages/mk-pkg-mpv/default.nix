@@ -60,6 +60,7 @@ let
 
     cd $src
     patch -p1 <${../../../patches/mpv-fix-missing-objc.patch}
+    patch -p1 <${../../../patches/mpv-fix-view-metal-layer.patch}
     cd -
 
     cp -r $src $out

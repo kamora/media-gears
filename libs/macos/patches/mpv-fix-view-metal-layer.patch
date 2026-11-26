@@ -1,0 +1,16 @@
+Backport from mpv master: view.swift checks for CAMetalLayer, not MetalLayer. MetalLayer is defined only in builds
+with Vulkan, so mpv 0.42.0 fails to build its Swift parts without Vulkan.
+
+--- a/video/out/mac/view.swift
++++ b/video/out/mac/view.swift
+@@ -29,8 +29,8 @@
+     override var acceptsFirstResponder: Bool { return true }
+ 
+     override var isOpaque: Bool {
+-        if let metalLayer = layer as? MetalLayer {
+-            return !metalLayer.isOpaque
++        if let metalLayer = layer as? CAMetalLayer {
++            return metalLayer.isOpaque
+         }
+ 
+         return true
