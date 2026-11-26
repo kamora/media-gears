@@ -1,6 +1,6 @@
 # libplacebo, which mpv requires since 0.38. Built without its OpenGL, Vulkan and Direct3D backends: mpv renders libmpv's
-# OpenGL output with its own code, and those backends would need libplacebo's git submodules (glad, jinja), which the
-# release archive leaves out. The core shaders are still generated from jinja templates, hence a Python with jinja2.
+# OpenGL output with its own code. The release archive leaves out libplacebo's git submodules; the two the core needs
+# (fast_float, Vulkan-Headers) are fetched below, and its shaders are generated with a Python that has jinja2.
 {
   pkgs ? import ../../utils/default/pkgs.nix,
   os ? import ../../utils/default/os.nix,
@@ -40,11 +40,21 @@ let
     inherit (fastFloatLock) url sha256;
   };
   fastFloatLock = (import ../../../packages.lock.nix).fastFloat;
+
+  # Vulkan-Headers, another header-only submodule, at the commit libplacebo pins (v1.4.345). With Vulkan disabled,
+  # libplacebo still compiles its Vulkan stubs, which include vulkan/vulkan.h.
+  vulkanHeaders = callPackage ../../utils/fetch-tarball/default.nix {
+    name = "${pname}-vulkan-headers-${vulkanHeadersLock.version}";
+    inherit (vulkanHeadersLock) url sha256;
+  };
+  vulkanHeadersLock = (import ../../../packages.lock.nix).vulkanHeaders;
   patchedSource = pkgs.runCommand "${pname}-patched-source-${version}" { } ''
     cp -r ${src} $out
     chmod -R u+w $out
     mkdir -p $out/3rdparty/fast_float
     cp -r ${fastFloat}/include $out/3rdparty/fast_float/include
+    mkdir -p $out/3rdparty/Vulkan-Headers
+    cp -r ${vulkanHeaders}/include $out/3rdparty/Vulkan-Headers/include
   '';
 in
 

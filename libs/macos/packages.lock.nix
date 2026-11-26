@@ -19,6 +19,11 @@
     url = "https://github.com/fastfloat/fast_float/archive/97b54ca9e75f5303507699d27c6b4f4efe4641a1.tar.gz";
     sha256 = "2b132274539286e41f37857cac22aa8441d21bd86d55de825a3342b149f66801";
   };
+  vulkanHeaders = {
+    version = "1.4.345";
+    url = "https://github.com/KhronosGroup/Vulkan-Headers/archive/74d8a6cb930c68ef617b202c3ff3c59d919e086b.tar.gz";
+    sha256 = "75967a8288ff16044a86d1af462b96d2e75c435937efb75f2bb4102ab0382f29";
+  };
   freetype = {
     version = "2.13.2";
     url = "https://downloads.sourceforge.net/project/freetype/freetype2/2.13.2/freetype-2.13.2.tar.xz";
