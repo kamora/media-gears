@@ -1,9 +1,6 @@
 import Darwin
 import Foundation
-
-#if SWIFT_PACKAGE
-	import Mpv
-#endif
+import Mpv
 
 public enum MPVHelpers {
 

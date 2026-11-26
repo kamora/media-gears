@@ -1,10 +1,7 @@
 import FlutterMacOS
+import Mpv
 import OpenGL.GL
 import OpenGL.GL3
-
-#if SWIFT_PACKAGE
-	import Mpv
-#endif
 
 public class TextureHW: NSObject, FlutterTexture, ResizableTextureProtocol {
 	public typealias UpdateCallback = () -> Void

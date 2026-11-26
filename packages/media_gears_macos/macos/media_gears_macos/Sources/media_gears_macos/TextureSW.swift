@@ -2,10 +2,7 @@ import CoreGraphics
 import CoreVideo
 import FlutterMacOS
 import Foundation
-
-#if SWIFT_PACKAGE
-	import Mpv
-#endif
+import Mpv
 
 public class TextureSW: NSObject, FlutterTexture, ResizableTextureProtocol {
 	public typealias UpdateCallback = () -> Void

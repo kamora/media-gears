@@ -15,9 +15,9 @@ Pod::Spec.new do |s|
 	s.swift_version    = '5.0'
 	s.dependency         'FlutterMacOS'
 
-	s.source_files        = 'video/**/*.swift', 'Headers/**/*.h'
+	s.source_files        = 'media_gears_macos/Sources/media_gears_macos/**/*.swift'
 	s.vendored_frameworks = 'Frameworks/*.xcframework'
-	s.resource_bundles    = { 'media_gears_macos_privacy' => ['PrivacyInfo.xcprivacy'] }
+	s.resource_bundles    = { 'media_gears_macos_privacy' => ['media_gears_macos/Sources/media_gears_macos/PrivacyInfo.xcprivacy'] }
 	s.pod_target_xcconfig = {
 		'DEFINES_MODULE'                => 'YES',
 		'GCC_WARN_INHIBIT_ALL_WARNINGS' => 'YES',
