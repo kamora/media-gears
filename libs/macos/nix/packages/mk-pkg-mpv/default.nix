@@ -23,6 +23,13 @@ let
   nativeFile = callPackage ../../utils/native-file/default.nix { };
   crossFile = callPackage ../../utils/cross-file/default.nix { };
   xctoolchainLipo = callPackage ../../utils/xctoolchain/lipo.nix { };
+  xctoolchainSwiftc = callPackage ../../utils/xctoolchain/swiftc.nix { };
+  xctoolchainXcrun = callPackage ../../utils/xctoolchain/xcrun.nix { };
+
+  # mpv compiles its Swift parts for the build machine unless told otherwise; this names the target, at the same
+  # minimum macOS as the cross files.
+  swiftArch = if arch == "amd64" then "x86_64" else arch;
+  swiftTarget = "${swiftArch}-apple-macos12.0";
   ffmpeg = callPackage ../mk-pkg-ffmpeg/default.nix { };
   uchardet = callPackage ../mk-pkg-uchardet/default.nix { };
   libass = callPackage ../mk-pkg-libass/default.nix { };
@@ -34,6 +41,8 @@ let
     pkgs.pkg-config
     pkgs.python3
     xctoolchainLipo
+    xctoolchainSwiftc
+    xctoolchainXcrun
   ];
 
   pname = import ../../utils/name/package.nix name;
@@ -212,6 +221,10 @@ pkgs.stdenvNoCC.mkDerivation {
       `# video output features`
       -Dgl-cocoa=enabled `# gl-cocoa`
 
+      `# macOS features: since 0.40, cocoa (which gl-cocoa and videotoolbox-gl need) compiles Swift-bridged files`
+      -Dswift-build=enabled `# macOS Swift build tools`
+      -Dswift-flags="-target ${swiftTarget}" `# Optional Swift compiler flags`
+
       `# hwaccel features`
       -Dvideotoolbox-gl=enabled `# Videotoolbox with OpenGL`
     )
@@ -244,6 +257,10 @@ pkgs.stdenvNoCC.mkDerivation {
         OPTIONS+=("''${IOS_VIDEO_OPTIONS[@]}")
       fi
     fi
+
+    # mpv reads the SDK from the environment before asking xcrun.
+    export MACOS_SDK="$SDKROOT"
+    export MACOS_SDK_VERSION=$(xcrun --sdk macosx --show-sdk-version)
 
     meson setup build $src \
       --native-file ${nativeFile} \
