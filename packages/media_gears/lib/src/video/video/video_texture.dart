@@ -3,7 +3,6 @@
 /// Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
 /// All rights reserved.
 /// Use of this source code is governed by MIT license that can be found in the LICENSE file.
-import 'dart:io';
 import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
@@ -127,7 +126,7 @@ class Video extends StatefulWidget {
     this.alignment = Alignment.center,
     this.aspectRatio,
     this.filterQuality = FilterQuality.low,
-    this.controls = media_kit_video_controls.AdaptiveVideoControls,
+    this.controls = media_kit_video_controls.MaterialDesktopVideoControls,
     this.wakelock = true,
     this.pauseUponEnteringBackgroundMode = true,
     this.resumeUponEnteringForegroundMode = false,
@@ -478,27 +477,10 @@ typedef VideoControlsBuilder = Widget Function(VideoState state);
 /// Makes the native window enter fullscreen.
 Future<void> defaultEnterNativeFullscreen() async {
   try {
-    if (Platform.isAndroid || Platform.isIOS) {
-      await Future.wait(
-        [
-          SystemChrome.setEnabledSystemUIMode(
-            SystemUiMode.immersiveSticky,
-            overlays: [],
-          ),
-          SystemChrome.setPreferredOrientations(
-            [
-              DeviceOrientation.landscapeLeft,
-              DeviceOrientation.landscapeRight,
-            ],
-          ),
-        ],
-      );
-    } else if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
-      await const MethodChannel('media_gears/video')
-          .invokeMethod(
-        'Utils.EnterNativeFullscreen',
-      );
-    }
+    await const MethodChannel('media_gears/video')
+        .invokeMethod(
+      'Utils.EnterNativeFullscreen',
+    );
   } catch (exception, stacktrace) {
     debugPrint(exception.toString());
     debugPrint(stacktrace.toString());
@@ -508,24 +490,10 @@ Future<void> defaultEnterNativeFullscreen() async {
 /// Makes the native window exit fullscreen.
 Future<void> defaultExitNativeFullscreen() async {
   try {
-    if (Platform.isAndroid || Platform.isIOS) {
-      await Future.wait(
-        [
-          SystemChrome.setEnabledSystemUIMode(
-            SystemUiMode.manual,
-            overlays: SystemUiOverlay.values,
-          ),
-          SystemChrome.setPreferredOrientations(
-            [],
-          ),
-        ],
-      );
-    } else if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
-      await const MethodChannel('media_gears/video')
-          .invokeMethod(
-        'Utils.ExitNativeFullscreen',
-      );
-    }
+    await const MethodChannel('media_gears/video')
+        .invokeMethod(
+      'Utils.ExitNativeFullscreen',
+    );
   } catch (exception, stacktrace) {
     debugPrint(exception.toString());
     debugPrint(stacktrace.toString());

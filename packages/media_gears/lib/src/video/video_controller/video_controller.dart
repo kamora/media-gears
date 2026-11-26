@@ -38,17 +38,6 @@ import 'package:media_gears/src/video/video_controller/native_video_controller/n
 ///    * Disabling the option may improve stability on certain devices.
 ///    * By default, [VideoControllerConfiguration.enableHardwareAcceleration] is `true` i.e. GPU (Direct3D/OpenGL/METAL) is utilized.
 ///
-/// **Platform specific limitations & differences:**
-///
-/// **Android**
-/// * [VideoControllerConfiguration.width] & [VideoControllerConfiguration.height] arguments have no effect.
-///
-/// **Web**
-/// * [VideoControllerConfiguration.width] & [VideoControllerConfiguration.height] arguments have no effect.
-/// * Only single [Video] output can be displayed for a [VideoController].
-///   Displaying multiple [Video] widgets with same [VideoController] will cause only last mounted [Video] to be displayed.
-/// * [VideoControllerConfiguration.enableHardwareAcceleration] is ignored i.e. GPU usage is dependent upon the web browser.
-///
 /// {@endtemplate}
 class VideoController {
   /// The [Player] instance associated with this [VideoController].
@@ -80,14 +69,12 @@ class VideoController {
       await completer.future;
 
       try {
-        if (NativeVideoController.supported) {
-          final result = await NativeVideoController.create(
-            player,
-            configuration,
-          );
-          platform.complete(result);
-          notifier.value = result;
-        }
+        final result = await NativeVideoController.create(
+          player,
+          configuration,
+        );
+        platform.complete(result);
+        notifier.value = result;
 
         if (platform.isCompleted) {
           // Populate [id] & [rect] [ValueNotifier]s with the values from [platform] implementation of [PlatformVideoController].

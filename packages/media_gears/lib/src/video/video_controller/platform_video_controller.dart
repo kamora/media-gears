@@ -76,16 +76,12 @@ abstract class PlatformVideoController {
 class VideoControllerConfiguration {
   /// Sets the [`--vo`](https://mpv.io/manual/stable/#options-vo) property on native backend.
   ///
-  /// Default: Platform specific.
-  /// * Windows, GNU/Linux, macOS & iOS: `libmpv`
-  /// * Android: `gpu`
+  /// Default: `libmpv`.
   final String? vo;
 
   /// Sets the [`--hwdec`](https://mpv.io/manual/stable/#options-hwdec) property on native backend.
   ///
-  /// Default: Platform specific.
-  /// * Windows, GNU/Linux, macOS & iOS : `auto`
-  /// * Android: `auto-safe`
+  /// Default: `auto`.
   final String? hwdec;
 
   /// The scale for the video output.
@@ -114,13 +110,6 @@ class VideoControllerConfiguration {
   /// Default: `true`
   final bool enableHardwareAcceleration;
 
-  /// Whether to attach `android.view.Surface` after video parameters are known.
-  ///
-  /// Default:
-  /// * [vo] == gpu : `true`
-  /// * [vo] != gpu : `false`
-  final bool? androidAttachSurfaceAfterVideoParameters;
-
   /// {@macro video_controller_configuration}
   const VideoControllerConfiguration({
     this.vo,
@@ -129,7 +118,6 @@ class VideoControllerConfiguration {
     this.height,
     this.scale = 1.0,
     this.enableHardwareAcceleration = true,
-    this.androidAttachSurfaceAfterVideoParameters,
   });
 
   /// Returns a copy of this class with the given fields replaced by the new values.
@@ -140,7 +128,6 @@ class VideoControllerConfiguration {
     int? width,
     int? height,
     bool? enableHardwareAcceleration,
-    bool? androidAttachSurfaceAfterVideoParameters,
   }) =>
       VideoControllerConfiguration(
         vo: vo ?? this.vo,
@@ -150,8 +137,5 @@ class VideoControllerConfiguration {
         height: height ?? this.height,
         enableHardwareAcceleration:
             enableHardwareAcceleration ?? this.enableHardwareAcceleration,
-        androidAttachSurfaceAfterVideoParameters:
-            androidAttachSurfaceAfterVideoParameters ??
-                this.androidAttachSurfaceAfterVideoParameters,
       );
 }

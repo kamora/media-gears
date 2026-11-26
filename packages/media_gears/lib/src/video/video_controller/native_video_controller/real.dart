@@ -3,7 +3,6 @@
 /// Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
 /// All rights reserved.
 /// Use of this source code is governed by MIT license that can be found in the LICENSE file.
-import 'dart:io';
 import 'dart:async';
 import 'dart:collection';
 import 'package:flutter/services.dart';
@@ -24,17 +23,9 @@ import 'package:media_gears/src/video/video_controller/platform_video_controller
 /// * Windows
 /// * GNU/Linux
 /// * macOS
-/// * iOS
 ///
 /// {@endtemplate}
 class NativeVideoController extends PlatformVideoController {
-  /// Whether [NativeVideoController] is supported on the current platform or not.
-  static bool get supported =>
-      Platform.isWindows ||
-      Platform.isLinux ||
-      Platform.isMacOS ||
-      Platform.isIOS;
-
   /// Fixed width of the video output.
   int? width;
 

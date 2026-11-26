@@ -3,11 +3,12 @@
 /// Copyright © 2021 & onwards, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
 /// All rights reserved.
 /// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+import 'dart:io';
+
 import 'package:test/test.dart';
 import 'package:collection/collection.dart';
-import 'package:universal_platform/universal_platform.dart';
 
-import 'package:media_kit/src/models/media/media.dart';
+import 'package:media_gears/src/models/media/media.dart';
 
 import '../../../common/sources.dart';
 
@@ -60,7 +61,7 @@ void main() {
         );
       }
     },
-    skip: UniversalPlatform.isWeb || UniversalPlatform.isWindows,
+    skip: Platform.isWindows,
   );
   test(
     'media-uri-normalization-file',
@@ -119,7 +120,7 @@ void main() {
         );
       }
     },
-    skip: UniversalPlatform.isWeb || !UniversalPlatform.isWindows,
+    skip: !Platform.isWindows,
   );
   test(
     'media-extras-propagate',

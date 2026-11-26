@@ -5,9 +5,6 @@
 /// Use of this source code is governed by MIT license that can be found in the LICENSE file.
 
 export 'package:media_gears/src/video/controls/src/controls/no.dart';
-export 'package:media_gears/src/video/controls/src/controls/adaptive.dart';
-export 'package:media_gears/src/video/controls/src/controls/material.dart';
-export 'package:media_gears/src/video/controls/src/controls/cupertino.dart';
 export 'package:media_gears/src/video/controls/src/controls/material_desktop.dart';
 export 'package:media_gears/src/video/controls/src/controls/methods/fullscreen.dart';
 export 'package:media_gears/src/video/controls/src/controls/widgets/fullscreen_inherited_widget.dart';

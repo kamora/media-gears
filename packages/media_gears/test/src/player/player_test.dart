@@ -5,20 +5,18 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
-import 'package:media_kit/src/media_kit.dart';
-import 'package:media_kit/src/models/audio_device.dart';
-import 'package:media_kit/src/models/audio_params.dart';
-import 'package:media_kit/src/models/media/media.dart';
-import 'package:media_kit/src/models/playlist.dart';
-import 'package:media_kit/src/models/playlist_mode.dart';
-import 'package:media_kit/src/models/track.dart';
-import 'package:media_kit/src/models/video_params.dart';
-import 'package:media_kit/src/player/native/player/player.dart';
-import 'package:media_kit/src/player/platform_player.dart';
-import 'package:media_kit/src/player/player.dart';
-import 'package:media_kit/src/player/web/player/player.dart';
+import 'package:media_gears/src/media_kit.dart';
+import 'package:media_gears/src/models/audio_device.dart';
+import 'package:media_gears/src/models/audio_params.dart';
+import 'package:media_gears/src/models/media/media.dart';
+import 'package:media_gears/src/models/playlist.dart';
+import 'package:media_gears/src/models/playlist_mode.dart';
+import 'package:media_gears/src/models/track.dart';
+import 'package:media_gears/src/models/video_params.dart';
+import 'package:media_gears/src/player/native/player/player.dart';
+import 'package:media_gears/src/player/platform_player.dart';
+import 'package:media_gears/src/player/player.dart';
 import 'package:test/test.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 import '../../common/sources.dart';
 
@@ -30,21 +28,13 @@ void main() {
 
     // For preventing video driver & audio driver initialization errors in unit-tests.
     NativePlayer.test = true;
-    // For preventing "DOMException: play() failed because the user didn't interact with the document first." in unit-tests.
-    WebPlayer.test = true;
   });
   test('player-platform', () {
     final player = Player();
     expect(player.platform, isA<NativePlayer>());
 
     addTearDown(player.dispose);
-  }, skip: UniversalPlatform.isWeb);
-  test('player-platform', () {
-    final player = Player();
-    expect(player.platform, isA<WebPlayer>());
-
-    addTearDown(player.dispose);
-  }, skip: !UniversalPlatform.isWeb);
+  });
   test('player-wait-for-player-initialization', () async {
     final player = Player();
     final future = player.platform?.waitForPlayerInitialization;
@@ -392,7 +382,6 @@ void main() {
       await player.dispose();
     },
     // TODO: Can't test on web.
-    skip: UniversalPlatform.isWeb,
   );
   test('player-open-playable-media-extras', () async {
     final player = Player();
@@ -644,7 +633,6 @@ void main() {
       await server.close();
     },
     timeout: Timeout(const Duration(minutes: 1)),
-    skip: UniversalPlatform.isWeb,
   );
   test(
     'player-open-playable-playlist-http-headers',
@@ -711,7 +699,6 @@ void main() {
       await server.close();
     },
     timeout: Timeout(const Duration(minutes: 1, seconds: 30)),
-    skip: UniversalPlatform.isWeb,
   );
   test('player-play-after-completed', () async {
     // Only applicable for PlaylistMode.none.
@@ -917,7 +904,7 @@ void main() {
     });
 
     addTearDown(player.dispose);
-  }, skip: UniversalPlatform.isWeb);
+  });
   test('player-set-audio-device', () async {
     final player = Player();
 
@@ -949,14 +936,7 @@ void main() {
     }
 
     addTearDown(player.dispose);
-  }, skip: UniversalPlatform.isWeb);
-  test('player-set-audio-device', () async {
-    final player = Player();
-
-    expect(player.setAudioDevice(AudioDevice.auto()), throwsUnsupportedError);
-
-    addTearDown(player.dispose);
-  }, skip: !UniversalPlatform.isWeb);
+  });
   test('player-set-volume', () async {
     final player = Player();
 
@@ -1023,7 +1003,7 @@ void main() {
     expect(player.setPitch(1.0), throwsArgumentError);
 
     addTearDown(player.dispose);
-  }, skip: UniversalPlatform.isWeb);
+  });
   test('player-set-pitch-enabled', () async {
     final player = Player(configuration: PlayerConfiguration(pitch: true));
 
@@ -1051,14 +1031,7 @@ void main() {
     }
 
     addTearDown(player.dispose);
-  }, skip: UniversalPlatform.isWeb);
-  test('player-set-pitch-enabled', () async {
-    final player = Player(configuration: PlayerConfiguration(pitch: true));
-
-    expect(player.setPitch(1.0), throwsUnsupportedError);
-
-    addTearDown(player.dispose);
-  }, skip: !UniversalPlatform.isWeb);
+  });
   test('player-set-playlist-mode', () async {
     final player = Player();
 
@@ -1721,14 +1694,7 @@ void main() {
     expect(() async => await player.setPitch(-1.0), throwsArgumentError);
 
     addTearDown(player.dispose);
-  }, skip: UniversalPlatform.isWeb);
-  test('player-set-pitch-negative', () async {
-    final player = Player(configuration: PlayerConfiguration(pitch: true));
-
-    expect(() async => await player.setPitch(-1.0), throwsUnsupportedError);
-
-    addTearDown(player.dispose);
-  }, skip: !UniversalPlatform.isWeb);
+  });
   Future<void> checkShuffle({required int repetitions}) async {
     // A single entry guarantees an unchanged shuffle order. Multiple entries
     // exercise permutations, including the valid unchanged permutation.
@@ -1846,7 +1812,6 @@ void main() {
       await player.dispose();
     },
     timeout: Timeout(const Duration(minutes: 1)),
-    skip: UniversalPlatform.isWeb,
   );
   test('player-buffering-network', () async {
     final player = Player();
@@ -1904,7 +1869,6 @@ void main() {
       await player.dispose();
     },
     timeout: Timeout(const Duration(minutes: 1)),
-    skip: UniversalPlatform.isWeb,
   );
   test('player-buffering-network-play-false', () async {
     final player = Player();
@@ -2225,7 +2189,6 @@ void main() {
       await player.dispose();
     },
     timeout: Timeout(const Duration(minutes: 2)),
-    skip: UniversalPlatform.isWeb,
   );
   test(
     'player-screenshot-format',
@@ -2256,53 +2219,6 @@ void main() {
       await player.dispose();
     },
     timeout: Timeout(const Duration(minutes: 2)),
-    skip: UniversalPlatform.isWeb,
-  );
-  test(
-    'player-screenshot',
-    () async {
-      final player = Player();
-
-      await player.open(Media(sources.platform[0]));
-
-      // VOLUNTARY DELAY.
-      await Future.delayed(const Duration(seconds: 5));
-
-      // CORS
-      final screenshot = await player.screenshot();
-
-      expect(screenshot, isNull);
-
-      // VOLUNTARY DELAY.
-      await Future.delayed(const Duration(seconds: 5));
-
-      await player.dispose();
-    },
-    timeout: Timeout(const Duration(minutes: 2)),
-    skip: !UniversalPlatform.isWeb,
-  );
-  test(
-    'player-screenshot-format',
-    () async {
-      final player = Player();
-
-      await player.open(Media(sources.platform[0]));
-
-      // VOLUNTARY DELAY.
-      await Future.delayed(const Duration(seconds: 5));
-
-      // CORS
-      final screenshot = await player.screenshot(format: 'image/png');
-
-      expect(screenshot, isNull);
-
-      // VOLUNTARY DELAY.
-      await Future.delayed(const Duration(seconds: 5));
-
-      await player.dispose();
-    },
-    timeout: Timeout(const Duration(minutes: 2)),
-    skip: !UniversalPlatform.isWeb,
   );
   test('player-screenshot-argument-error', () async {
     final player = Player();
@@ -2461,7 +2377,6 @@ void main() {
 
       await player.dispose();
     },
-    skip: UniversalPlatform.isWeb,
     timeout: Timeout(const Duration(minutes: 2)),
   );
   test(
@@ -2550,7 +2465,6 @@ void main() {
 
       await player.dispose();
     },
-    skip: UniversalPlatform.isWeb,
     timeout: Timeout(const Duration(minutes: 3)),
   );
   test(
@@ -2965,43 +2879,6 @@ Simply for <u>everyone</u>
     skip: kSkipFlakyTests,
     timeout: Timeout(const Duration(minutes: 2)),
   );
-  test(
-    'player-web-player-hls',
-    () async {
-      final player = Player();
-
-      final expectPosition = expectAsync1(
-        (value) {
-          print(value);
-          expect(value, isA<Duration>());
-        },
-        count: 1,
-        max: -1,
-      );
-
-      player.stream.position.listen((event) async {
-        if (event > Duration.zero) {
-          expectPosition(event);
-        }
-      });
-      player.stream.duration.listen((event) async {
-        print(event);
-      });
-
-      // Ensure successful playback of a .m3u8 stream.
-      // https://github.com/video-dev/hls.js/blob/master/tests/test-streams.js
-
-      await player.open(
-        Media('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'),
-      );
-
-      await Future.delayed(const Duration(minutes: 1));
-
-      await player.dispose();
-    },
-    skip: !UniversalPlatform.isWeb,
-    timeout: Timeout(const Duration(minutes: 2)),
-  );
   test('player-subtitle-reset-open', () async {
     final player = Player();
 
@@ -3120,7 +2997,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     await Future.delayed(const Duration(seconds: 5));
 
     await player.dispose();
-  }, skip: UniversalPlatform.isWeb);
+  });
   test('player-native-player-observe-property', () async {
     final player = Player();
     final property = 'demuxer-cache-state';
@@ -3180,7 +3057,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     await Future.delayed(const Duration(seconds: 5));
 
     await player.dispose();
-  }, skip: UniversalPlatform.isWeb);
+  });
 }
 
 List<T> move<T>(List<T> list, int from, int to) {

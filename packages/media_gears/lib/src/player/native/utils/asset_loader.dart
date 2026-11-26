@@ -19,55 +19,18 @@ import 'package:safe_local_storage/safe_local_storage.dart';
 class AssetLoader {
   static String load(String uri) {
     final key = encodeAssetKey(uri);
-    final String asset;
-    if (Platform.isWindows) {
-      asset = path.normalize(
-        path.join(
-          path.dirname(Platform.resolvedExecutable),
-          'data',
-          'flutter_assets',
-          key,
-        ),
-      );
-    } else if (Platform.isLinux) {
-      asset = path.normalize(
-        path.join(
-          path.dirname(Platform.resolvedExecutable),
-          'data',
-          'flutter_assets',
-          key,
-        ),
-      );
-    } else if (Platform.isMacOS) {
-      asset = path.normalize(
-        path.join(
-          path.dirname(Platform.resolvedExecutable),
-          '..',
-          'Frameworks',
-          'App.framework',
-          'Resources',
-          'flutter_assets',
-          key,
-        ),
-      );
-    } else if (Platform.isIOS) {
-      asset = path.normalize(
-        path.join(
-          path.dirname(Platform.resolvedExecutable),
-          'Frameworks',
-          'App.framework',
-          'flutter_assets',
-          key,
-        ),
-      );
-    } else {
-      throw UnimplementedError(
-        '$_kAssetScheme is not supported on ${Platform.operatingSystem}',
-      );
-    }
+    final folder = path.dirname(Platform.resolvedExecutable);
+
+    // macOS bundles the assets in App.framework; Windows and Linux keep them next to the executable.
+    final asset = path.normalize(
+      Platform.isMacOS
+          ? path.join(folder, '..', 'Frameworks', 'App.framework', 'Resources', 'flutter_assets', key)
+          : path.join(folder, 'data', 'flutter_assets', key),
+    );
     if (!File(asset).existsSync_()) {
       throw Exception('Unable to load asset: $asset');
     }
+
     return asset;
   }
 

@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-import 'package:media_kit/src/player/native/utils/asset_loader.dart';
+import 'package:media_gears/src/player/native/utils/asset_loader.dart';
 
 void main() {
   test(
