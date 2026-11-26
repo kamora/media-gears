@@ -2,8 +2,8 @@
 # libs-macos-* release, and the libmpv headers of the same mpv version. Both are checked against their SHA-256 sums.
 all: Frameworks/*.xcframework Headers/mpv/*.h
 
-LIBS_VERSION=v0.1.0
-LIBS_SHA256SUM=49d52b29b2d8939bf3f042147b5004adf49a9628b3dbf53935d70cb936bc3fb5
+LIBS_VERSION=v0.1.1
+LIBS_SHA256SUM=1bcd72d71cff5272596df8d6542ba2c8d7342f7f11a96879e868c7937f8899b8
 MPV_HEADERS_VERSION=v0.42.0
 MPV_HEADERS_SHA256SUM=bcfebbfa2b65a6d88dc97ea18117831072373e38b5785a2afb874ed4df5070dd
 
