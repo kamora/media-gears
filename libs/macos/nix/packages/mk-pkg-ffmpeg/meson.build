@@ -308,6 +308,9 @@ programs_options = [
 	'--enable-filter=format',
 	'--enable-encoder=rawvideo',
 	'--enable-muxer=rawvideo',
+
+	# room in the programs' headers for the longer framework paths they are given when packaged
+	'--extra-ldexeflags=-Wl,-headerpad_max_install_names',
 ]
 
 # disable all option
