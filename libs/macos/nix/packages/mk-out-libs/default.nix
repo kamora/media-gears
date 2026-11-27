@@ -142,7 +142,7 @@ if arch != archs.universal then
       # The programs have no id of their own: change every dep path /nix/store/**/libfoo.99.dylib or
       # @rpath/libfoo.99.dylib -> @rpath/libfoo.dylib
       for file in ./build/bin/*; do
-        deps=$(otool -L $file | tail -n +2 | sed -n 's|^\s*\(/nix/store/[^ ]*\|@rpath/[^ ]*\).*|\1|p')
+        deps=$(otool -L $file | tail -n +2 | sed -n -E 's#^[[:space:]]*(/nix/store/[^ ]*|@rpath/[^ ]*).*#\1#p')
         for dep in $deps; do
           name=$(basename $dep | sed -n 's|^\(lib[^.]*\).*|\1.dylib|p')
           install_name_tool -change $dep @rpath/$name $file
