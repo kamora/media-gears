@@ -2,8 +2,8 @@
 # libs-macos-* release and checked against their SHA-256 sum. With Swift Package Manager, Package.swift fetches them.
 all: Frameworks/*.xcframework
 
-LIBS_VERSION=v0.1.1
-LIBS_SHA256SUM=1bcd72d71cff5272596df8d6542ba2c8d7342f7f11a96879e868c7937f8899b8
+LIBS_VERSION=v0.1.2
+LIBS_SHA256SUM=737ad1665e1a4adbdf8710f3b067aac93c7d2fbe8a7068044b90eb9578911e52
 
 .cache/libs-${LIBS_VERSION}.tar.gz:
 	mkdir -p .cache

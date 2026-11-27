@@ -2,11 +2,11 @@
 
 import PackageDescription
 
-// The mpv and FFmpeg frameworks of the libs-macos-v0.1.1 release, built by libs/macos; the podspec's Makefile fetches
+// The mpv and FFmpeg frameworks of the libs-macos-v0.1.2 release, built by libs/macos; the podspec's Makefile fetches
 // the same release for CocoaPods.
 let libs =
-	"https://github.com/kamora/media-gears/releases/download/libs-macos-v0.1.1/"
-	+ "libmpv-xcframeworks_v0.1.1_macos-universal-video-default"
+	"https://github.com/kamora/media-gears/releases/download/libs-macos-v0.1.2/"
+	+ "libmpv-xcframeworks_v0.1.2_macos-universal-video-default"
 
 let package = Package(
 	name: "media_gears_macos",
@@ -51,97 +51,97 @@ let package = Package(
 		.binaryTarget(
 			name: "Ass",
 			url: "\(libs)_Ass.zip",
-			checksum: "b34263867cf2ba82358f4df125d878903a192f1e5d3b21d8de453391fd2be4b8"
+			checksum: "39d4ca2c30be183b2f5c9ac9f4247881820a63e778fedb834ad9eeec67fb634b"
 		),
 		.binaryTarget(
 			name: "Avcodec",
 			url: "\(libs)_Avcodec.zip",
-			checksum: "2e0c978ba3d380eeadebf5d4128a2c9821d55cc66c3f2cb982e6de9b25d67545"
+			checksum: "facf619e17594806466784523360cd866ba7228c2573568d8ec062b9660f28f7"
 		),
 		.binaryTarget(
 			name: "Avfilter",
 			url: "\(libs)_Avfilter.zip",
-			checksum: "500100f4afac4d42a1bb1fdd398b6968059c1c3083202d6371eb08beb1a8d45d"
+			checksum: "e0814876601eaa6caf37163cf8017691543602f74a2c7920741a4e9979601faa"
 		),
 		.binaryTarget(
 			name: "Avformat",
 			url: "\(libs)_Avformat.zip",
-			checksum: "57129a3847f6d4a6e641ce93dbdb56cc73bddb2d84aea436ed0c4019ec623013"
+			checksum: "0fdcc5c2274ed55f0e9994af44676387480c855b27d0ca60c5b08c31817c2e32"
 		),
 		.binaryTarget(
 			name: "Avutil",
 			url: "\(libs)_Avutil.zip",
-			checksum: "3eb69c114ab5fc0617efa6d2f45690f1f222b1147f800b8c96b088fc166220aa"
+			checksum: "951573278891e21569ec6a6e4d781e5e98cb8fb9ca20d08aa8318c1151c45f8c"
 		),
 		.binaryTarget(
 			name: "Dav1d",
 			url: "\(libs)_Dav1d.zip",
-			checksum: "63a1807072bc3c61e75737ec2de301be8cd1152a069e088b9e52705cbab7ee32"
+			checksum: "351ac01ce9afc142ac64904a29140f967f83508ab743f9fa35e76227e7b11f88"
 		),
 		.binaryTarget(
 			name: "Freetype",
 			url: "\(libs)_Freetype.zip",
-			checksum: "1b342944e1e40a48d1f3fade376c19bd0340e627737aaee03a389449b73e6d85"
+			checksum: "b9592b57cd49dc806d4015e9e015033d734c5324cd65f8b1ed28dfbbf3787653"
 		),
 		.binaryTarget(
 			name: "Fribidi",
 			url: "\(libs)_Fribidi.zip",
-			checksum: "1588e90b2064dd83c6efdad63e70015b9afbc0fa3a7ea9ed79dbd0fcb3f84ed6"
+			checksum: "7d4e5051cf08a955cc76e0f8c02e4b34b74f50bb673264dbfb457e6c33543881"
 		),
 		.binaryTarget(
 			name: "Harfbuzz",
 			url: "\(libs)_Harfbuzz.zip",
-			checksum: "3ad28b39326a5aa7e4d5f37e766ba6405c9ed57085026035fa77aad928616aa1"
+			checksum: "6cff89cf4e8d44de452483a50d50963b8bc446baf3871790eb1f1a2f5381ea77"
 		),
 		.binaryTarget(
 			name: "Mbedcrypto",
 			url: "\(libs)_Mbedcrypto.zip",
-			checksum: "347913ad5b9011aba6788f2cb4a8b9e703e536bfa7f7ae923839bcb4772ea770"
+			checksum: "e1768eb9e086201fe84861e2fdfa6072a0574db1af476a923710e43f7032de5b"
 		),
 		.binaryTarget(
 			name: "Mbedtls",
 			url: "\(libs)_Mbedtls.zip",
-			checksum: "d37b86d88b3cd160c2bbccae04a5babba35f67814618e1fe52343b39177e06c2"
+			checksum: "d0baacea02011c8ec246cf5f3bf09f13df4135da15fe11b74cbcfa101aade590"
 		),
 		.binaryTarget(
 			name: "Mbedx509",
 			url: "\(libs)_Mbedx509.zip",
-			checksum: "e414c869a93fd1897cae46e52e22da951fc61cdbdf2dc24fed6d681882134abb"
+			checksum: "98930e2b5b849e7160df25ab03f5ee1b31bfe75b87e0e2cd7e646e824d188aef"
 		),
 		.binaryTarget(
 			name: "Mpv",
 			url: "\(libs)_Mpv.zip",
-			checksum: "4ede62c3e70f25c9644741cad29a601f7b21a44893c17fcbf6145a1cb0b983e7"
+			checksum: "463e51edc91e0c314f996312e2d8e16dc7eea5e39886c4600dd3d9d5e66b695a"
 		),
 		.binaryTarget(
 			name: "Placebo",
 			url: "\(libs)_Placebo.zip",
-			checksum: "915b38cf022cccae40059ecfa6754a3718e83173210be4c1ee1baa16f99519ac"
+			checksum: "567866970a158d353a48773fec2b7b7bcb15ad70f5d8519d62adc9226dbb61ad"
 		),
 		.binaryTarget(
 			name: "Png16",
 			url: "\(libs)_Png16.zip",
-			checksum: "5412ae01bdafdf748c32c161200c5d138da888b03667f7bda9859ff77c0df9b8"
+			checksum: "cc6f041c6424530143112b94a899d1b053542e09b5d1fb94e42c448fa2230ceb"
 		),
 		.binaryTarget(
 			name: "Swresample",
 			url: "\(libs)_Swresample.zip",
-			checksum: "279ebe4b0fab0d8665d63dab113cd17811700de4ccfc59d260215e146006fef6"
+			checksum: "ee9903213a08e388d22aadfc10016084c40da2888a9e403e4ee78c6c976cfa31"
 		),
 		.binaryTarget(
 			name: "Swscale",
 			url: "\(libs)_Swscale.zip",
-			checksum: "8863d2f2dd3dee6c3334cddf7526c0b4fd394e598a2257ab959d260a79fcda67"
+			checksum: "9ff6bcdc13d08d8aa8c2d3c4754c6fda901165b6879d226e22429e4d93158192"
 		),
 		.binaryTarget(
 			name: "Uchardet",
 			url: "\(libs)_Uchardet.zip",
-			checksum: "ee74970b6a32567b149ee2070808bbd2087668179d1a4d4e081b0bdb2093ff1d"
+			checksum: "b83c0bf77afa7e80bf8e38c68a35dc06aaaa67b95aa07cbc6518775ff8d7f8d0"
 		),
 		.binaryTarget(
 			name: "Xml2",
 			url: "\(libs)_Xml2.zip",
-			checksum: "ae2578dc783a2d7a8a0f88c63315991e6cec39721311450f6b02dfbb4cfc3853"
+			checksum: "ae68038f9171a1021e788c119240fcf83e3d0ce8b1d3b83d1d84638745c7125f"
 		),
 	]
 )
