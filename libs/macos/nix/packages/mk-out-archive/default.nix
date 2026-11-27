@@ -48,6 +48,12 @@ pkgs.stdenvNoCC.mkDerivation {
     mkdir -p $build
 
     cp --no-preserve=mode -r $src ${archiveBaseName}
+
+    # The copy dropped the programs' executable bit
+    if [ -d ${archiveBaseName}/bin ]; then
+      chmod +x ${archiveBaseName}/bin/*
+    fi
+
     tar -czvf $build/${archiveBaseName}.tar.gz ${archiveBaseName}
   ''
   + pkgs.lib.optionalString (format == formats.xcframeworks) ''
@@ -57,6 +63,11 @@ pkgs.stdenvNoCC.mkDerivation {
         FRAMEWORK_NAME=$(basename $XCFRAMEWORK .xcframework)
         zip -Xyr $build/${archiveBaseName}_$FRAMEWORK_NAME.zip $XCFRAMEWORK
       done
+
+      # FFmpeg's programs, in a folder of their own
+      if [ -d bin ]; then
+        zip -Xyr $build/${archiveBaseName}_Programs.zip bin
+      fi
     )
   '';
   installPhase = ''

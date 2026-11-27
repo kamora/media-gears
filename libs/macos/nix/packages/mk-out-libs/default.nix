@@ -102,6 +102,11 @@ if arch != archs.universal then
           \;
       done
 
+      # Copy FFmpeg's programs
+      mkdir ./build/bin
+      cp ${ffmpeg}/bin/ffmpeg ${ffmpeg}/bin/ffprobe ./build/bin/
+      chmod u+w ./build/bin/*
+
       # Rename dylib libfoo.100.99.88.dylib -> libfoo.dylib
       for file in ./build/lib*.dylib; do
         new_path=$(echo $file | sed -E 's/^(.*\/lib[^.]*).*$/\1.dylib/')
@@ -130,6 +135,16 @@ if arch != archs.universal then
         deps=$(otool -L $file | tail -n +3 | sed -n 's|.*\(@rpath/[^ ]*\).*|\1|p')
         for dep in $deps; do
           name=$(echo $dep | sed -n 's|@rpath/\(lib[^.]*\).*|\1.dylib|p')
+          install_name_tool -change $dep @rpath/$name $file
+        done
+      done
+
+      # The programs have no id of their own: change every dep path /nix/store/**/libfoo.99.dylib or
+      # @rpath/libfoo.99.dylib -> @rpath/libfoo.dylib
+      for file in ./build/bin/*; do
+        deps=$(otool -L $file | tail -n +2 | sed -n 's|^\s*\(/nix/store/[^ ]*\|@rpath/[^ ]*\).*|\1|p')
+        for dep in $deps; do
+          name=$(basename $dep | sed -n 's|^\(lib[^.]*\).*|\1.dylib|p')
           install_name_tool -change $dep @rpath/$name $file
         done
       done
@@ -194,6 +209,19 @@ else
 
         # Set output to build directory and execute lipo command
         lipo_cmd+=" -output ./build/$lib_name"
+        eval "$lipo_cmd"
+      done
+
+      # Join each program's architectures the same way
+      mkdir ./build/bin
+      for program in ''${deps[0]}/bin/*; do
+        name=$(basename $program)
+        lipo_cmd="lipo -create"
+        for dir in ''${deps[@]}; do
+          lipo_cmd+=" $dir/bin/$name"
+        done
+
+        lipo_cmd+=" -output ./build/bin/$name"
         eval "$lipo_cmd"
       done
     '';

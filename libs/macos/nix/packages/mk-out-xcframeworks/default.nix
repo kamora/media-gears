@@ -71,6 +71,11 @@ pkgs.stdenvNoCC.mkDerivation {
       echo $XCODEBUILD_CMD
       eval "$XCODEBUILD_CMD"
     done
+
+    # FFmpeg's programs, which link to these frameworks
+    if [ -d ''${FRAMEWORKS[0]}/bin ]; then
+      cp -r ''${FRAMEWORKS[0]}/bin ./build/bin
+    fi
   '';
   installPhase = ''
     cp -r ./build $out

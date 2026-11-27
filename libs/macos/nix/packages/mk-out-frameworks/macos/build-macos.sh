@@ -109,3 +109,25 @@ find ${DEPS} -name "*.dylib" -type f | while read DYLIB; do
 		ln -s Versions/Current/Modules "${FRAMEWORK_DIR}/Modules"
 	fi
 done
+
+# FFmpeg's programs, for an app that keeps them in Contents/MacOS beside Contents/Frameworks: each library they load
+# becomes its framework, found through an rpath to ../Frameworks instead of the build machine's paths.
+if [ -d "${DEPS}/bin" ]; then
+	mkdir -p "${OUTPUT_DIR}/bin"
+	for PROGRAM in "${DEPS}"/bin/*; do
+		TARGET="${OUTPUT_DIR}/bin/$(basename "${PROGRAM}")"
+		cp "${PROGRAM}" "${TARGET}"
+		chmod u+w "${TARGET}"
+		otool -L "${TARGET}" | grep -o "@rpath/[^ ]*" | sort -u | while read DEP; do
+			DEP_NAME=$(basename $DEP .dylib | sed 's/\.[0-9]*$//' | sed 's/^lib//')
+			DEP_NAME="$(tr '[:lower:]' '[:upper:]' <<<${DEP_NAME:0:1})${DEP_NAME:1}"
+			install_name_tool -change "${DEP}" "@rpath/${DEP_NAME}.framework/Versions/A/${DEP_NAME}" "${TARGET}"
+		done
+
+		otool -l "${TARGET}" | grep -A2 LC_RPATH | grep " path " | awk '{print $2}' | sort -u | while read RPATH; do
+			install_name_tool -delete_rpath "${RPATH}" "${TARGET}"
+		done
+
+		install_name_tool -add_rpath @executable_path/../Frameworks "${TARGET}"
+	done
+fi

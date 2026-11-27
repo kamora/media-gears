@@ -298,6 +298,18 @@ video_encodersgpl_options = [
 	'--enable-gpl'
 ]
 
+# The ffmpeg and ffprobe programs, with what apps run them for besides playback: probing, and sampled frames scaled to
+# grayscale and written out raw (clipsniff's fingerprints).
+programs_options = [
+	'--enable-ffmpeg',
+	'--enable-ffprobe',
+	'--enable-filter=fps',
+	'--enable-filter=scale',
+	'--enable-filter=format',
+	'--enable-encoder=rawvideo',
+	'--enable-muxer=rawvideo',
+]
+
 # disable all option
 options = disable_all_options
 
@@ -307,6 +319,8 @@ options += audio_common_options
 if variant == 'video'
 	options += video_common_options
 endif
+
+options += programs_options
 
 # components
 if flavor == 'default'

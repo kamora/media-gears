@@ -65,6 +65,25 @@ jobs:
 
           ls -lh result
 
+      # FFmpeg's programs must run from an app's Contents/MacOS with only the frameworks in Contents/Frameworks, and
+      # must have what clipsniff runs them for.
+      - name: Check programs
+        run: |
+          check=$RUNNER_TEMP/check
+          mkdir -p $check/zips $check/Contents/MacOS $check/Contents/Frameworks
+          for zip in result/*.zip; do
+            unzip -q "$zip" -d $check/zips
+          done
+
+          cp -R $check/zips/*.xcframework/macos-*/*.framework $check/Contents/Frameworks/
+          cp $check/zips/bin/* $check/Contents/MacOS/
+          otool -L $check/Contents/MacOS/ffmpeg
+          ! otool -l $check/Contents/MacOS/ffmpeg | grep -q /nix/store
+          $check/Contents/MacOS/ffprobe -version | head -1
+          $check/Contents/MacOS/ffmpeg -hide_banner -filters | grep -E ' (fps|scale|format) '
+          $check/Contents/MacOS/ffmpeg -hide_banner -muxers | grep -w rawvideo
+          $check/Contents/MacOS/ffmpeg -hide_banner -encoders | grep -w rawvideo
+
       - uses: actions/upload-artifact@v7
         with:
           name: libs-macos-${{ steps.version.outputs.version }}
